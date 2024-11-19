@@ -1,5 +1,5 @@
 import pytest
-from .crosszip import crosszip
+from crosszip.crosszip import crosszip
 
 
 @pytest.fixture
