@@ -1,11 +1,9 @@
 import itertools
-from collections.abc import Iterable
-from typing import Callable
+from collections.abc import Callable, Iterable
 
 
 def crosszip(func: Callable[..., any], *iterables: Iterable[any]) -> list[any]:
-    """
-    Apply a given function to all combinations of elements from multiple iterables.
+    """Apply a given function to all combinations of elements from multiple iterables.
 
     This function computes the Cartesian product of the input iterables (i.e., all possible
     combinations of their elements) and applies the provided function to each combination.
@@ -68,11 +66,11 @@ def crosszip(func: Callable[..., any], *iterables: Iterable[any]) -> list[any]:
     for iterable in iterables:
         if not isinstance(iterable, Iterable):
             raise TypeError(
-                f"Expected an iterable, but got {type(iterable).__name__}: {iterable}"
+                f"Expected an iterable, but got {type(iterable).__name__}: {iterable}",
             )
 
     # Get the Cartesian product of all the iterables
     combinations = itertools.product(*iterables)
 
     # Apply the function to each combination and return the results as a list
-    return [func(*combination) for combination in combinations]
+    return list(itertools.starmap(func, combinations))

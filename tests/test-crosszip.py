@@ -1,4 +1,8 @@
+import math
+
+import json
 import pytest
+
 from crosszip.crosszip import crosszip
 
 
@@ -15,66 +19,25 @@ def add_function():
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, iterable3, expected",
+    "iterable1, iterable2, iterable3, snapshot_name",
     [
-        (
-            [1, 2],
-            ["a", "b"],
-            [True, False],
-            [
-                "1-a-True",
-                "1-a-False",
-                "1-b-True",
-                "1-b-False",
-                "2-a-True",
-                "2-a-False",
-                "2-b-True",
-                "2-b-False",
-            ],
-        ),
-        (
-            (1, 2),
-            ("a", "b"),
-            (True, False),
-            [
-                "1-a-True",
-                "1-a-False",
-                "1-b-True",
-                "1-b-False",
-                "2-a-True",
-                "2-a-False",
-                "2-b-True",
-                "2-b-False",
-            ],
-        ),
-        (
-            {1, 2},
-            {"a", "b"},
-            {True, False},
-            [
-                "1-a-True",
-                "1-a-False",
-                "1-b-True",
-                "1-b-False",
-                "2-a-True",
-                "2-a-False",
-                "2-b-True",
-                "2-b-False",
-            ],
-        ),
-        (
-            "12",
-            "ab",
-            "xy",
-            ["1-a-x", "1-a-y", "1-b-x", "1-b-y", "2-a-x", "2-a-y", "2-b-x", "2-b-y"],
-        ),
+        ([1, 2], ["a", "b"], [True, False], "list_inputs"),
+        ((1, 2), ("a", "b"), (True, False), "tuple_inputs"),
+        ({1, 2}, {"a", "b"}, {True, False}, "set_inputs"),
+        ("12", "ab", "xy", "string_inputs"),
     ],
 )
 def test_crosszip_with_iterables(
-    concat_function, iterable1, iterable2, iterable3, expected
+    snapshot,
+    concat_function,
+    iterable1,
+    iterable2,
+    iterable3,
+    snapshot_name,
 ):
     result = crosszip(concat_function, iterable1, iterable2, iterable3)
-    assert result == expected
+    snapshot_json = json.dumps(result, indent=2, sort_keys=True)
+    snapshot.assert_match(snapshot_json, f"{snapshot_name}.json")
 
 
 @pytest.mark.parametrize(
@@ -102,7 +65,7 @@ def test_crosszip_with_generator():
     assert result == expected
 
 
-@pytest.mark.parametrize("non_iterable", [123, None, 3.14, True])
+@pytest.mark.parametrize("non_iterable", [123, None, math.pi, True])
 def test_crosszip_with_non_iterable(non_iterable):
     with pytest.raises(
         TypeError,
