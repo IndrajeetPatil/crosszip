@@ -9,3 +9,8 @@ wheels/
 # Virtual environments
 .venv
 .DS_Store
+
+# mkdocs documentation
+/site
+README.html
+README_files/

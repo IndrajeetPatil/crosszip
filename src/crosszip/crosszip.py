@@ -69,8 +69,6 @@ def crosszip(func: Callable[..., any], *iterables: Iterable[any]) -> list[any]:
                 f"Expected an iterable, but got {type(iterable).__name__}: {iterable}",
             )
 
-    # Get the Cartesian product of all the iterables
+    # Apply the function to the Cartesian product of all the iterables
     combinations = itertools.product(*iterables)
-
-    # Apply the function to each combination and return the results as a list
     return list(itertools.starmap(func, combinations))
