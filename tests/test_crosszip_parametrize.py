@@ -5,7 +5,6 @@ import pytest
 from crosszip_parametrize import crosszip_parametrize
 
 
-# Parameterized tests for valid input cases
 @pytest.mark.parametrize(
     "params, expected_combinations",
     [
@@ -23,7 +22,6 @@ def test_crosszip_parametrize_valid_cases(params, expected_combinations):
     _run_test_cases(test_example, expected_combinations)
 
 
-# Parameterized tests for invalid input cases
 @pytest.mark.parametrize(
     "params, expected_error, match",
     [
@@ -56,7 +54,6 @@ def test_crosszip_parametrize_invalid_cases(params, expected_error, match):
         crosszip_parametrize(*params)
 
 
-# Test for pytest marker registration
 def test_pytest_configure_marker_registration():
     """Test pytest_configure registers the marker."""
 
