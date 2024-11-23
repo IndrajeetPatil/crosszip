@@ -1,17 +1,46 @@
-# Welcome to MkDocs
+# Introduction
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+`crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables.
+It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
 
-## Commands
+---
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Installation
 
-## Project layout
+Install `crosszip` via pip:
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+```bash
+pip install crosszip
+```
+
+---
+
+## Key Features
+
+- **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
+- **Error Handling**: Detects and raises errors for invalid input types.
+- **Simple API**: Minimalist, intuitive design for quick integration into your projects.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Links
+
+- **PyPI**: [https://pypi.org/project/crosszip/](https://pypi.org/project/crosszip/)
+- **Repository**: [https://github.com/IndrajeetPatil/crosszip](https://github.com/IndrajeetPatil/crosszip)
+- **Documentation**: [Coming Soon]
+
+---
+
+## Acknowledgments
+
+Inspired by Python's functional programming capabilities and itertools' powerful utilities.
+
+---
+
+Start crosszipping your iterables today! 🚀
