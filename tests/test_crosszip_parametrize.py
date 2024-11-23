@@ -1,65 +1,65 @@
-import pytest
 from itertools import product
+
+import pytest
 
 from crosszip_parametrize import crosszip_parametrize
 
 
-def test_crosszip_parametrize_happy_path():
-    @crosszip_parametrize("a", [1, 2], "b", [3, 4])
-    def test_example(a, b):
-        assert (a, b) in [(1, 3), (1, 4), (2, 3), (2, 4)]
+# Parameterized tests for valid input cases
+@pytest.mark.parametrize(
+    "params, expected_combinations",
+    [
+        (("a", [1, 2], "b", [3, 4]), list(product([1, 2], [3, 4]))),
+        (("a", [1, 2]), [(1,), (2,)]),
+    ],
+)
+def test_crosszip_parametrize_valid_cases(params, expected_combinations):
+    """Test valid use cases for crosszip_parametrize."""
 
-    _run_test_cases(test_example, product([1, 2], [3, 4]))
+    @crosszip_parametrize(*params)
+    def test_example(*args):
+        assert args in expected_combinations
 
-
-def test_crosszip_parametrize_single_parameter():
-    @crosszip_parametrize("a", [1, 2])
-    def test_example(a):
-        assert a in [1, 2]
-
-    _run_test_cases(test_example, [(1,), (2,)])
-
-
-def test_crosszip_parametrize_empty_values():
-    with pytest.raises(
-        ValueError,
-        match="All parameter value lists must be non-empty.",
-    ):
-        crosszip_parametrize("a", [], "b", [3, 4])
+    _run_test_cases(test_example, expected_combinations)
 
 
-def test_crosszip_parametrize_empty_names_and_values():
-    with pytest.raises(
-        ValueError, match="Parameter names and values must be provided."
-    ):
-        crosszip_parametrize()  # No arguments provided
+# Parameterized tests for invalid input cases
+@pytest.mark.parametrize(
+    "params, expected_error, match",
+    [
+        (
+            ("a", [], "b", [3, 4]),
+            ValueError,
+            "All parameter value lists must be non-empty.",
+        ),
+        ((), ValueError, "Parameter names and values must be provided."),
+        (
+            ("a", [1, 2], "b"),
+            ValueError,
+            "Each parameter name must have a corresponding list of values.",
+        ),
+        (
+            ("a", [], "b", []),
+            ValueError,
+            "All parameter value lists must be non-empty.",
+        ),
+        (
+            ("a", 1, "b", [3, 4]),
+            ValueError,
+            "All parameter value lists must be non-empty.",
+        ),
+    ],
+)
+def test_crosszip_parametrize_invalid_cases(params, expected_error, match):
+    """Test invalid use cases for crosszip_parametrize."""
+    with pytest.raises(expected_error, match=match):
+        crosszip_parametrize(*params)
 
 
-def test_crosszip_parametrize_mismatched_names_and_values():
-    with pytest.raises(
-        ValueError,
-        match="Each parameter name must have a corresponding list of values.",
-    ):
-        crosszip_parametrize("a", [1, 2], "b")
-
-
-def test_crosszip_parametrize_multiple_empty_lists():
-    with pytest.raises(
-        ValueError,
-        match="All parameter value lists must be non-empty.",
-    ):
-        crosszip_parametrize("a", [], "b", [])
-
-
-def test_crosszip_parametrize_non_iterable_values():
-    with pytest.raises(
-        ValueError,
-        match="All parameter value lists must be non-empty.",
-    ):
-        crosszip_parametrize("a", 1, "b", [3, 4])
-
-
+# Test for pytest marker registration
 def test_pytest_configure_marker_registration():
+    """Test pytest_configure registers the marker."""
+
     class MockConfig:
         def __init__(self):
             self.lines = []
