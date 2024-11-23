@@ -1,5 +1,3 @@
-name: Package Checks
-
 on:
   push:
     branches: [main]
