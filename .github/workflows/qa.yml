@@ -1,0 +1,61 @@
+name: Package Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  qa:
+    name: QA Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install Dependencies
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --upgrade pip
+          pip install uv
+          uv sync --frozen
+
+      - name: Run QA Checks
+        run: pre-commit run --all-files
+
+      - name: Run Tests with Coverage
+        run: |
+          coverage run -m pytest tests/ && coverage report --fail-under=95 && coverage html
+
+  test:
+    name: Run Tests on Multiple Platforms and Versions
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.12, 3.13]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --upgrade pip
+          pip install uv
+          uv sync --frozen
+
+      - name: Run Tests
+        run: pytest . -vv --random-orders

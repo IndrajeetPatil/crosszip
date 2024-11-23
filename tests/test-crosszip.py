@@ -23,7 +23,6 @@ def add_function():
     [
         ([1, 2], ["a", "b"], [True, False], "list_inputs"),
         ((1, 2), ("a", "b"), (True, False), "tuple_inputs"),
-        ({1, 2}, {"a", "b"}, {True, False}, "set_inputs"),
         ("12", "ab", "xy", "string_inputs"),
     ],
 )
@@ -63,6 +62,26 @@ def test_crosszip_with_generator():
     result = crosszip(lambda a, b, c: f"{a}-{b}-{c}", iterable1, iterable2, iterable3)
     expected = ["1-3-a", "1-3-b", "1-4-a", "1-4-b", "2-3-a", "2-3-b", "2-4-a", "2-4-b"]
     assert result == expected
+
+
+def test_crosszip_with_sets():
+    iterable1 = {1, 2}
+    iterable2 = {"a", "b"}
+    iterable3 = {"x", "y"}
+
+    result = crosszip(lambda a, b, c: f"{a}-{b}-{c}", iterable1, iterable2, iterable3)
+    expected = [
+        "1-a-x",
+        "1-a-y",
+        "1-b-x",
+        "1-b-y",
+        "2-a-x",
+        "2-a-y",
+        "2-b-x",
+        "2-b-y",
+    ]
+    # sets are unordered, so we need to sort the results
+    assert sorted(result) == sorted(expected)
 
 
 @pytest.mark.parametrize("non_iterable", [123, None, math.pi, True])

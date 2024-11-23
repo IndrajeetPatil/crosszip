@@ -1,20 +1,21 @@
 import itertools
 from collections.abc import Callable, Iterable
+from typing import Any
 
 
-def crosszip(func: Callable[..., any], *iterables: Iterable[any]) -> list[any]:
+def crosszip(func: Callable[..., Any], *iterables: Iterable[Any]) -> list[Any]:
     """Apply a given function to all combinations of elements from multiple iterables.
 
     This function computes the Cartesian product of the input iterables (i.e., all possible
     combinations of their elements) and applies the provided function to each combination.
 
     Args:
-        func (Callable[..., any]): A function that accepts as many arguments as there are iterables.
-        *iterables (Iterable[any]): Two or more iterables to generate combinations from. Each iterable
+        func (Callable[..., Any]): A function that accepts as many arguments as there are iterables.
+        *iterables (Iterable[Any]): Two or more iterables to generate combinations from. Each iterable
             should contain elements that are valid inputs for the function `func`.
 
     Returns:
-        list[any]: A list of results from applying the function to each combination of elements.
+        list[Any]: A list of results from applying the function to each combination of elements.
 
     Raises:
         TypeError: If any of the provided arguments is not an iterable.
