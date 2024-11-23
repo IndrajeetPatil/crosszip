@@ -13,8 +13,6 @@ from crosszip_parametrize import crosszip_parametrize
     ],
 )
 def test_crosszip_parametrize_valid_cases(params, expected_combinations):
-    """Test valid use cases for crosszip_parametrize."""
-
     @crosszip_parametrize(*params)
     def test_example(*args):
         assert args in expected_combinations
@@ -49,14 +47,11 @@ def test_crosszip_parametrize_valid_cases(params, expected_combinations):
     ],
 )
 def test_crosszip_parametrize_invalid_cases(params, expected_error, match):
-    """Test invalid use cases for crosszip_parametrize."""
     with pytest.raises(expected_error, match=match):
         crosszip_parametrize(*params)
 
 
 def test_pytest_configure_marker_registration():
-    """Test pytest_configure registers the marker."""
-
     class MockConfig:
         def __init__(self):
             self.lines = []
