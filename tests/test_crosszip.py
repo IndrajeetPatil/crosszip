@@ -1,6 +1,6 @@
+import json
 import math
 
-import json
 import pytest
 
 from crosszip.crosszip import crosszip
