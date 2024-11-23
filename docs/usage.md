@@ -1,6 +1,6 @@
 ## Examples
 
-### Basic Example
+### Using Lists
 
 ```python
 from crosszip import crosszip

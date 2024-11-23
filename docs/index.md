@@ -3,6 +3,9 @@
 `crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables.
 It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
 
+Additionally, `crosszip_parametrize` Pytest plugin is a decorator that simplifies running tests with all possible combinations of parameter values.
+This is particularly useful for testing functions or components across multiple dimensions of input parameters.
+
 ---
 
 ## Installation
@@ -13,12 +16,20 @@ Install `crosszip` via pip:
 pip install crosszip
 ```
 
+Registering the crosszip marker for pytest is simple. Just add the following to your `pytest.ini` file:
+
+```
+[pytest]
+markers =
+    crosszip_parametrize: "mark test function for crosszip parametrization"
+```
+
 ---
 
 ## Key Features
 
 - **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
-- **Error Handling**: Detects and raises errors for invalid input types.
+- **pytest Plugin**: Supports parametrization of tests using `crosszip`.
 - **Simple API**: Minimalist, intuitive design for quick integration into your projects.
 
 ---
