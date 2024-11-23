@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.12, 3.13]
+        python-version: [3.12, 3.13, 3.14]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -51,12 +51,24 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install Dependencies
+        shell: bash
         run: |
           python3 -m venv .venv
-          .venv/bin/pip install --upgrade pip
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            source .venv/Scripts/activate
+          else
+            source .venv/bin/activate
+          fi
+          pip install --upgrade pip
           pip install uv
           uv sync --frozen
 
       - name: Run Tests
+        shell: bash
         run: |
-          .venv/bin/pytest . -vv --random-order
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            source .venv/Scripts/activate
+          else
+            source .venv/bin/activate
+          fi
+          pytest . -vv --random-order
