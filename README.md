@@ -4,9 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python Versions](https://img.shields.io/pypi/pyversions/crosszip.svg)](https://pypi.org/project/crosszip/)
 [![Tests](https://github.com/IndrajeetPatil/crosszip/actions/workflows/tests.yml/badge.svg)](https://github.com/IndrajeetPatil/crosszip/actions)
-[![Coverage](https://img.shields.io/codecov/c/github/IndrajeetPatil/crosszip)](https://codecov.io/gh/IndrajeetPatil/crosszip)
 
-`crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables. It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
+`crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables.
+It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
 
 ---
 
@@ -74,35 +74,11 @@ print(result)
 # Output: ['1x', '1y', '2x', '2y']
 ```
 
-#### Error Handling
-
-```python
-try:
-    crosszip(concat, [1, 2], 123)
-except TypeError as e:
-    print(e)
-# Output: Expected an iterable, but got int: 123
-```
-
-### Running Tests
-
-Install the development dependencies:
-
-```bash
-pip install -r requirements-dev.txt
-```
-
-Run the tests:
-
-```bash
-pytest
-```
-
 ---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE.md).
 
 ---
 

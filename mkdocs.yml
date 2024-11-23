@@ -1,35 +1,64 @@
 site_name: crosszip
 site_description: Iterating over all combinations from multiple iterables
 site_url: https://indrajeetpatil.github.io/crosszip/
+site_author: IndrajeetPatil
+
+repo_name: crosszip
+repo_url: https://github.com/IndrajeetPatil/crosszip
+
 theme:
   name: material
-repo_url: https://github.com/IndrajeetPatil/crosszip
-repo_name: crosszip
-site_author: IndrajeetPatil
+  palette:
+    # Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+      primary: green
+      accent: deep purple
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+      primary: blue
+      accent: deep orange
+
 markdown_extensions:
   - admonition
-  - pymdownx.details
-  - toc:
-      anchorlink: true
-      anchorlink_class: "toclink"
-  - pymdownx.snippets:
-  - pymdownx.magiclink:
   - attr_list:
   - md_in_html:
+  - pymdownx.details
+  - pymdownx.snippets:
+  - pymdownx.magiclink:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite:
   - pymdownx.superfences:
   - markdown.extensions.attr_list:
   - pymdownx.keys:
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.highlight:
-      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      anchorlink: true
+      anchorlink_class: "toclink"
+
 plugins:
   - search
+
 validation:
   omitted_files: warn
   absolute_links: warn
