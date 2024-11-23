@@ -1,3 +1,5 @@
+name: Package Checks
+
 on:
   push:
     branches: [main]
@@ -6,7 +8,7 @@ on:
 
 jobs:
   qa:
-    name: QA Checks
+    name: QA
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +27,10 @@ jobs:
           pip install uv
           uv sync --frozen
 
-      - name: Run QA Checks
+      - name: Run pre-commit hooks
         run: .venv/bin/pre-commit run --all-files
 
-      - name: Run Tests with Coverage
+      - name: Compute Coverage
         run: |
           .venv/bin/coverage run -m pytest tests/ && .venv/bin/coverage report --fail-under=95 && .venv/bin/coverage html
 
@@ -50,8 +52,12 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          # Remove existing venv if it exists
+          rm -rf .venv || true
           python -m venv .venv
           if [ "${{ runner.os }}" == "Windows" ]; then
+            # Windows needs a small delay after venv creation
+            sleep 2
             .venv/Scripts/python.exe -m pip install --upgrade pip
             .venv/Scripts/python.exe -m pip install uv
             .venv/Scripts/uv.exe sync --frozen
