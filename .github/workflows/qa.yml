@@ -54,9 +54,9 @@ jobs:
         run: |
           python -m venv .venv
           if [ "${{ runner.os }}" == "Windows" ]; then
-            .venv\Scripts\python.exe -m pip install --upgrade pip
-            .venv\Scripts\python.exe -m pip install uv
-            .venv\Scripts\uv.exe sync --frozen
+            .venv/Scripts/python.exe -m pip install --upgrade pip
+            .venv/Scripts/python.exe -m pip install uv
+            .venv/Scripts/uv.exe sync --frozen
           else
             .venv/bin/pip install --upgrade pip
             pip install uv
@@ -67,7 +67,7 @@ jobs:
       - name: Run Tests
         run: |
           if [ "${{ runner.os }}" == "Windows" ]; then
-            .venv\Scripts\python.exe -m pytest . -vv --random-order
+            .venv/Scripts/python.exe -m pytest . -vv --random-order
           else
             .venv/bin/pytest . -vv --random-order
           fi
