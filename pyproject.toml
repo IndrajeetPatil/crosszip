@@ -35,6 +35,7 @@ dev-dependencies = [
     "pytest>=8.3.3",
     "ruff>=0.7.4",
     "pytest-snapshot>=0.9.0",
+    "pre-commit>=4.0.1",
 ]
 
 [build-system]
@@ -54,13 +55,15 @@ ignore = ["D100"]
 preview = true
 
 [tool.pytest.ini_options]
-addopts = ["--strict-config", "--strict-markers", "--ignore=docs_src"]
+addopts = ["--strict-config", "--strict-markers"]
 xfail_strict = true
 python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
+[tool.coverage.run]
+omit = ["tests/*", "test/*", "test_*.py", "test-*.py", "test.py", "tests.py"]
+
 [tool.coverage.report]
 show_missing = true
-sort = "-Cover"
 
 [tool.coverage.html]
 show_contexts = true
