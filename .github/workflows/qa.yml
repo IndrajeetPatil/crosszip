@@ -59,4 +59,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          .venv/bin/pytest . -vv --random-orders
+          .venv/bin/pytest . -vv --random-order
