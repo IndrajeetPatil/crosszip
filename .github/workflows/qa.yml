@@ -28,14 +28,14 @@ jobs:
           uv sync --frozen
 
       - name: Run QA Checks
-        run: pre-commit run --all-files
+        run: .venv/bin/pre-commit run --all-files
 
       - name: Run Tests with Coverage
         run: |
-          coverage run -m pytest tests/ && coverage report --fail-under=95 && coverage html
+          .venv/bin/coverage run -m pytest tests/ && .venv/bin/coverage report --fail-under=95 && .venv/bin/coverage html
 
   test:
-    name: Run Tests on Multiple Platforms and Versions
+    name: Run Tests
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -58,4 +58,5 @@ jobs:
           uv sync --frozen
 
       - name: Run Tests
-        run: pytest . -vv --random-orders
+        run: |
+          .venv/bin/pytest . -vv --random-orders
