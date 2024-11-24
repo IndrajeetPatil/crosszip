@@ -9,8 +9,6 @@ It combines the power of the Cartesian product and functional programming into a
 Additionally, `crosszip_parametrize` Pytest plugin is a decorator that simplifies running tests with all possible combinations of parameter values.
 This is particularly useful for testing functions or components across multiple dimensions of input parameters.
 
----
-
 ## Installation
 
 Install `crosszip` via pip:
@@ -27,15 +25,11 @@ markers =
     crosszip_parametrize: "mark test function for crosszip parametrization"
 ```
 
----
-
 ## Key Features
 
 - **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
 - **pytest Plugin**: Supports parametrization of tests using `crosszip`.
 - **Simple API**: Minimalist, intuitive design for quick integration into your projects.
-
----
 
 ## Usage
 
@@ -64,7 +58,7 @@ Example of using `pytest` marker `crosszip_parametrize`:
 # Testing Power Function
 
 import math
-from crosszip_parametrize import crosszip_parametrize
+import crosszip
 
 @crosszip_parametrize(
     "base", [2, 10],
@@ -78,13 +72,9 @@ def test_power_function(base, exponent):
 For more examples, check out the package documentation at:
 https://indrajeetpatil.github.io/crosszip/
 
----
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md).
-
----
 
 ## Acknowledgements
 
