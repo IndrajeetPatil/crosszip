@@ -1,12 +1,11 @@
 ## crosszip parametrization
 
-Registering the crosszip marker for `pytest` is simple.
-Just add the following to your `pytest.ini` file:
+After installing the package, you can use the `crosszip_parametrize` marker to parametrize your tests with multiple parameters.
+This marker is a pytest plugin that allows you to define parameter names and their corresponding values in a single line.
 
-```
-[pytest]
-markers =
-    crosszip_parametrize: "mark test function for crosszip parametrization"
+```python
+# confest.py
+pytest_plugins = ["crosszip.markers"]
 ```
 
 ### Basic Usage
@@ -15,9 +14,8 @@ The `crosszip_parametrize` marker allows you to define parameter names and their
 
 ```python
 import pytest
-from crosszip import crosszip_parametrize
 
-@crosszip_parametrize("a", [1, 2], "b", [3, 4])
+@pytest.mark.crosszip_parametrize("a", [1, 2], "b", [3, 4])
 def test_example(a, b):
     assert (a, b) in [(1, 3), (1, 4), (2, 3), (2, 4)]
 ```
@@ -28,9 +26,8 @@ def test_example(a, b):
 
 ```python
 import math
-from crosszip_parametrize import crosszip_parametrize
 
-@crosszip_parametrize(
+@pytest.mark.crosszip_parametrize(
     "base", [2, 10],
     "exponent", [-1, 0, 1],
 )
@@ -42,7 +39,7 @@ def test_power_function(base, exponent):
 #### Testing API Endpoints
 
 ```python
-@crosszip_parametrize(
+@pytest.mark.crosszip_parametrize(
     "role", ["admin", "user"],
     "http_method", ["GET", "POST", "DELETE"],
 )
@@ -57,7 +54,7 @@ def test_api_access_control(role, http_method):
 #### Testing Form Validation
 
 ```python
-@crosszip_parametrize(
+@pytest.mark.crosszip_parametrize(
     "email", ["valid@example.com", "invalid@", ""],
     "password", ["correct-password", "short", ""],
 )

@@ -1,6 +1,6 @@
 [project]
 name = "crosszip"
-version = "0.1.0"
+version = "0.2.0"
 description = "Apply a given function to all combinations of elements from multiple iterables"
 readme = "README.md"
 authors = [
@@ -20,7 +20,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = []
+dependencies = ["pytest>=8.3.3"]
 
 [project.urls]
 Repository = "https://github.com/IndrajeetPatil/crosszip"
@@ -32,10 +32,9 @@ dev-dependencies = [
     "mypy>=1.13.0",
     "pytest-random-order>=1.1.1",
     "pytest>=8.3.3",
-    "ruff>=0.7.4",
+    "ruff>=0.8.0",
     "pytest-snapshot>=0.9.0",
     "pre-commit>=4.0.1",
-    "pytest-mock>=3.14.0",
 ]
 
 [build-system]
@@ -55,7 +54,12 @@ ignore = ["D100"]
 preview = true
 
 [tool.pytest.ini_options]
-addopts = ["--strict-config", "--strict-markers"]
+addopts = [
+    # error on using unregistered marker
+    "--strict-markers",
+    # show extra test summary info for everything
+    "-ra",
+]
 xfail_strict = true
 python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
@@ -64,6 +68,3 @@ omit = ["tests/*", "test/*", "test_*.py", "test-*.py", "test.py", "tests.py"]
 
 [tool.coverage.report]
 show_missing = true
-
-[tool.coverage.html]
-show_contexts = true
