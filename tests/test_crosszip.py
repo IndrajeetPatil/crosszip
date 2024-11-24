@@ -12,12 +12,6 @@ def concat_function():
     return lambda a, b, c: f"{a}-{b}-{c}"
 
 
-@pytest.fixture
-def add_function():
-    """Fixture for a simple addition function."""
-    return lambda a, b, c: a + b + c
-
-
 @pytest.mark.parametrize(
     "iterable1, iterable2, iterable3, snapshot_name",
     [

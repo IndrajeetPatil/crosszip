@@ -41,10 +41,3 @@ def crosszip_parametrize(
         return pytest.mark.parametrize(param_names_str, combinations)(func)
 
     return decorator
-
-
-def pytest_configure(config):
-    config.addinivalue_line(
-        "markers",
-        "crosszip_parametrize: parametrize tests with all combinations of provided parameters",
-    )

@@ -14,3 +14,8 @@ repos:
     rev: v1.13.0
     hooks:
       - id: mypy
+
+  - repo: https://github.com/asottile/dead
+    rev: v1.5.2
+    hooks:
+      - id: dead
