@@ -1,5 +1,6 @@
 from itertools import product
 
+import math
 import pytest
 
 from crosszip_parametrize import crosszip_parametrize
@@ -78,3 +79,23 @@ def pytest_configure(config):
         "markers",
         "crosszip_parametrize: parametrize tests with all combinations of provided parameters",
     )
+
+
+def test_pytest_marker_call_count(mocker):
+    mock_func = mocker.Mock()
+
+    @crosszip_parametrize(
+        "base",
+        [2, 10],
+        "exponent",
+        [-1, 0, 1],
+    )
+    def test_power_function(base, exponent):
+        mock_func(base, exponent)
+        result = math.pow(base, exponent)
+        assert result == base**exponent
+
+    for base, exponent in [(2, -1), (2, 0), (2, 1), (10, -1), (10, 0), (10, 1)]:
+        test_power_function(base, exponent)
+
+    assert mock_func.call_count == 6
