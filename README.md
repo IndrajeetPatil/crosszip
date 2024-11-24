@@ -37,9 +37,9 @@ markers =
 
 ---
 
-## Usage - main function
+## Usage
 
-### Using Lists
+Example of using `crosszip`:
 
 ```python
 from crosszip import crosszip
@@ -56,66 +56,26 @@ print(result)
 # Output: ['1-a-True', '1-a-False', '1-b-True', '1-b-False', '2-a-True', '2-a-False', '2-b-True', '2-b-False']
 ```
 
-### Using Tuples
+Example of using `pytest` marker `crosszip_parametrize`:
 
 ```python
-def add(a, b):
-    return a + b
+import math
+from crosszip_parametrize import crosszip_parametrize
 
-result = crosszip(add, (1, 2), (10, 20))
-print(result)
-# Output: [11, 21, 12, 22]
+@crosszip_parametrize(
+    "base", [2, 10],
+    "exponent", [-1, 0, 1],
+)
+def test_power_function(base, exponent):
+    result = math.pow(base, exponent)
+    assert result == base ** exponent
 ```
 
-### Using Sets and Generators
-
-```python
-def concat(a, b):
-    return f"{a}{b}"
-
-set1 = {1, 2}
-gen = (x for x in ["x", "y"])
-
-result = crosszip(concat, set1, gen)
-print(result)
-# Output: ['1x', '1y', '2x', '2y']
-```
-
----
-
-## Usage - pytest plugin
-
-The `crosszip_parametrize` marker allows you to define parameter names and their corresponding values:
-
-```python
-import pytest
-from crosszip import crosszip_parametrize
-
-@crosszip_parametrize("a", [1, 2], "b", [3, 4])
-def test_example(a, b):
-    assert (a, b) in [(1, 3), (1, 4), (2, 3), (2, 4)]
-```
+For more examples, check out the package documentation at:
+https://indrajeetpatil.github.io/crosszip/
 
 ---
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md).
-
----
-
-## Links
-
-- **PyPI**: [https://pypi.org/project/crosszip/](https://pypi.org/project/crosszip/)
-- **Repository**: [https://github.com/IndrajeetPatil/crosszip](https://github.com/IndrajeetPatil/crosszip)
-- **Documentation**: [Coming Soon]
-
----
-
-## Acknowledgments
-
-Inspired by Python's functional programming capabilities and itertools' powerful utilities.
-
----
-
-Start crosszipping your iterables today! 🚀
