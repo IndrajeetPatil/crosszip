@@ -16,7 +16,8 @@ Install `crosszip` via pip:
 pip install crosszip
 ```
 
-Registering the crosszip marker for pytest is simple. Just add the following to your `pytest.ini` file:
+Registering the crosszip marker for pytest is simple.
+Just add the following to your `pytest.ini` file:
 
 ```
 [pytest]
@@ -37,21 +38,3 @@ markers =
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-## Links
-
-- **PyPI**: [https://pypi.org/project/crosszip/](https://pypi.org/project/crosszip/)
-- **Repository**: [https://github.com/IndrajeetPatil/crosszip](https://github.com/IndrajeetPatil/crosszip)
-- **Documentation**: [Coming Soon]
-
----
-
-## Acknowledgments
-
-Inspired by Python's functional programming capabilities and itertools' powerful utilities.
-
----
-
-Start crosszipping your iterables today! 🚀
