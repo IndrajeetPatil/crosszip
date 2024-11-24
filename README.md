@@ -42,23 +42,27 @@ markers =
 Example of using `crosszip`:
 
 ```python
+# Label Generation for Machine Learning
+
 from crosszip import crosszip
 
-def concat(a, b, c):
-    return f"{a}-{b}-{c}"
+def create_label(category, subcategory, version):
+    return f"{category}_{subcategory}_v{version}"
 
-list1 = [1, 2]
-list2 = ['a', 'b']
-list3 = [True, False]
+categories = ["cat", "dog"]
+subcategories = ["small", "large"]
+versions = ["1.0", "2.0"]
 
-result = crosszip(concat, list1, list2, list3)
-print(result)
-# Output: ['1-a-True', '1-a-False', '1-b-True', '1-b-False', '2-a-True', '2-a-False', '2-b-True', '2-b-False']
+labels = crosszip(create_label, categories, subcategories, versions)
+print(labels)
+# Output: ['cat_small_v1.0', 'cat_small_v2.0', 'cat_large_v1.0', 'cat_large_v2.0', 'dog_small_v1.0', 'dog_small_v2.0', 'dog_large_v1.0', 'dog_large_v2.0']
 ```
 
 Example of using `pytest` marker `crosszip_parametrize`:
 
 ```python
+# Testing Power Function
+
 import math
 from crosszip_parametrize import crosszip_parametrize
 
