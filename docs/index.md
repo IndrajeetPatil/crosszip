@@ -1,4 +1,4 @@
-# Introduction
+# Introduction <img src="assets/logo.png" align="right" width="240" />
 
 `crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables.
 It combines the power of the Cartesian product and functional programming into a single, intuitive tool.

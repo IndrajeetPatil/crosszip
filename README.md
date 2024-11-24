@@ -1,4 +1,4 @@
-# crosszip
+# crosszip <img src="docs/assets/logo.png" align="right" width="240" />
 
 [![PyPI Version](https://img.shields.io/pypi/v/crosszip.svg)](https://pypi.org/project/crosszip/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -83,3 +83,9 @@ https://indrajeetpatil.github.io/crosszip/
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md).
+
+---
+
+## Acknowledgements
+
+Hex sticker font is `Rubik`, and the image is taken from icon made by Freepik and available at flaticon.com.

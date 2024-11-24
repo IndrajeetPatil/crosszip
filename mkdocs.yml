@@ -8,6 +8,8 @@ repo_url: https://github.com/IndrajeetPatil/crosszip
 
 theme:
   name: material
+  logo: assets/logo.png
+  favicon: docs/assets/favicon.ico
   features:
     - content.code.copy
     - navigation.footer

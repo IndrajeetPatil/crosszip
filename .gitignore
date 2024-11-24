@@ -34,3 +34,5 @@ coverage.xml
 .pytest_cache/
 cover/
 repos/
+.Rproj.user
+.Rhistory
