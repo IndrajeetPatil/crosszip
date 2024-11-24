@@ -20,7 +20,7 @@ pip install crosszip
 To use the `crosszip_parametrize` marker for `pytest`, add the following line to `tests/conftest.py`:
 
 ```python
-pytest_plugins = ["crosszip.markers"]
+pytest_plugins = ["crosszip.plugin"]
 ```
 
 Check that the marker was successfully loaded by running `pytest --markers`;

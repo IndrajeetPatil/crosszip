@@ -1,1 +1,1 @@
-pytest_plugins = ["crosszip.markers"]
+pytest_plugins = ["crosszip.plugin"]

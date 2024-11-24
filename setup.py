@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     entry_points={
         "pytest11": [
-            "crosszip = crosszip.markers",
+            "crosszip = crosszip.plugin",
         ],
     },
 )

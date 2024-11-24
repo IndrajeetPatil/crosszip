@@ -5,7 +5,7 @@ This marker is a pytest plugin that allows you to define parameter names and the
 
 ```python
 # confest.py
-pytest_plugins = ["crosszip.markers"]
+pytest_plugins = ["crosszip.plugin"]
 ```
 
 ### Basic Usage
