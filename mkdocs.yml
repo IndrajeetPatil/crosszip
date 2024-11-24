@@ -9,6 +9,7 @@ repo_url: https://github.com/IndrajeetPatil/crosszip
 theme:
   name: material
   features:
+    - content.code.copy
     - navigation.footer
   palette:
     # Dark Mode

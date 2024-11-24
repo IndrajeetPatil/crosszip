@@ -27,6 +27,49 @@ markers =
 
 ---
 
+## Usage
+
+Example of using `crosszip`:
+
+```python
+# Label Generation for Machine Learning
+
+from crosszip import crosszip
+
+def create_label(category, subcategory, version):
+    return f"{category}_{subcategory}_v{version}"
+
+categories = ["cat", "dog"]
+subcategories = ["small", "large"]
+versions = ["1.0", "2.0"]
+
+labels = crosszip(create_label, categories, subcategories, versions)
+print(labels)
+# Output: ['cat_small_v1.0', 'cat_small_v2.0', 'cat_large_v1.0', 'cat_large_v2.0', 'dog_small_v1.0', 'dog_small_v2.0', 'dog_large_v1.0', 'dog_large_v2.0']
+```
+
+Example of using `pytest` marker `crosszip_parametrize`:
+
+```python
+# Testing Power Function
+
+import math
+from crosszip_parametrize import crosszip_parametrize
+
+@crosszip_parametrize(
+    "base", [2, 10],
+    "exponent", [-1, 0, 1],
+)
+def test_power_function(base, exponent):
+    result = math.pow(base, exponent)
+    assert result == base ** exponent
+```
+
+For more examples, check out the package documentation at:
+https://indrajeetpatil.github.io/crosszip/
+
+---
+
 ## Key Features
 
 - **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
