@@ -68,7 +68,7 @@ python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
 [tool.coverage.run]
 omit = [
-    "markers.py",
+    "plugin.py",
     "tests/*",
     "test/*",
     "test_*.py",
