@@ -1,4 +1,4 @@
-# crosszip <img src="logo.png" align="right" width="240" />
+# crosszip <img src="docs/assets/logo.png" align="right" width="240" />
 
 [![PyPI Version](https://img.shields.io/pypi/v/crosszip.svg)](https://pypi.org/project/crosszip/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
