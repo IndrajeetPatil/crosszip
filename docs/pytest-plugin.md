@@ -1,26 +1,16 @@
 ## crosszip parametrization
 
-After installing the package, you can use the `crosszip_parametrize` marker to parametrize your tests with multiple parameters.
-This marker is a pytest plugin that allows you to define parameter names and their corresponding values in a single line.
+After installing the package, you can use the `crosszip_parametrize` marker to parametrize your tests with a Cartesian product of parameter values.
+
+The syntax is slightly different from the built-in `pytest.mark.parametrize` marker, but the functionality is the same.
+
+Syntax:
 
 ```python
-# confest.py
-pytest_plugins = ["crosszip.plugin"]
+@pytest.mark.crosszip_parametrize(*args)
 ```
 
-### Basic Usage
-
-The `crosszip_parametrize` marker allows you to define parameter names and their corresponding values:
-
-```python
-import pytest
-
-@pytest.mark.crosszip_parametrize("a", [1, 2], "b", [3, 4])
-def test_example(a, b):
-    assert (a, b) in [(1, 3), (1, 4), (2, 3), (2, 4)]
-```
-
-### Realistic Use Cases for `crosszip_parametrize`
+### Use Cases for `crosszip_parametrize`
 
 #### Testing Mathematical Functions
 

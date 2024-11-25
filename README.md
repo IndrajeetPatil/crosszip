@@ -1,4 +1,4 @@
-# crosszip <img src="docs/assets/logo.png" align="right" width="240" />
+# crosszip <img src="logo.png" align="right" width="240" />
 
 [![PyPI Version](https://img.shields.io/pypi/v/crosszip.svg)](https://pypi.org/project/crosszip/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -7,24 +7,13 @@
 It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
 
 Additionally, `@pytest.mark.crosszip_parametrize` is a `pytest` marker that simplifies running tests with all possible combinations of parameter values.
-This is particularly useful for testing functions or components across multiple dimensions of input parameters.
 
 ## Installation
 
-Install `crosszip` via pip:
-
-```bash
-pip install crosszip
-```
-
-To use the `crosszip_parametrize` marker for `pytest`, add the following line to `tests/conftest.py`:
-
-```python
-pytest_plugins = ["crosszip.plugin"]
-```
-
-Check that the marker was successfully loaded by running `pytest --markers`;
-you should see `@pytest.mark.crosszip_parametrize(*args)` in the list.
+| Package Manager | Installation Command      |
+| --------------- | ------------------------- |
+| pip             | `pip install crosszip`    |
+| uv              | `uv pip install crosszip` |
 
 ## Usage
 
@@ -70,7 +59,7 @@ For more examples, check out the package documentation at:
 ## Key Features
 
 - **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
-- **pytest Plugin**: Provides a `crosszip_parametrize` marker for running tests with multiple parameter values.
+- **pytest Plugin**: Provides a `crosszip_parametrize` marker for running tests with all possible combinations of parameter values.
 - **Simple API**: Minimalist, intuitive design for quick integration into your projects.
 
 ## License
