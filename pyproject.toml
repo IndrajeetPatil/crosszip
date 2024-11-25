@@ -26,6 +26,9 @@ dependencies = ["pytest>=8.3.3"]
 Repository = "https://github.com/IndrajeetPatil/crosszip"
 Changelog = "https://github.com/IndrajeetPatil/crosszip/blob/main/CHANGELOG.md"
 
+[project.entry-points.pytest11]
+crosszip_parametrize = "crosszip.plugin"
+
 [tool.uv]
 dev-dependencies = [
     "coverage>=7.6.4",
