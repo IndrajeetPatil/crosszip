@@ -1,27 +1,19 @@
 # Introduction <img src="assets/logo.png" align="right" width="240" />
 
+[![PyPI Version](https://img.shields.io/pypi/v/crosszip.svg)](https://pypi.org/project/crosszip/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 `crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables.
 It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
 
-Additionally, `crosszip_parametrize` Pytest plugin is a decorator that simplifies running tests with all possible combinations of parameter values.
-This is particularly useful for testing functions or components across multiple dimensions of input parameters.
+Additionally, `@pytest.mark.crosszip_parametrize` is a `pytest` marker that simplifies running tests with all possible combinations of parameter values.
 
 ## Installation
 
-Install `crosszip` via pip:
-
-```bash
-pip install crosszip
-```
-
-Registering the crosszip marker for pytest is simple.
-Just add the following to your `pytest.ini` file:
-
-```
-[pytest]
-markers =
-    crosszip_parametrize: "mark test function for crosszip parametrization"
-```
+| Package Manager | Installation Command      |
+| --------------- | ------------------------- |
+| pip             | `pip install crosszip`    |
+| uv              | `uv pip install crosszip` |
 
 ## Usage
 
@@ -52,7 +44,7 @@ Example of using `pytest` marker `crosszip_parametrize`:
 import math
 import crosszip
 
-@crosszip_parametrize(
+@pytest.mark.crosszip_parametrize(
     "base", [2, 10],
     "exponent", [-1, 0, 1],
 )
@@ -62,12 +54,12 @@ def test_power_function(base, exponent):
 ```
 
 For more examples, check out the package documentation at:
-https://indrajeetpatil.github.io/crosszip/
+<https://indrajeetpatil.github.io/crosszip/>
 
 ## Key Features
 
 - **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
-- **pytest Plugin**: Supports parametrization of tests using `crosszip`.
+- **pytest Plugin**: Provides a `crosszip_parametrize` marker for running tests with all possible combinations of parameter values.
 - **Simple API**: Minimalist, intuitive design for quick integration into your projects.
 
 ## License
