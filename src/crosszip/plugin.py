@@ -4,13 +4,15 @@ from typing import Any, List, Optional, Sequence, Tuple
 import pytest
 
 
+@pytest.hookimpl(trylast=True)
 def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line(
         "markers",
-        "crosszip_parametrize(*args): mark test to be parametrized with crossed combinations",
+        "crosszip_parametrize(*args): mark test to be parametrized with Cartesian product of combinations",
     )
 
 
+@pytest.hookimpl(tryfirst=True)
 def pytest_collection_modifyitems(
     config: pytest.Config, items: List[pytest.Item]
 ) -> None:
