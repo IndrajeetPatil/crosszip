@@ -1,6 +1,7 @@
-import pytest
+from collections.abc import Sequence
 from itertools import product
-from typing import Sequence
+
+import pytest
 
 
 @pytest.hookimpl(trylast=True)
@@ -22,7 +23,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
             raise ValueError("Parameter names and values must be provided.")
         if len(param_names) != len(param_values):
             raise ValueError(
-                "Each parameter name must have a corresponding list of values."
+                "Each parameter name must have a corresponding list of values.",
             )
 
         if not all(isinstance(name, str) for name in param_names):
