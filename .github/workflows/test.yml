@@ -31,4 +31,4 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run Tests
-        run: uv pytest . -vv --random-order
+        run: uv run pytest . -vv --random-order
