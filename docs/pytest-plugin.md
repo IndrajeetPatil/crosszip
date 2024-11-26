@@ -2,29 +2,58 @@
 
 After installing the package, you can use the `crosszip_parametrize` marker to parametrize your tests with a Cartesian product of parameter values.
 
-The syntax is slightly different from the built-in `pytest.mark.parametrize` marker, but the functionality is the same.
+### `crosszip_parametrize` vs `parametrize`
 
-Syntax:
+The `parametrize` marker in `pytest` allows you to parametrize your tests with a list of values for each parameter. The `crosszip_parametrize` marker provides syntactic sugar to parametrize your tests with a Cartesian product of parameter values.
 
-```python
-@pytest.mark.crosszip_parametrize(*args)
-```
+Here is equivalent code using `crosszip_parametrize` and `parametrize`:
 
-### Use Cases for `crosszip_parametrize`
+=== "`crosszip_parametrize`"
 
-#### Testing Mathematical Functions
+    ```python
+    import pytest
+    import math
 
-```python
-import math
+    @pytest.mark.crosszip_parametrize(
+        "base", [2, 10],
+        "exponent", [-1, 0, 1],
+    )
+    def test_power_function(base, exponent):
+        result = math.pow(base, exponent)
+        assert result == base ** exponent
+    ```
 
-@pytest.mark.crosszip_parametrize(
-    "base", [2, 10],
-    "exponent", [-1, 0, 1],
-)
-def test_power_function(base, exponent):
-    result = math.pow(base, exponent)
-    assert result == base ** exponent
-```
+=== "`parametrize`"
+
+    ```python
+    import pytest
+    import math
+    from itertools import product
+
+    bases = [2, 10]
+    exponents = [-1, 0, 1]
+    combinations = list(product(bases, exponents))
+
+    @pytest.mark.parametrize("base, exponent", combinations)
+    def test_power_function(base, exponent):
+        result = math.pow(base, exponent)
+        assert result == base ** exponent
+    ```
+
+    or
+
+    ```python
+    import pytest
+    import math
+
+    @pytest.mark.parametrize("base", [2, 10])
+    @pytest.mark.parametrize("exponent", [-1, 0, 1])
+    def test_power_function(base, exponent):
+        result = math.pow(base, exponent)
+        assert result == base ** exponent
+    ```
+
+### More Examples for `crosszip_parametrize`
 
 #### Testing API Endpoints
 

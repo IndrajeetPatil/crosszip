@@ -53,6 +53,11 @@ def test_power_function(base, exponent):
     assert result == base ** exponent
 ```
 
+!!! danger
+
+    Depending on the size of the input iterables, the output of `crosszip` can grow exponentially.<br>
+    Use with caution when working with large inputs.
+
 For more examples, check out the package documentation at:
 <https://indrajeetpatil.github.io/crosszip/>
 
