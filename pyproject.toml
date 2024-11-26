@@ -50,9 +50,8 @@ indent-width = 4
 
 [tool.ruff.lint]
 preview = true
-#select = ["ALL"]
-ignore = ["D100"]
 
+#select = ["ALL"]
 [tool.ruff.format]
 preview = true
 
