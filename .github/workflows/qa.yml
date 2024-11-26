@@ -30,10 +30,10 @@ jobs:
         run: uv build
 
       - name: Run pre-commit hooks
-        run: .venv/bin/pre-commit run --all-files
+        run: uv run pre-commit run --all-files
 
       - name: Compute Coverage
         run: |
-          .venv/bin/coverage run -m pytest tests/
-          .venv/bin/coverage report --fail-under=95
-          .venv/bin/coverage html
+          uv run coverage run -m pytest tests/
+          uv run coverage report --fail-under=95
+          uv run coverage html
