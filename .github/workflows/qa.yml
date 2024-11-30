@@ -37,3 +37,12 @@ jobs:
           uv run coverage run -m pytest tests/
           uv run coverage report --fail-under=95
           uv run coverage html
+
+      - name: Install Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render the README
+        run: quarto render README.qmd

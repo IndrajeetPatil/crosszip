@@ -23,7 +23,10 @@ classifiers = [
 dependencies = ["pytest>=8.3.3"]
 
 [project.urls]
+Homepage = "https://github.com/IndrajeetPatil/crosszip"
+Documentation = "https://indrajeetpatil.github.io/crosszip/"
 Repository = "https://github.com/IndrajeetPatil/crosszip"
+Issues = "https://github.com/IndrajeetPatil/crosszip/issues"
 Changelog = "https://github.com/IndrajeetPatil/crosszip/blob/main/CHANGELOG.md"
 
 [project.entry-points.pytest11]
@@ -38,6 +41,7 @@ dev-dependencies = [
     "ruff>=0.8.0",
     "pytest-snapshot>=0.9.0",
     "pre-commit>=4.0.1",
+    "jupyter>=1.1.1",
 ]
 
 [build-system]
@@ -49,19 +53,22 @@ line-length = 88
 indent-width = 4
 
 [tool.ruff.lint]
+#select = ["ALL"]
 preview = true
 
-#select = ["ALL"]
 [tool.ruff.format]
 preview = true
 
 [tool.pytest.ini_options]
 addopts = [
+    # error on problems parsing pytest configuration
+    "--strict-config",
     # error on using unregistered marker
     "--strict-markers",
     # show extra test summary info for everything
     "-ra",
 ]
+filterwarnings = ["error"]
 xfail_strict = true
 python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
