@@ -1,6 +1,6 @@
 
 
-# crosszip <img src="docs/assets/logo.png" align="right" width="240" />
+# crosszip <img src="https://raw.githubusercontent.com/IndrajeetPatil/crosszip/main/docs/assets/logo.png" align="right" width="240" />
 
 [![PyPI
 Version](https://img.shields.io/pypi/v/crosszip.svg)](https://pypi.org/project/crosszip/)
