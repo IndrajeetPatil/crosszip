@@ -4,7 +4,7 @@ pytest_plugins = ["pytester"]
 
 
 @pytest.mark.crosszip_parametrize("a", [1, 2], "b", [3, 4])
-def test_example(a, b):
+def test_example(a: int, b: int) -> None:
     assert (a, b) in [(1, 3), (1, 4), (2, 3), (2, 4)]
 
 
@@ -81,7 +81,7 @@ def test_missing_parameter_values(pytester: pytest.Pytester) -> None:
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
     result.stdout.fnmatch_lines([
-        "*ValueError: Each parameter name must have a corresponding list of values.*"
+        "*ValueError: Each parameter name must have a corresponding list of values.*",
     ])
 
 
@@ -103,7 +103,7 @@ def test_empty_parameter_values(pytester: pytest.Pytester) -> None:
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
     result.stdout.fnmatch_lines([
-        "*TypeError: All parameter values must be non-empty sequences.*"
+        "*TypeError: All parameter values must be non-empty sequences.*",
     ])
 
 
@@ -125,7 +125,7 @@ def test_non_sequence_parameter_values(pytester: pytest.Pytester) -> None:
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
     result.stdout.fnmatch_lines([
-        "*TypeError: All parameter values must be non-empty sequences.*"
+        "*TypeError: All parameter values must be non-empty sequences.*",
     ])
 
 
@@ -142,7 +142,7 @@ def test_no_parameters(pytester: pytest.Pytester) -> None:
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
     result.stdout.fnmatch_lines([
-        "*ValueError: Parameter names and values must be provided.*"
+        "*ValueError: Parameter names and values must be provided.*",
     ])
 
 
