@@ -67,6 +67,8 @@ addopts = [
     "--strict-markers",
     # show extra test summary info for everything
     "-ra",
+    # include more verbose output
+    "--verbose"
 ]
 filterwarnings = ["error"]
 xfail_strict = true
