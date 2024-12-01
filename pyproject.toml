@@ -87,3 +87,7 @@ omit = [
 
 [tool.coverage.report]
 show_missing = true
+
+[tool.mypy]
+strict = true
+disallow_untyped_decorators = false
