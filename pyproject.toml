@@ -68,7 +68,9 @@ addopts = [
     # show extra test summary info for everything
     "-ra",
     # include more verbose output
-    "--verbose"
+    "--verbose",
+    # using pytest-random-order plugin option
+    "--random-order",
 ]
 testpaths = ["tests"]
 filterwarnings = ["error"]
