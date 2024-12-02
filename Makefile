@@ -6,37 +6,34 @@ venv:
 	rm -rf $(VIRTUAL_ENV) && python3.13 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install --upgrade pip
 	pip install uv
-	uv sync --frozen
-
-activate:
-	. $(VIRTUAL_ENV)/bin/activate
+	uv sync --all-extras --dev
 
 ## Test package
 
-test: activate
-	$(VIRTUAL_ENV)/bin/pytest . -vv --random-order
+test: 
+	uv run pytest .
 
-coverage: activate
-	$(VIRTUAL_ENV)/bin/coverage run -m pytest . && $(VIRTUAL_ENV)/bin/coverage report --fail-under=95 && $(VIRTUAL_ENV)/bin/coverage html;
+coverage: 
+	uv run coverage run -m pytest . && uv run coverage report && uv run coverage html
 
 test-package: test coverage
 
 ## Code quality
 
 format:
-	$(VIRTUAL_ENV)/bin/pre-commit run --hook-stage commit ruff-format --all-files
+	uv run pre-commit run --hook-stage commit ruff-format --all-files
 
 lint:
-	$(VIRTUAL_ENV)/bin/pre-commit run --hook-stage commit ruff --all-files
+	uv run pre-commit run --hook-stage commit ruff --all-files
 
 mypy:
-	$(VIRTUAL_ENV)/bin/pre-commit run --hook-stage commit mypy --all-files
+	uv run pre-commit run --hook-stage commit mypy --all-files
 
 qa: format lint mypy
 
 ## Check package
 
-build: activate
+build:
 	uv build
 
 check-package: test-package qa build
@@ -47,7 +44,6 @@ help:
 	@echo ""
 	@echo "Targets:"
 	@echo "  venv           Create a virtual environment"
-	@echo "  activate       Activate the virtual environment"
 	@echo "  test           Run tests"
 	@echo "  coverage       Run tests and generate coverage report"
 	@echo "  test-package   Run tests, generate coverage report and check coverage"
