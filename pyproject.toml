@@ -70,6 +70,7 @@ addopts = [
     # include more verbose output
     "--verbose"
 ]
+testpaths = ["tests"]
 filterwarnings = ["error"]
 xfail_strict = true
 python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
