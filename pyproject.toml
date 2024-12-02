@@ -42,6 +42,7 @@ dev-dependencies = [
     "pytest-snapshot>=0.9.0",
     "pre-commit>=4.0.1",
     "jupyter>=1.1.1",
+    "pytest-cov>=6.0.0",
 ]
 
 [build-system]
@@ -78,18 +79,14 @@ xfail_strict = true
 python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
 [tool.coverage.run]
-omit = [
-    "plugin.py",
-    "tests/*",
-    "test/*",
-    "test_*.py",
-    "test-*.py",
-    "test.py",
-    "tests.py"
-]
+source = ["crosszip"]
+omit = ["tests/*", "test/*", "test_*.py", "test-*.py", "test.py", "tests.py"]
 
 [tool.coverage.report]
+fail_under = 100
+format = "markdown"
 show_missing = true
+sort = "-Cover"
 
 [tool.mypy]
 strict = true

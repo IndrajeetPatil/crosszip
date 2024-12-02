@@ -14,7 +14,7 @@ test:
 	uv run pytest .
 
 coverage: 
-	uv run coverage run -m pytest . && uv run coverage report --fail-under=95 && uv run coverage html;
+	uv run coverage run -m pytest . && uv run coverage report && uv run coverage html
 
 test-package: test coverage
 
