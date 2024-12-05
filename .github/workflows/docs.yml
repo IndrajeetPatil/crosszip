@@ -40,6 +40,10 @@ jobs:
           restore-keys: |
             mkdocs-material-
 
+      - name: Install mkdocs and plugin packages
+        run: |
+          pip install mkdocs mkdocs-material mkdocstrings-python
+
       - name: Deploy
         if: github.ref == 'refs/heads/main'
         run: mkdocs gh-deploy --force
