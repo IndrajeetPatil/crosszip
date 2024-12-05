@@ -3,9 +3,10 @@
 # crosszip <img src="https://raw.githubusercontent.com/IndrajeetPatil/crosszip/main/docs/assets/logo.png" align="right" width="240" />
 
 [![PyPI
-Version](https://img.shields.io/pypi/v/crosszip.svg)](https://pypi.org/project/crosszip/)
-[![License:
-MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+version](https://img.shields.io/pypi/v/crosszip.png)](https://pypi.org/project/crosszip/)
+![Python versions](https://img.shields.io/pypi/pyversions/crosszip.png)
+[![PyPI
+Downloads](https://img.shields.io/pypi/dm/crosszip.png)](https://pypistats.org/packages/crosszip)
 
 `crosszip` is a Python utility that makes it easy to apply a function to
 all possible combinations of elements from multiple iterables. It

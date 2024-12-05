@@ -8,16 +8,6 @@ venv:
 	pip install uv
 	uv sync --all-extras --dev
 
-## Test package
-
-test: 
-	uv run pytest .
-
-coverage: 
-	uv run coverage run -m pytest . && uv run coverage report && uv run coverage html
-
-test-package: test coverage
-
 ## Code quality
 
 format:
@@ -33,11 +23,28 @@ qa: format lint mypy
 
 ## Check package
 
+test: 
+	uv run pytest .
+
+coverage: 
+	uv run coverage run -m pytest . 
+	uv run coverage report
+	uv run coverage html
+
 build:
 	uv build
 
+test-package: test coverage
 check-package: test-package qa build
 
+## Docs
+
+serve-docs:
+	uv run quarto render README.qmd
+	cp README.md docs/index.md
+	cp CHANGELOG.md docs/changelog.md
+	uv run mkdocs build 
+	uv run mkdocs serve
 
 help:
 	@echo "Usage: make [target]"
@@ -53,6 +60,7 @@ help:
 	@echo "  qa             Run format, lint and mypy"
 	@echo "  build          Build package"
 	@echo "  check-package  Run tests, generate coverage report, check coverage, format, lint, mypy and build"
+	@echo "  serve-docs     Serve documentation"
 	@echo "  help           Show this help message"
 	@echo ""
 	@echo "Variables:"
@@ -68,6 +76,7 @@ help:
 	@echo "  make qa"
 	@echo "  make build"
 	@echo "  make check-package"
+	@echo "  make serve-docs"
 	@echo "  make help"
 	@echo ""
 	@echo "For more information, see the Makefile"

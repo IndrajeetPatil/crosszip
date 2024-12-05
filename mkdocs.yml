@@ -8,6 +8,13 @@ repo_url: https://github.com/IndrajeetPatil/crosszip
 
 edit_uri: edit/main/docs/
 
+nav:
+  - Home: index.md
+  - API Reference:
+      - crosszip: reference/crosszip.md
+      - pytest-plugin: reference/plugin.md
+  - Changelog: changelog.md
+
 theme:
   name: material
   logo: assets/logo.png
@@ -19,6 +26,11 @@ theme:
     - content.action.view
     - content.tooltips
     - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.path
   palette:
     # Dark Mode
     - scheme: slate
@@ -75,6 +87,8 @@ plugins:
       handlers:
         python:
           paths: [src]
+          options:
+            docstring_style: google
 
 validation:
   omitted_files: warn

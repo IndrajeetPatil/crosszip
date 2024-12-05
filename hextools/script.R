@@ -2,11 +2,9 @@ library(hexSticker)
 library(magick)
 library(showtext)
 
-# Loading Google fonts (http://www.google.com/fonts)
 google_font_name <- "Rubik"
 font_add_google(google_font_name)
 
-# Automatically use showtext to render text for future devices
 showtext_auto()
 
 img <- image_read("hextools/data.png")
