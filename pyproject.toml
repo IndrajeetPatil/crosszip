@@ -45,6 +45,9 @@ dev-dependencies = [
     "pre-commit>=4.0.1",
     "jupyter>=1.1.1",
     "pytest-cov>=6.0.0",
+    "mkdocstrings-python>=1.12.2",
+    "mkdocs-material>=9.5.47",
+    "mkdocs>=1.6.1",
 ]
 
 [build-system]
