@@ -11,7 +11,11 @@ theme:
   logo: assets/logo.png
   favicon: assets/favicon.ico
   features:
+    - content.code.annotate
     - content.code.copy
+    - content.action.edit
+    - content.action.view
+    - content.tooltips
     - navigation.footer
   palette:
     # Dark Mode
