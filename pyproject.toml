@@ -1,12 +1,12 @@
 [project]
 name = "crosszip"
-version = "1.0.0"
+version = "1.1.0"
 description = "Apply a given function to all combinations of elements from multiple iterables"
 readme = "README.md"
 authors = [
     { name = "Indrajeet Patil", email = "patilindrajeet.science@gmail.com" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 license = { file = "LICENSE.md" }
 keywords = ["iterables"]
 classifiers = [
@@ -15,6 +15,8 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3 :: Only",

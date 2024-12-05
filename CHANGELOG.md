@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Extends support to Python versions `3.10` and `3.11`.
+
 ## 1.0.0
 
 - Adds pytester tests for the `pytest`-plugin.
