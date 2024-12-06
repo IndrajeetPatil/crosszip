@@ -42,6 +42,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
             result = math.pow(base, exponent)
             assert result == base ** exponent
         ```
+
     """
     marker = metafunc.definition.get_closest_marker("crosszip_parametrize")
     if marker:
@@ -53,7 +54,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
             raise ValueError("Parameter names and values must be provided.")
         if len(param_names) != len(param_values):
             raise ValueError(
-                "Each parameter name must have a corresponding list of values."
+                "Each parameter name must have a corresponding list of values.",
             )
 
         if not all(isinstance(name, str) for name in param_names):
