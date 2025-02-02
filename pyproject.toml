@@ -60,8 +60,8 @@ indent-width = 4
 
 [tool.ruff.lint]
 preview = true
-select = ["ALL"]
-ignore = ["COM812", "CPY", "D100", "D203", "D212"]
+#select = ["ALL"]
+ignore = ["COM812", "CPY", "D100", "D203", "D212", "DOC502"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [
@@ -75,7 +75,7 @@ ignore = ["COM812", "CPY", "D100", "D203", "D212"]
 [tool.ruff.format]
 preview = true
 docstring-code-format = true
-docstring-code-line-length = 88
+docstring-code-line-length = 60
 
 [tool.pytest.ini_options]
 addopts = [

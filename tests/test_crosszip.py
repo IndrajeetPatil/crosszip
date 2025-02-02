@@ -99,9 +99,10 @@ def test_crosszip_with_sets() -> None:
 
 @pytest.mark.parametrize("non_iterable", [123, None, math.pi, True])
 def test_crosszip_with_non_iterable(non_iterable: Any) -> None:
+    input_type = type(non_iterable).__name__
     with pytest.raises(
         TypeError,
-        match=f"Expected an iterable, but got {type(non_iterable).__name__}: {non_iterable}",
+        match=f"Expected an iterable, but got {input_type}: {non_iterable}",
     ):
         crosszip(lambda a: a, non_iterable)
 

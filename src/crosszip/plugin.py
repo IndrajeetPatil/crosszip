@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 from itertools import product
-from typing import Any
+from typing import Any, Final
 
 import pytest
 
@@ -15,7 +15,7 @@ def pytest_configure(config: pytest.Config) -> None:
     """
     config.addinivalue_line(
         "markers",
-        "crosszip_parametrize(*args): mark test to be parametrized with Cartesian product of combinations",
+        "crosszip_parametrize(*args): mark test to be cross-parametrized",
     )
 
 
@@ -31,10 +31,8 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         metafunc (pytest.Metafunc): The test function's metadata provided by pytest.
 
     Raises:
-        ValueError:
-          If parameter names and values are not provided or their lengths do not match.
-        TypeError:
-          If parameter names are not strings or parameter values are empty sequences.
+        ValueError: If parameter names and values are not provided or their lengths do not match.
+        TypeError: If parameter names are not strings or parameter values are empty sequences.
 
     Example:
         ```python
@@ -52,6 +50,27 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         def test_power_function(base, exponent):
             result = math.pow(base, exponent)
             assert result == base**exponent
+
+
+        @pytest.mark.crosszip_parametrize()
+        def test_example():
+            pass
+
+
+        # Error: Parameter names and values must be provided.
+
+
+        @pytest.mark.crosszip_parametrize(
+            "x",
+            1,
+            "y",
+            [3, 4],
+        )
+        def test_example(x, y):
+            pass
+
+
+        # Error: All parameter values must be non-empty sequences.
         ```
 
     """
@@ -61,29 +80,29 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         param_names = args[::2]
         param_values = args[1::2]
 
-        validate_params(param_names, param_values)
+        validate_parameters(param_names, param_values)
 
         combinations = list(product(*param_values))
         param_names_str = ",".join(param_names)
         metafunc.parametrize(param_names_str, combinations)
 
 
-PARAMS_REQUIRED_MSG: str = "Parameter names and values must be provided."
-PARAMS_COUNT_MISMATCH_MSG: str = (
+PARAMS_REQUIRED_ERROR: Final = "Parameter names and values must be provided."
+PARAMS_COUNT_MISMATCH_ERROR: Final = (
     "Each parameter name must have a corresponding list of values."
 )
-PARAMS_NAME_TYPE_MSG: str = "All parameter names must be strings."
-PARAMS_VALUES_TYPE_MSG: str = "All parameter values must be non-empty sequences."
+PARAMS_NAME_TYPE_ERROR: Final = "All parameter names must be strings."
+PARAMS_VALUES_TYPE_ERROR: Final = "All parameter values must be non-empty sequences."
 
 
-def validate_params(
+def validate_parameters(
     param_names: Sequence[str], param_values: Sequence[Sequence[Any]]
 ) -> None:
     if not param_names or not param_values:
-        raise ValueError(PARAMS_REQUIRED_MSG)
+        raise ValueError(PARAMS_REQUIRED_ERROR)
     if len(param_names) != len(param_values):
-        raise ValueError(PARAMS_COUNT_MISMATCH_MSG)
+        raise ValueError(PARAMS_COUNT_MISMATCH_ERROR)
     if not all(isinstance(name, str) for name in param_names):
-        raise TypeError(PARAMS_NAME_TYPE_MSG)
+        raise TypeError(PARAMS_NAME_TYPE_ERROR)
     if any(not isinstance(values, Sequence) or not values for values in param_values):
-        raise TypeError(PARAMS_VALUES_TYPE_MSG)
+        raise TypeError(PARAMS_VALUES_TYPE_ERROR)
