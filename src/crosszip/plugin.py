@@ -6,6 +6,12 @@ import pytest
 
 @pytest.hookimpl(trylast=True)
 def pytest_configure(config: pytest.Config) -> None:
+    """
+    Register the `crosszip_parametrize` marker with pytest.
+
+    This pytest hook registers the `crosszip_parametrize` marker with pytest. The marker
+    is used to parametrize tests with the Cartesian product of parameter values.
+    """
     config.addinivalue_line(
         "markers",
         "crosszip_parametrize(*args): mark test to be parametrized with Cartesian product of combinations",
@@ -13,7 +19,8 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
-    """Generate parametrized tests using the cross-product of parameter values.
+    """
+    Generate parametrized tests using the cross-product of parameter values.
 
     This pytest hook parametrizes tests based on the `crosszip_parametrize` marker.
     It extracts parameter names and their corresponding lists of values, computes their
@@ -32,6 +39,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         import crosszip
         import pytest
 
+
         @pytest.mark.crosszip_parametrize(
             "base",
             [2, 10],
@@ -40,7 +48,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         )
         def test_power_function(base, exponent):
             result = math.pow(base, exponent)
-            assert result == base ** exponent
+            assert result == base**exponent
         ```
 
     """
