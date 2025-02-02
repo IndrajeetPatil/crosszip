@@ -60,8 +60,11 @@ def crosszip(func: Callable[..., Any], *iterables: Iterable[Any]) -> list[Any]:
         TypeError: Expected an iterable, but got int: 123
 
     Notes:
-        - The function assumes that each iterable contains values compatible with the function `func`.
-        - For large input iterables, the number of combinations grows exponentially, so use with care when working with large datasets.
+        - The function assumes that each iterable contains values
+          compatible with the function `func`.
+
+        - For large input iterables, the number of combinations grows exponentially,
+          so use with care when working with large datasets.
 
     """
     # Ensure all arguments are iterable

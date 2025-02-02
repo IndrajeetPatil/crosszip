@@ -30,8 +30,10 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         metafunc (pytest.Metafunc): The test function's metadata provided by pytest.
 
     Raises:
-        ValueError: If parameter names and values are not provided or their lengths do not match.
-        TypeError: If parameter names are not strings or parameter values are not non-empty sequences.
+        ValueError:
+          If parameter names and values are not provided or their lengths do not match.
+        TypeError:
+          If parameter names are not strings or parameter values are empty sequences.
 
     Example:
         ```python

@@ -1,11 +1,15 @@
 import json
 import math
 from collections.abc import Callable, Generator, Iterable
-from typing import Any
+from typing import Any, Protocol
 
 import pytest
 
 from crosszip.crosszip import crosszip
+
+
+class Snapshot(Protocol):
+    def assert_match(self, data: str, snapshot_name: str) -> None: ...
 
 
 @pytest.fixture
@@ -23,7 +27,7 @@ def concat_function() -> Callable[[Any, Any, Any], str]:
     ],
 )
 def test_crosszip_with_iterables(
-    snapshot: Any,
+    snapshot: Snapshot,
     concat_function: Callable[[Any, Any, Any], str],
     iterable1: Iterable[Any],
     iterable2: Iterable[Any],
