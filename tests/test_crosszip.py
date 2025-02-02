@@ -15,7 +15,7 @@ def concat_function() -> Callable[[Any, Any, Any], str]:
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, iterable3, snapshot_name",
+    ("iterable1", "iterable2", "iterable3", "snapshot_name"),
     [
         ([1, 2], ["a", "b"], [True, False], "list_inputs"),
         ((1, 2), ("a", "b"), (True, False), "tuple_inputs"),
@@ -36,7 +36,7 @@ def test_crosszip_with_iterables(
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, expected",
+    ("iterable1", "iterable2", "expected"),
     [
         (range(1, 3), "ab", ["1-a", "1-b", "2-a", "2-b"]),
     ],
@@ -103,7 +103,7 @@ def test_crosszip_with_non_iterable(non_iterable: Any) -> None:
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, expected_length",
+    ("iterable1", "iterable2", "expected_length"),
     [
         (range(100), ["a", "b"], 200),
     ],
