@@ -59,11 +59,23 @@ line-length = 88
 indent-width = 4
 
 [tool.ruff.lint]
-#select = ["ALL"]
 preview = true
+#select = ["ALL"]
+ignore = ["COM812", "CPY", "D100", "D203", "D212", "DOC502"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    # docstring requirements
+    "D",
+    "DOC",
+    # tests can have asserts
+    "S101",
+]
 
 [tool.ruff.format]
 preview = true
+docstring-code-format = true
+docstring-code-line-length = 60
 
 [tool.pytest.ini_options]
 addopts = [
@@ -95,4 +107,5 @@ sort = "-Cover"
 
 [tool.mypy]
 strict = true
+pretty = true
 disallow_untyped_decorators = false

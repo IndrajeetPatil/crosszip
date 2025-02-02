@@ -1,11 +1,15 @@
 import json
 import math
 from collections.abc import Callable, Generator, Iterable
-from typing import Any
+from typing import Any, Protocol
 
 import pytest
 
 from crosszip.crosszip import crosszip
+
+
+class Snapshot(Protocol):
+    def assert_match(self, data: str, snapshot_name: str) -> None: ...
 
 
 @pytest.fixture
@@ -15,7 +19,7 @@ def concat_function() -> Callable[[Any, Any, Any], str]:
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, iterable3, snapshot_name",
+    ("iterable1", "iterable2", "iterable3", "snapshot_name"),
     [
         ([1, 2], ["a", "b"], [True, False], "list_inputs"),
         ((1, 2), ("a", "b"), (True, False), "tuple_inputs"),
@@ -23,7 +27,7 @@ def concat_function() -> Callable[[Any, Any, Any], str]:
     ],
 )
 def test_crosszip_with_iterables(
-    snapshot: Any,
+    snapshot: Snapshot,
     concat_function: Callable[[Any, Any, Any], str],
     iterable1: Iterable[Any],
     iterable2: Iterable[Any],
@@ -36,7 +40,7 @@ def test_crosszip_with_iterables(
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, expected",
+    ("iterable1", "iterable2", "expected"),
     [
         (range(1, 3), "ab", ["1-a", "1-b", "2-a", "2-b"]),
     ],
@@ -95,15 +99,16 @@ def test_crosszip_with_sets() -> None:
 
 @pytest.mark.parametrize("non_iterable", [123, None, math.pi, True])
 def test_crosszip_with_non_iterable(non_iterable: Any) -> None:
+    input_type = type(non_iterable).__name__
     with pytest.raises(
         TypeError,
-        match=f"Expected an iterable, but got {type(non_iterable).__name__}: {non_iterable}",
+        match=f"Expected an iterable, but got {input_type}: {non_iterable}",
     ):
         crosszip(lambda a: a, non_iterable)
 
 
 @pytest.mark.parametrize(
-    "iterable1, iterable2, expected_length",
+    ("iterable1", "iterable2", "expected_length"),
     [
         (range(100), ["a", "b"], 200),
     ],
