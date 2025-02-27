@@ -110,7 +110,7 @@ strict = true
 pretty = true
 # Additional strictness beyond `strict=true`
 disallow_any_unimported = true
-disallow_untyped_decorators = false
+disallow_untyped_decorators = true
 extra_checks = true
 enable_error_code = [
     "truthy-bool", # Flag using non-boolean expressions in boolean contexts
