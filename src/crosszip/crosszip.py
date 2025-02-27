@@ -1,9 +1,11 @@
 import itertools
 from collections.abc import Callable, Iterable
-from typing import Any
+from typing import Any, TypeVar
+
+T = TypeVar("T")
 
 
-def crosszip(func: Callable[..., Any], *iterables: Iterable[Any]) -> list[Any]:
+def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
     """
     Apply a given function to all combinations of elements from multiple iterables.
 
@@ -11,12 +13,12 @@ def crosszip(func: Callable[..., Any], *iterables: Iterable[Any]) -> list[Any]:
     combinations of their elements) and applies the provided function to each combination.
 
     Args:
-        func (Callable[..., Any]): A function that accepts as many arguments as there are iterables.
+        func (Callable[..., T]): A function that accepts as many arguments as there are iterables.
         *iterables (Iterable[Any]): Two or more iterables to generate combinations from. Each iterable
             should contain elements that are valid inputs for the function `func`.
 
     Returns:
-        list[Any]: A list of results from applying the function to each combination of elements.
+        list[T]: A list of results from applying the function to each combination of elements.
 
     Raises:
         TypeError: If any of the provided arguments is not an iterable.
@@ -71,13 +73,5 @@ def crosszip(func: Callable[..., Any], *iterables: Iterable[Any]) -> list[Any]:
           so use with care when working with large datasets.
 
     """
-    # Ensure all arguments are iterable
-    for iterable in iterables:
-        if not isinstance(iterable, Iterable):
-            input_type = type(iterable).__name__
-            error_message = f"Expected an iterable, but got {input_type}: {iterable}"
-            raise TypeError(error_message)
-
-    # Apply the function to the Cartesian product of all the iterables
     combinations = itertools.product(*iterables)
     return list(itertools.starmap(func, combinations))

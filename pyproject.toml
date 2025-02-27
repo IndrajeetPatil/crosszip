@@ -108,4 +108,18 @@ sort = "-Cover"
 [tool.mypy]
 strict = true
 pretty = true
+# Additional strictness beyond `strict=true`
+disallow_any_unimported = true
 disallow_untyped_decorators = false
+extra_checks = true
+enable_error_code = [
+    "truthy-bool", # Flag using non-boolean expressions in boolean contexts
+    "redundant-expr", # Flag redundant expressions that don't have effect
+    "unused-awaitable", # Flag when async function results aren't awaited or stored
+    "comparison-overlap", # Flag comparisons that always evaluate to True or False
+    "ignore-without-code", # Flag # type: ignore comments that don't specify an error code
+    "possibly-undefined", # Flag variables that might be undefined at runtime
+
+]
+warn_unreachable = true
+warn_unused_configs = true

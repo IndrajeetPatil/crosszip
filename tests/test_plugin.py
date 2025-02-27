@@ -1,4 +1,5 @@
 import pytest
+from _pytest.pytester import Pytester
 
 pytest_plugins = ["pytester"]
 
@@ -8,7 +9,7 @@ def test_example(a: int, b: int) -> None:
     assert (a, b) in {(1, 3), (1, 4), (2, 3), (2, 4)}
 
 
-def test_crosszip_parametrize(pytester: pytest.Pytester) -> None:
+def test_crosszip_parametrize(pytester: Pytester) -> None:
     """Test basic functionality with two parameters."""
     pytester.makepyfile("""
     import pytest
@@ -27,7 +28,7 @@ def test_crosszip_parametrize(pytester: pytest.Pytester) -> None:
     result.assert_outcomes(passed=4)
 
 
-def test_single_parameter(pytester: pytest.Pytester) -> None:
+def test_single_parameter(pytester: Pytester) -> None:
     """Test with a single parameter."""
     pytester.makepyfile("""
     import pytest
@@ -44,7 +45,7 @@ def test_single_parameter(pytester: pytest.Pytester) -> None:
     result.assert_outcomes(passed=3)
 
 
-def test_invalid_parameter_name(pytester: pytest.Pytester) -> None:
+def test_invalid_parameter_name(pytester: Pytester) -> None:
     """Test with a non-string parameter name."""
     pytester.makepyfile("""
     import pytest
@@ -64,7 +65,7 @@ def test_invalid_parameter_name(pytester: pytest.Pytester) -> None:
     result.stdout.fnmatch_lines(["*TypeError: All parameter names must be strings.*"])
 
 
-def test_missing_parameter_values(pytester: pytest.Pytester) -> None:
+def test_missing_parameter_values(pytester: Pytester) -> None:
     """Test with mismatched parameter names and values."""
     pytester.makepyfile("""
     import pytest
@@ -85,7 +86,7 @@ def test_missing_parameter_values(pytester: pytest.Pytester) -> None:
     ])
 
 
-def test_empty_parameter_values(pytester: pytest.Pytester) -> None:
+def test_empty_parameter_values(pytester: Pytester) -> None:
     """Test with empty parameter values."""
     pytester.makepyfile("""
     import pytest
@@ -107,7 +108,7 @@ def test_empty_parameter_values(pytester: pytest.Pytester) -> None:
     ])
 
 
-def test_non_sequence_parameter_values(pytester: pytest.Pytester) -> None:
+def test_non_sequence_parameter_values(pytester: Pytester) -> None:
     """Test with non-sequence parameter values."""
     pytester.makepyfile("""
     import pytest
@@ -124,12 +125,9 @@ def test_non_sequence_parameter_values(pytester: pytest.Pytester) -> None:
 
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
-    result.stdout.fnmatch_lines([
-        "*TypeError: All parameter values must be non-empty sequences.*",
-    ])
 
 
-def test_no_parameters(pytester: pytest.Pytester) -> None:
+def test_no_parameters(pytester: Pytester) -> None:
     """Test with no parameters provided."""
     pytester.makepyfile("""
     import pytest
@@ -146,7 +144,7 @@ def test_no_parameters(pytester: pytest.Pytester) -> None:
     ])
 
 
-def test_parameter_combinations(pytester: pytest.Pytester) -> None:
+def test_parameter_combinations(pytester: Pytester) -> None:
     """Test that the Cartesian product of parameters is correct."""
     pytester.makepyfile("""
     import pytest

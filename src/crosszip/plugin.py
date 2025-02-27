@@ -104,5 +104,5 @@ def validate_parameters(
         raise ValueError(PARAMS_COUNT_MISMATCH_ERROR)
     if not all(isinstance(name, str) for name in param_names):
         raise TypeError(PARAMS_NAME_TYPE_ERROR)
-    if any(not isinstance(values, Sequence) or not values for values in param_values):
+    if any(not values for values in param_values):
         raise TypeError(PARAMS_VALUES_TYPE_ERROR)

@@ -11,13 +11,13 @@ venv:
 ## Code quality
 
 format:
-	uv run pre-commit run --hook-stage commit ruff-format --all-files
+	uv run ruff format
 
 lint:
-	uv run pre-commit run --hook-stage commit ruff --all-files
+	uv run ruff check --fix
 
 mypy:
-	uv run pre-commit run --hook-stage commit mypy --all-files
+	uv run mypy .
 
 qa: format lint mypy
 
