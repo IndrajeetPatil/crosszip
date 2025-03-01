@@ -1,3 +1,10 @@
+## Dependencies
+update-deps:
+	uv lock --upgrade
+	uv sync
+
+upgrade-deps: update-deps
+
 ## Code quality
 
 format:
@@ -40,6 +47,7 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
+	@echo "  update-deps    Update dependencies"
 	@echo "  test           Run tests"
 	@echo "  coverage       Run tests and generate coverage report"
 	@echo "  test-package   Run tests, generate coverage report and check coverage"
