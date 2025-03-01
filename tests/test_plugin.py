@@ -81,9 +81,11 @@ def test_missing_parameter_values(pytester: Pytester) -> None:
 
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
-    result.stdout.fnmatch_lines([
-        "*ValueError: Each parameter name must have a corresponding list of values.*",
-    ])
+    result.stdout.fnmatch_lines(
+        [
+            "*ValueError: Each parameter name must have a corresponding list of values.*",
+        ]
+    )
 
 
 def test_empty_parameter_values(pytester: Pytester) -> None:
@@ -103,9 +105,11 @@ def test_empty_parameter_values(pytester: Pytester) -> None:
 
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
-    result.stdout.fnmatch_lines([
-        "*TypeError: All parameter values must be non-empty sequences.*",
-    ])
+    result.stdout.fnmatch_lines(
+        [
+            "*TypeError: All parameter values must be non-empty sequences.*",
+        ]
+    )
 
 
 def test_non_sequence_parameter_values(pytester: Pytester) -> None:
@@ -139,9 +143,11 @@ def test_no_parameters(pytester: Pytester) -> None:
 
     result = pytester.runpytest()
     result.assert_outcomes(errors=1)
-    result.stdout.fnmatch_lines([
-        "*ValueError: Parameter names and values must be provided.*",
-    ])
+    result.stdout.fnmatch_lines(
+        [
+            "*ValueError: Parameter names and values must be provided.*",
+        ]
+    )
 
 
 def test_parameter_combinations(pytester: Pytester) -> None:
