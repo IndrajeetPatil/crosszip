@@ -25,8 +25,8 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Build Docs
-        run: mkdocs build
+        run: uv run mkdocs build
 
       - name: Deploy
         if: github.ref == 'refs/heads/main'
-        run: mkdocs gh-deploy --force
+        run: uv run mkdocs gh-deploy --force
