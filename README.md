@@ -19,10 +19,10 @@ parameter values.
 
 ## Installation
 
-| Package Manager | Installation Command      |
-|-----------------|---------------------------|
-| pip             | `pip install crosszip`    |
-| uv              | `uv pip install crosszip` |
+| Package Manager | Installation Command   |
+|-----------------|------------------------|
+| pip             | `pip install crosszip` |
+| uv              | `uv add crosszip`      |
 
 ## Usage
 

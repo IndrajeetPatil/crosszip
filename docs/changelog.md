@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- No user-facing changes.
+
 ## 1.1.0
 
 - Extends support to Python versions `3.10` and `3.11`.

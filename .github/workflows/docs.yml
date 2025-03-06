@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: write
-
 jobs:
   build-docs:
     runs-on: ubuntu-latest
@@ -24,25 +21,11 @@ jobs:
         with:
           python-version: 3.13
 
-      - name: Install the project
+      - name: Install dependencies
         run: uv sync --all-extras --dev
 
-      - name: Configure Git Credentials
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v4
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-
-      - name: Install mkdocs and plugin packages
-        run: |
-          pip install mkdocs mkdocs-material mkdocstrings-python
+      - name: Build Docs
+        run: mkdocs build
 
       - name: Deploy
         if: github.ref == 'refs/heads/main'
