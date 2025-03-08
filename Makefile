@@ -6,14 +6,22 @@
 CP = cp
 ifeq ($(OS),Windows_NT)
 	CP = copy
+	# Disable colors on Windows and use echo instead of printf
+	RED = 
+	GREEN = 
+	YELLOW = 
+	BLUE = 
+	NC = 
+	PRINT = echo
+else
+	# ANSI color codes for non-Windows platforms
+	RED = \033[0;31m
+	GREEN = \033[0;32m
+	YELLOW = \033[0;33m
+	BLUE = \033[0;34m
+	NC = \033[0m # No Color
+	PRINT = printf
 endif
-
-# ANSI color codes
-RED = \033[0;31m
-GREEN = \033[0;32m
-YELLOW = \033[0;33m
-BLUE = \033[0;34m
-NC = \033[0m # No Color
 
 # --------------------------------------
 # Dependencies
@@ -71,34 +79,34 @@ serve-docs:
 # --------------------------------------
 
 help:
-	@printf "$(BLUE)Usage: make [target]$(NC)\n"
-	@printf "\n"
-	@printf "$(YELLOW)Available Targets:$(NC)\n"
-	@printf "$(GREEN) Dependencies:$(NC)\n"
-	@printf "   $(RED)update-deps$(NC)    - Update and sync dependencies\n"
-	@printf "   $(RED)upgrade-deps$(NC)   - Alias for update-deps\n"
-	@printf "\n"
-	@printf "$(GREEN) Code Quality:$(NC)\n"
-	@printf "   $(RED)format$(NC)        - Format code using ruff\n"
-	@printf "   $(RED)lint$(NC)          - Lint code with ruff and fix issues\n"
-	@printf "   $(RED)mypy$(NC)          - Run type checking with mypy\n"
-	@printf "   $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)\n"
-	@printf "\n"
-	@printf "$(GREEN) Testing & Packaging:$(NC)\n"
-	@printf "   $(RED)test$(NC)          - Run tests with pytest\n"
-	@printf "   $(RED)coverage$(NC)      - Generate test coverage report\n"
-	@printf "   $(RED)build$(NC)         - Build the package\n"
-	@printf "   $(RED)test-package$(NC)  - Run tests and coverage\n"
-	@printf "   $(RED)check-package$(NC) - Full package check (tests, QA, build)\n"
-	@printf "\n"
-	@printf "$(GREEN) Documentation:$(NC)\n"
-	@printf "   $(RED)serve-docs$(NC)    - Build and serve documentation\n"
-	@printf "\n"
-	@printf "$(GREEN) Help:$(NC)\n"
-	@printf "   $(RED)help$(NC)          - Display this help message\n"
-	@printf "\n"
-	@printf "$(YELLOW)Examples:$(NC)\n"
-	@printf "   make $(RED)test$(NC)          # Run tests\n"
-	@printf "   make $(RED)qa$(NC)            # Run all quality checks\n"
-	@printf "   make $(RED)check-package$(NC) # Run full package validation\n"
-	@printf "   make $(RED)serve-docs$(NC)    # Serve documentation locally\n"
+	@$(PRINT) "$(BLUE)Usage: make [target]$(NC)"
+	@$(PRINT) ""
+	@$(PRINT) "$(YELLOW)Available Targets:$(NC)"
+	@$(PRINT) "$(GREEN) Dependencies:$(NC)"
+	@$(PRINT) "   $(RED)update-deps$(NC)    - Update and sync dependencies"
+	@$(PRINT) "   $(RED)upgrade-deps$(NC)   - Alias for update-deps"
+	@$(PRINT) ""
+	@$(PRINT) "$(GREEN) Code Quality:$(NC)"
+	@$(PRINT) "   $(RED)format$(NC)        - Format code using ruff"
+	@$(PRINT) "   $(RED)lint$(NC)          - Lint code with ruff and fix issues"
+	@$(PRINT) "   $(RED)mypy$(NC)          - Run type checking with mypy"
+	@$(PRINT) "   $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)"
+	@$(PRINT) ""
+	@$(PRINT) "$(GREEN) Testing & Packaging:$(NC)"
+	@$(PRINT) "   $(RED)test$(NC)          - Run tests with pytest"
+	@$(PRINT) "   $(RED)coverage$(NC)      - Generate test coverage report"
+	@$(PRINT) "   $(RED)build$(NC)         - Build the package"
+	@$(PRINT) "   $(RED)test-package$(NC)  - Run tests and coverage"
+	@$(PRINT) "   $(RED)check-package$(NC) - Full package check (tests, QA, build)"
+	@$(PRINT) ""
+	@$(PRINT) "$(GREEN) Documentation:$(NC)"
+	@$(PRINT) "   $(RED)serve-docs$(NC)    - Build and serve documentation"
+	@$(PRINT) ""
+	@$(PRINT) "$(GREEN) Help:$(NC)"
+	@$(PRINT) "   $(RED)help$(NC)          - Display this help message"
+	@$(PRINT) ""
+	@$(PRINT) "$(YELLOW)Examples:$(NC)"
+	@$(PRINT) "   make $(RED)test$(NC)          # Run tests"
+	@$(PRINT) "   make $(RED)qa$(NC)            # Run all quality checks"
+	@$(PRINT) "   make $(RED)check-package$(NC) # Run full package validation"
+	@$(PRINT) "   make $(RED)serve-docs$(NC)    # Serve documentation locally"
