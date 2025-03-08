@@ -97,7 +97,7 @@ python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
 [tool.coverage.run]
 source = ["crosszip"]
-omit = ["tests/*", "test/*", "test_*.py", "test-*.py", "test.py", "tests.py"]
+omit = ["*/__init__.py", "tests/*"]
 
 [tool.coverage.report]
 fail_under = 100

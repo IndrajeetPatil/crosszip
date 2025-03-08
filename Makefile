@@ -45,6 +45,7 @@ qa: format lint mypy
 # --------------------------------------
 
 test:
+	uv pip install -e .
 	uv run pytest
 	uv run coverage report
 	uv run coverage html
