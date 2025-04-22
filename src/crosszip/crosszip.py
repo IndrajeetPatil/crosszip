@@ -1,11 +1,11 @@
 import itertools
 from collections.abc import Callable, Iterable
-from typing import Any, TypeVar
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
+def crosszip(func: Callable[..., T], *iterables: Iterable[T]) -> list[T]:
     """
     Apply a given function to all combinations of elements from multiple iterables.
 
@@ -14,7 +14,7 @@ def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
 
     Args:
         func (Callable[..., T]): A function that accepts as many arguments as there are iterables.
-        *iterables (Iterable[Any]): Two or more iterables to generate combinations from. Each iterable
+        *iterables (Iterable[T]): Two or more iterables to generate combinations from. Each iterable
             should contain elements that are valid inputs for the function `func`.
 
     Returns:

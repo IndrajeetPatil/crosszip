@@ -1,11 +1,13 @@
 import json
 import math
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, Protocol
+from typing import Protocol, TypeVar
 
 import pytest
 
 from crosszip.crosszip import crosszip
+
+T = TypeVar("T")
 
 
 class Snapshot(Protocol):
@@ -13,7 +15,7 @@ class Snapshot(Protocol):
 
 
 @pytest.fixture
-def concat_function() -> Callable[[Any, Any, Any], str]:
+def concat_function() -> Callable[..., str]:
     """Fixture for a basic concatenation function."""
     return lambda a, b, c: f"{a}-{b}-{c}"
 
@@ -28,10 +30,10 @@ def concat_function() -> Callable[[Any, Any, Any], str]:
 )
 def test_crosszip_with_iterables(
     snapshot: Snapshot,
-    concat_function: Callable[[Any, Any, Any], str],
-    iterable1: Iterable[Any],
-    iterable2: Iterable[Any],
-    iterable3: Iterable[Any],
+    concat_function: Callable[..., T],
+    iterable1: Iterable[T],
+    iterable2: Iterable[T],
+    iterable3: Iterable[T],
     snapshot_name: str,
 ) -> None:
     result = crosszip(concat_function, iterable1, iterable2, iterable3)
@@ -94,17 +96,17 @@ def test_crosszip_with_sets() -> None:
         "2-b-y",
     ]
     # sets are unordered, so we need to sort the results
-    assert sorted(result) == sorted(expected)
+    assert sorted(result, key=str) == sorted(expected, key=str)
 
 
 @pytest.mark.parametrize("non_iterable", [123, None, math.pi, True])
-def test_crosszip_with_non_iterable(non_iterable: Any) -> None:
+def test_crosszip_with_non_iterable(non_iterable: T) -> None:
     input_type = type(non_iterable).__name__
     with pytest.raises(
         TypeError,
         match=f"'{input_type}' object is not iterable",
     ):
-        crosszip(lambda a: a, non_iterable)
+        crosszip(lambda a: a, non_iterable)  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize(

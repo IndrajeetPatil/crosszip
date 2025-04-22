@@ -20,7 +20,7 @@ Additionally, `@pytest.mark.crosszip_parametrize` is a `pytest` marker that simp
 | Package Manager | Installation Command      |
 | --------------- | ------------------------- |
 | pip             | `pip install crosszip`    |
-| uv              | `uv pip install crosszip` |
+| uv              | `uv add crosszip`         |
 
 ## Usage
 
