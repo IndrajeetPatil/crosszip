@@ -1,8 +1,17 @@
 from collections.abc import Sequence
 from itertools import product
-from typing import Any, Final
+from typing import Any
 
 import pytest
+
+from .exceptions import (
+    CrosszipTypeError,
+    CrosszipValueError,
+    PARAMS_COUNT_MISMATCH_ERROR,
+    PARAMS_NAME_TYPE_ERROR,
+    PARAMS_REQUIRED_ERROR,
+    PARAMS_VALUES_TYPE_ERROR,
+)
 
 
 @pytest.hookimpl(trylast=True)
@@ -31,8 +40,8 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         metafunc (pytest.Metafunc): The test function's metadata provided by pytest.
 
     Raises:
-        ValueError: If parameter names and values are not provided or their lengths do not match.
-        TypeError: If parameter names are not strings or parameter values are empty sequences.
+        CrosszipValueError: If parameter names and values are not provided or their lengths do not match.
+        CrosszipTypeError: If parameter names are not strings or parameter values are empty sequences.
 
     Example:
         ```python
@@ -87,22 +96,14 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         metafunc.parametrize(param_names_str, combinations)
 
 
-PARAMS_REQUIRED_ERROR: Final = "Parameter names and values must be provided."
-PARAMS_COUNT_MISMATCH_ERROR: Final = (
-    "Each parameter name must have a corresponding list of values."
-)
-PARAMS_NAME_TYPE_ERROR: Final = "All parameter names must be strings."
-PARAMS_VALUES_TYPE_ERROR: Final = "All parameter values must be non-empty sequences."
-
-
 def validate_parameters(
     param_names: Sequence[str], param_values: Sequence[Sequence[Any]]
 ) -> None:
     if not param_names or not param_values:
-        raise ValueError(PARAMS_REQUIRED_ERROR)
+        raise CrosszipValueError(PARAMS_REQUIRED_ERROR)
     if len(param_names) != len(param_values):
-        raise ValueError(PARAMS_COUNT_MISMATCH_ERROR)
+        raise CrosszipValueError(PARAMS_COUNT_MISMATCH_ERROR)
     if not all(isinstance(name, str) for name in param_names):
-        raise TypeError(PARAMS_NAME_TYPE_ERROR)
+        raise CrosszipTypeError(PARAMS_NAME_TYPE_ERROR)
     if any(not values for values in param_values):
-        raise TypeError(PARAMS_VALUES_TYPE_ERROR)
+        raise CrosszipTypeError(PARAMS_VALUES_TYPE_ERROR)

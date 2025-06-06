@@ -93,34 +93,66 @@ serve-docs:
 # --------------------------------------
 
 help:
-	@$(ECHO) $(BLUE)Usage: make [target]$(NC)
-	@$(ECHO) 
-	@$(ECHO) $(YELLOW)Available Targets:$(NC)
-	@$(ECHO) $(GREEN) Dependencies:$(NC)
-	@$(ECHO)    $(RED)update-deps$(NC)    - Update and sync dependencies
-	@$(ECHO)    $(RED)upgrade-deps$(NC)   - Alias for update-deps
-	@$(ECHO) 
-	@$(ECHO) $(GREEN) Code Quality:$(NC)
-	@$(ECHO)    $(RED)format$(NC)        - Format code using ruff
-	@$(ECHO)    $(RED)lint$(NC)          - Lint code with ruff and fix issues
-	@$(ECHO)    $(RED)mypy$(NC)          - Run type checking with mypy
-	@$(ECHO)    $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)
-	@$(ECHO) 
-	@$(ECHO) $(GREEN) Testing and Packaging:$(NC)
-	@$(ECHO)    $(RED)test-coverage$(NC)  - Run tests and generate coverage report
-	@$(ECHO)    $(RED)build$(NC)         - Build the package
-	@$(ECHO)    $(RED)test-package$(NC)  - Run tests and coverage
-	@$(ECHO)    $(RED)check-package$(NC) - Full package check (tests, QA, build)
-	@$(ECHO) 
-	@$(ECHO) $(GREEN) Documentation:$(NC)
-	@$(ECHO)    $(RED)serve-docs$(NC)    - Build and serve documentation
-	@$(ECHO) 
-	@$(ECHO) $(GREEN) Help:$(NC)
-	@$(ECHO)    $(RED)help$(NC)          - Display this help message
-	@$(ECHO) 
-	@$(ECHO) $(YELLOW)Examples:$(NC)
-	@$(ECHO)    make $(RED)test-coverage$(NC)  # Run tests and coverage
-	@$(ECHO)    make $(RED)qa$(NC)            # Run all quality checks
-	@$(ECHO)    make $(RED)check-package$(NC) # Run full package validation
-	@$(ECHO)    make $(RED)serve-docs$(NC)    # Serve documentation locally
-	@if "$(NC)" == "" ( $(ECHO) Note: Colors not supported in this terminal. Use Windows Terminal or Git Bash for colored output.) else ( $(ECHO) )
+ifeq ($(OS),Windows_NT)
+	@echo $(BLUE)Usage: make [target]$(NC)
+	@echo.
+	@echo $(YELLOW)Available Targets:$(NC)
+	@echo $(GREEN) Dependencies:$(NC)
+	@echo     $(RED)update-deps$(NC)    - Update and sync dependencies
+	@echo     $(RED)upgrade-deps$(NC)   - Alias for update-deps
+	@echo.
+	@echo $(GREEN) Code Quality:$(NC)
+	@echo     $(RED)format$(NC)        - Format code using ruff
+	@echo     $(RED)lint$(NC)          - Lint code with ruff and fix issues
+	@echo     $(RED)mypy$(NC)          - Run type checking with mypy
+	@echo     $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)
+	@echo.
+	@echo $(GREEN) Testing and Packaging:$(NC)
+	@echo     $(RED)test-coverage$(NC)  - Run tests and generate coverage report
+	@echo     $(RED)build$(NC)         - Build the package
+	@echo     $(RED)test-package$(NC)  - Run tests and coverage
+	@echo     $(RED)check-package$(NC) - Full package check (tests, QA, build)
+	@echo.
+	@echo $(GREEN) Documentation:$(NC)
+	@echo     $(RED)serve-docs$(NC)    - Build and serve documentation
+	@echo.
+	@echo $(GREEN) Help:$(NC)
+	@echo     $(RED)help$(NC)          - Display this help message
+	@echo.
+	@echo $(YELLOW)Examples:$(NC)
+	@echo     make $(RED)test-coverage$(NC)  # Run tests and coverage
+	@echo     make $(RED)qa$(NC)            # Run all quality checks
+	@echo     make $(RED)check-package$(NC) # Run full package validation
+	@echo     make $(RED)serve-docs$(NC)    # Serve documentation locally
+else
+	@printf "$(BLUE)Usage: make [target]$(NC)\n"
+	@printf "\n"
+	@printf "$(YELLOW)Available Targets:$(NC)\n"
+	@printf "$(GREEN) Dependencies:$(NC)\n"
+	@printf "    $(RED)update-deps$(NC)    - Update and sync dependencies\n"
+	@printf "    $(RED)upgrade-deps$(NC)   - Alias for update-deps\n"
+	@printf "\n"
+	@printf "$(GREEN) Code Quality:$(NC)\n"
+	@printf "    $(RED)format$(NC)        - Format code using ruff\n"
+	@printf "    $(RED)lint$(NC)          - Lint code with ruff and fix issues\n"
+	@printf "    $(RED)mypy$(NC)          - Run type checking with mypy\n"
+	@printf "    $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)\n"
+	@printf "\n"
+	@printf "$(GREEN) Testing and Packaging:$(NC)\n"
+	@printf "    $(RED)test-coverage$(NC)  - Run tests and generate coverage report\n"
+	@printf "    $(RED)build$(NC)         - Build the package\n"
+	@printf "    $(RED)test-package$(NC)  - Run tests and coverage\n"
+	@printf "    $(RED)check-package$(NC) - Full package check (tests, QA, build)\n"
+	@printf "\n"
+	@printf "$(GREEN) Documentation:$(NC)\n"
+	@printf "    $(RED)serve-docs$(NC)    - Build and serve documentation\n"
+	@printf "\n"
+	@printf "$(GREEN) Help:$(NC)\n"
+	@printf "    $(RED)help$(NC)          - Display this help message\n"
+	@printf "\n"
+	@printf "$(YELLOW)Examples:$(NC)\n"
+	@printf "    make $(RED)test-coverage$(NC)  # Run tests and coverage\n"
+	@printf "    make $(RED)qa$(NC)            # Run all quality checks\n"
+	@printf "    make $(RED)check-package$(NC) # Run full package validation\n"
+	@printf "    make $(RED)serve-docs$(NC)    # Serve documentation locally\n"
+endif
