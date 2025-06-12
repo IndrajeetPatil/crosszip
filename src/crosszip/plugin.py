@@ -85,19 +85,19 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
     """
     marker = metafunc.definition.get_closest_marker("crosszip_parametrize")
     if marker:
-        args = marker.args
-        param_names = args[::2]
-        param_values = args[1::2]
+        args: tuple[Any, ...] = marker.args
+        param_names: tuple[Any, ...] = args[::2]
+        param_values: tuple[Any, ...] = args[1::2]
 
         validate_parameters(param_names, param_values)
 
-        combinations = list(product(*param_values))
-        param_names_str = ",".join(param_names)
+        combinations: list[tuple[Any, ...]] = list(product(*param_values))
+        param_names_str: str = ",".join(param_names)
         metafunc.parametrize(param_names_str, combinations)
 
 
 def validate_parameters(
-    param_names: Sequence[str], param_values: Sequence[Sequence[Any]]
+    param_names: Sequence[Any], param_values: Sequence[Any]
 ) -> None:
     if not param_names or not param_values:
         raise CrosszipValueError(PARAMS_REQUIRED_ERROR)

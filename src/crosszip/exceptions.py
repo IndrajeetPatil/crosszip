@@ -14,9 +14,9 @@ class CrosszipValueError(CrosszipError, ValueError):
 
 
 # Error messages for plugin validation
-PARAMS_REQUIRED_ERROR = "Parameter names and values must be provided."
-PARAMS_COUNT_MISMATCH_ERROR = (
+PARAMS_REQUIRED_ERROR: str = "Parameter names and values must be provided."
+PARAMS_COUNT_MISMATCH_ERROR: str = (
     "Each parameter name must have a corresponding list of values."
 )
-PARAMS_NAME_TYPE_ERROR = "All parameter names must be strings."
-PARAMS_VALUES_TYPE_ERROR = "All parameter values must be non-empty sequences."
+PARAMS_NAME_TYPE_ERROR: str = "All parameter names must be strings."
+PARAMS_VALUES_TYPE_ERROR: str = "All parameter values must be non-empty sequences."
