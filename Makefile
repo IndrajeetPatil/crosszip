@@ -43,6 +43,7 @@ endif
 update-deps:
 	uv lock --upgrade
 	uv sync
+	pre-commit autoupdate
 
 upgrade-deps: update-deps
 
@@ -108,7 +109,7 @@ ifeq ($(OS),Windows_NT)
 	@echo     $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)
 	@echo.
 	@echo $(GREEN) Testing and Packaging:$(NC)
-	@echo     $(RED)test-coverage$(NC)  - Run tests and generate coverage report
+	@echo     $(RED)test-coverage$(NC) - Run tests and generate coverage report
 	@echo     $(RED)build$(NC)         - Build the package
 	@echo     $(RED)test-package$(NC)  - Run tests and coverage
 	@echo     $(RED)check-package$(NC) - Full package check (tests, QA, build)
@@ -152,7 +153,7 @@ else
 	@printf "\n"
 	@printf "$(YELLOW)Examples:$(NC)\n"
 	@printf "    make $(RED)test-coverage$(NC)  # Run tests and coverage\n"
-	@printf "    make $(RED)qa$(NC)            # Run all quality checks\n"
-	@printf "    make $(RED)check-package$(NC) # Run full package validation\n"
-	@printf "    make $(RED)serve-docs$(NC)    # Serve documentation locally\n"
+	@printf "    make $(RED)qa$(NC)             # Run all quality checks\n"
+	@printf "    make $(RED)check-package$(NC)  # Run full package validation\n"
+	@printf "    make $(RED)serve-docs$(NC)     # Serve documentation locally\n"
 endif

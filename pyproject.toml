@@ -62,8 +62,8 @@ unsafe-fixes = true
 preview = true
 
 [tool.ruff.lint]
-#select = ["ALL"]
-ignore = ["COM812", "CPY", "D100", "D203", "D212", "DOC502"]
+select = ["ALL"]
+ignore = ["COM812", "CPY", "D"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [

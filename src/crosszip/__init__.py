@@ -1,1 +1,3 @@
-from .crosszip import crosszip as crosszip
+__all__ = ["crosszip"]
+
+from .crosszip import crosszip

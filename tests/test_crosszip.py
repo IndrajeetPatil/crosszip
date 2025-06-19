@@ -28,7 +28,7 @@ def concat_function() -> Callable[..., str]:
         ("12", "ab", "xy", "string_inputs"),
     ],
 )
-def test_crosszip_with_iterables(
+def test_crosszip_with_iterables(  # noqa: PLR0913
     snapshot: Snapshot,
     concat_function: Callable[..., T],
     iterable1: Iterable[T],

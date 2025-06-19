@@ -83,7 +83,8 @@ def test_missing_parameter_values(pytester: Pytester) -> None:
     result.assert_outcomes(errors=1)
     result.stdout.fnmatch_lines(
         [
-            "*ValueError: Each parameter name must have a corresponding list of values.*",
+            "*ValueError: Each parameter name must have a corresponding list of "
+            "values.*",
         ]
     )
 
