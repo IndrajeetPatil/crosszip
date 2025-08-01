@@ -96,6 +96,7 @@ xfail_strict = true
 python_files = ["test_*.py", "test-*.py", "tests.py", "test.py"]
 
 [tool.coverage.run]
+branch = true
 source = ["crosszip"]
 omit = ["*/__init__.py", "tests/*"]
 
