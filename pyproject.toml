@@ -102,8 +102,9 @@ source = ["crosszip"]
 [tool.coverage.report]
 fail_under = 100
 format = "markdown"
-show_missing = true
 sort = "-Cover"
+show_missing = true
+skip_empty = true
 
 [tool.mypy]
 strict = true
