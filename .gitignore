@@ -37,3 +37,8 @@ repos/
 .Rproj.user
 .Rhistory
 .claude/
+
+# Mutation testing
+.mutmut-cache/
+mutants_backup/
+mutants/
