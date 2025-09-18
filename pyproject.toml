@@ -37,17 +37,17 @@ crosszip_parametrize = "crosszip.plugin"
 [tool.uv]
 dev-dependencies = [
     "coverage>=7.6.4",
-    "mypy>=1.13.0",
-    "pytest-random-order>=1.1.1",
-    "pytest>=8.3.3",
-    "ruff>=0.8.0",
-    "pytest-snapshot>=0.9.0",
-    "pre-commit>=4.0.1",
     "jupyter>=1.1.1",
-    "pytest-cov>=6.0.0",
-    "mkdocstrings-python>=1.12.2",
-    "mkdocs-material>=9.5.47",
     "mkdocs>=1.6.1",
+    "mkdocs-material>=9.5.47",
+    "mkdocstrings-python>=1.12.2",
+    "mypy>=1.13.0",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "pytest-random-order>=1.1.1",
+    "pytest-snapshot>=0.9.0",
+    "ruff>=0.13.0",
 ]
 
 [build-system]
