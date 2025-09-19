@@ -20,6 +20,7 @@ def concat_function() -> Callable[..., str]:
     return lambda a, b, c: f"{a}-{b}-{c}"
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     ("iterable1", "iterable2", "iterable3", "snapshot_name"),
     [
