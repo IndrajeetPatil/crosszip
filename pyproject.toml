@@ -34,8 +34,8 @@ Changelog = "https://github.com/IndrajeetPatil/crosszip/blob/main/CHANGELOG.md"
 [project.entry-points.pytest11]
 crosszip_parametrize = "crosszip.plugin"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "coverage>=7.6.4",
     "jupyter>=1.1.1",
     "mkdocs>=1.6.1",
