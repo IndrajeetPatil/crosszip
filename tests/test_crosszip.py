@@ -22,22 +22,20 @@ def concat_function() -> Callable[..., str]:
 
 @pytest.mark.benchmark
 @pytest.mark.parametrize(
-    ("iterable1", "iterable2", "iterable3", "snapshot_name"),
+    ("iterables", "snapshot_name"),
     [
-        ([1, 2], ["a", "b"], [True, False], "list_inputs"),
-        ((1, 2), ("a", "b"), (True, False), "tuple_inputs"),
-        ("12", "ab", "xy", "string_inputs"),
+        (([1, 2], ["a", "b"], [True, False]), "list_inputs"),
+        (((1, 2), ("a", "b"), (True, False)), "tuple_inputs"),
+        (("12", "ab", "xy"), "string_inputs"),
     ],
 )
-def test_crosszip_with_iterables(  # noqa: PLR0913
+def test_crosszip_with_iterables(
     snapshot: Snapshot,
     concat_function: Callable[..., T],
-    iterable1: Iterable[T],
-    iterable2: Iterable[T],
-    iterable3: Iterable[T],
+    iterables: tuple[Iterable[T], ...],
     snapshot_name: str,
 ) -> None:
-    result = crosszip(concat_function, iterable1, iterable2, iterable3)
+    result = crosszip(concat_function, *iterables)
     snapshot_json = json.dumps(result, indent=2, sort_keys=True)
     snapshot.assert_match(snapshot_json, f"{snapshot_name}.json")
 
