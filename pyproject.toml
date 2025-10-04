@@ -57,10 +57,8 @@ build-backend = "hatchling.build"
 
 [tool.ruff]
 fix = true
-unsafe-fixes = true
-
-[tool.ruff.analyze]
 preview = true
+unsafe-fixes = true
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -76,6 +74,7 @@ ignore = ["COM812", "CPY", "D"]
 ]
 
 [tool.ruff.format]
+preview = true
 docstring-code-format = true
 
 [tool.pytest.ini_options]

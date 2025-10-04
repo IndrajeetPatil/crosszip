@@ -39,12 +39,6 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
     Args:
         metafunc (pytest.Metafunc): The test function's metadata provided by pytest.
 
-    Raises:
-        CrosszipValueError: If parameter names and values are not provided or their
-            lengths do not match.
-        CrosszipTypeError: If parameter names are not strings or parameter values are
-            empty sequences.
-
     Example:
         ```python
         import math

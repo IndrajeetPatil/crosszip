@@ -24,9 +24,6 @@ def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
         list[T]: A list of results from applying the function to each combination of
             elements.
 
-    Raises:
-        TypeError: If any of the provided arguments is not an iterable.
-
     Example:
         ```python
         # Example 1: Basic usage with lists
@@ -65,10 +62,6 @@ def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
 
         crosszip(concat, gen(), ["a", "b"], ["x", "y"])
         # >> ['1-a-x', '1-a-y', '1-b-x', '1-b-y', '2-a-x', '2-a-y', '2-b-x', '2-b-y']
-
-        # Example 5: Passing a non-iterable argument (raises TypeError)
-        crosszip(concat, [1, 2], 123, ["a", "b"])
-        # TypeError: Expected an iterable, but got int: 123
         ```
 
     Notes:
