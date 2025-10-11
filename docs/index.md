@@ -28,7 +28,7 @@ parameter values.
 
 Example of using `crosszip`:
 
-``` py
+``` python
 # Label Generation for Machine Learning
 
 from crosszip import crosszip
@@ -50,7 +50,7 @@ print(labels)
 
 Example of using `pytest` marker `crosszip_parametrize`:
 
-``` py
+``` python
 # Testing Power Function
 
 import math
@@ -67,7 +67,11 @@ import pytest
 def test_power_function(base, exponent):
     result = math.pow(base, exponent)
     assert result == base**exponent
+
+print("Tests executed successfully.")
 ```
+
+    Tests executed successfully.
 
 For more examples, check out the package documentation at:
 <https://indrajeetpatil.github.io/crosszip/>
@@ -89,3 +93,7 @@ This project is licensed under the MIT License.
 
 Hex sticker font is `Rubik`, and the image is taken from icon made by
 Freepik and available at flaticon.com.
+
+Executable code snippets use [JavaScript
+code](https://samuelcolvin.github.io/mkdocs-run-code/run_code_main.js)
+from Samuel Colvin of Pydantic.
