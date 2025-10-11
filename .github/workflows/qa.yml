@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: 3.13
+          python-version: 3.14
 
       - name: Install the project
         run: uv sync --all-extras --dev
@@ -29,8 +29,8 @@ jobs:
       - name: Build the package
         run: uv build
 
-      - name: Run pre-commit hooks
-        run: uv run pre-commit run --all-files
+      - name: Run QA checks
+        run: make qa
 
       - name: Compute Coverage
         run: |
