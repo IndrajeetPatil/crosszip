@@ -13,6 +13,8 @@ nav:
   - API Reference:
       - crosszip: reference/crosszip.md
       - pytest-plugin: reference/plugin.md
+  - Integrations:
+      - LLMs: integrations/llms.md
   - Changelog: changelog.md
 
 theme:
@@ -82,6 +84,19 @@ markdown_extensions:
 plugins:
   - search
   - tags
+  - llmstxt:
+      enabled: true
+      full_output: llms-full.txt
+      markdown_description: |-
+        crosszip is a Python library for iterating over all combinations from multiple iterables.
+        It provides a simple and efficient way to apply functions across combinations of elements.
+      sections:
+        Home documentation:
+          - index.md
+        API documentation:
+          - reference/*.md
+        Changelog:
+          - changelog.md
   - mkdocstrings:
       default_handler: python
       handlers:
