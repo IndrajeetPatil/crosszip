@@ -28,7 +28,7 @@ parameter values.
 
 Example of using `crosszip`:
 
-``` python
+``` py
 # Label Generation for Machine Learning
 
 from crosszip import crosszip
@@ -50,7 +50,7 @@ print(labels)
 
 Example of using `pytest` marker `crosszip_parametrize`:
 
-``` python
+``` py
 # Testing Power Function
 
 import math
