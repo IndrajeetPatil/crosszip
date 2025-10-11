@@ -21,7 +21,7 @@ jobs:
           - os: ubuntu-latest
             python-version: 3.12
           - os: ubuntu-latest
-            python-version: 3.13
+            python-version: 3.14
           # macOS and windows with the latest Python version
           - os: macos-latest
             python-version: 3.14
