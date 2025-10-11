@@ -92,10 +92,7 @@ plugins:
 
 extra_javascript:
   - javascripts/config.js
-  - https://samuelcolvin.github.io/mkdocs-run-code/run_code_main.js
-
-extra_css:
-  - stylesheets/run_code.css
+  - javascripts/run_code_main.js
 
 validation:
   omitted_files: warn
