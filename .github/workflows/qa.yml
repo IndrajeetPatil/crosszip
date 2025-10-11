@@ -29,8 +29,8 @@ jobs:
       - name: Build the package
         run: uv build
 
-      - name: Run pre-commit hooks
-        run: uv run pre-commit run --all-files
+      - name: Run QA checks
+        run: make qa
 
       - name: Compute Coverage
         run: |

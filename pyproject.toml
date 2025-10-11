@@ -109,6 +109,7 @@ show_missing = true
 skip_empty = true
 
 [tool.mypy]
+exclude = ['.venv', 'build', 'dist', 'docs']
 strict = true
 pretty = true
 # Additional strictness beyond `strict=true`
