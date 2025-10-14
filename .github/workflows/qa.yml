@@ -18,13 +18,10 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: 3.14
-
-      - name: Install the project
-        run: uv sync --all-extras --dev
+      - name: Install dependencies
+        run: |
+          uv python install
+          uv sync --all-extras --dev
 
       - name: Build the package
         run: uv build
@@ -44,5 +41,5 @@ jobs:
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render the README
+      - name: Check README examples
         run: uv run quarto render README.qmd
