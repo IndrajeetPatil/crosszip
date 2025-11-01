@@ -10,10 +10,10 @@
 
 .pyodide-run-btn,
 .pyodide-clear-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 0.5rem;
   border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;

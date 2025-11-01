@@ -23,7 +23,7 @@ class PyodideRunner {
       try {
         // Load Pyodide from CDN
         const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
+        script.src = "https://cdn.jsdelivr.net/pyodide/v0.28.3/full/pyodide.js";
         document.head.appendChild(script);
 
         await new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ class PyodideRunner {
 
         // Initialize Pyodide
         this.pyodide = await loadPyodide({
-          indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/",
+          indexURL: "https://cdn.jsdelivr.net/pyodide/v0.28.3/full/",
         });
 
         // Load micropip for package installation
@@ -60,9 +60,13 @@ class PyodideRunner {
 
     for (const pkg of packages) {
       try {
-        await micropip.install(pkg);
+        console.log(`Installing package: ${pkg}`);
+        // Install with keep_going=True to allow upgrades/downgrades
+        await micropip.install(pkg, { keep_going: true });
+        console.log(`Successfully installed: ${pkg}`);
       } catch (error) {
-        console.warn(`Failed to install package ${pkg}:`, error);
+        // Log warning but don't fail - package might already be available
+        console.warn(`Could not install/upgrade ${pkg}:`, error);
       }
     }
   }
@@ -75,7 +79,16 @@ class PyodideRunner {
 
     // Install packages if needed
     if (packages.length > 0) {
-      await this.installPackages(packages);
+      console.log("Installing packages:", packages);
+      try {
+        await this.installPackages(packages);
+      } catch (error) {
+        return {
+          success: false,
+          output: "",
+          error: `Failed to install packages: ${error.message}`,
+        };
+      }
     }
 
     // Capture stdout
@@ -119,7 +132,15 @@ class InteractiveCodeBlock {
 
   extractCode() {
     const codeElement = this.element.querySelector("code");
-    return codeElement ? codeElement.textContent : "";
+    if (!codeElement) return "";
+    const raw = codeElement.textContent || "";
+    // Strip any marker line like "# @pyodide" from the code before execution
+    // Keep detection logic elsewhere based on the raw content
+    const sanitized = raw
+      .split(/\r?\n/)
+      .filter((line) => !/^\s*#\s*@pyodide\b/.test(line))
+      .join("\n");
+    return sanitized;
   }
 
   setupUI() {
@@ -170,7 +191,8 @@ class InteractiveCodeBlock {
 
     try {
       // Show loading message
-      this.outputDiv.innerHTML = '<div class="pyodide-loading">Loading Python environment...</div>';
+      this.outputDiv.innerHTML =
+        '<div class="pyodide-loading">Loading Python environment...</div>';
 
       // Get packages from config (if available)
       const packages = window.mkdocs_run_deps || ["pytest", "crosszip"];
@@ -181,18 +203,25 @@ class InteractiveCodeBlock {
       // Display output
       if (result.success) {
         if (result.output) {
-          this.outputDiv.innerHTML = `<pre class="pyodide-stdout">${this.escapeHtml(result.output)}</pre>`;
+          this.outputDiv.innerHTML = `<pre class="pyodide-stdout">${this.escapeHtml(
+            result.output
+          )}</pre>`;
         } else {
-          this.outputDiv.innerHTML = '<div class="pyodide-success">✓ Code executed successfully (no output)</div>';
+          this.outputDiv.innerHTML =
+            '<div class="pyodide-success">✓ Code executed successfully (no output)</div>';
         }
       } else {
-        this.outputDiv.innerHTML = `<pre class="pyodide-error">Error: ${this.escapeHtml(result.error)}</pre>`;
+        this.outputDiv.innerHTML = `<pre class="pyodide-error">Error: ${this.escapeHtml(
+          result.error
+        )}</pre>`;
       }
 
       // Show clear button
       this.clearButton.style.display = "inline-block";
     } catch (error) {
-      this.outputDiv.innerHTML = `<pre class="pyodide-error">Failed to execute: ${this.escapeHtml(error.message)}</pre>`;
+      this.outputDiv.innerHTML = `<pre class="pyodide-error">Failed to execute: ${this.escapeHtml(
+        error.message
+      )}</pre>`;
       this.clearButton.style.display = "inline-block";
     } finally {
       // Re-enable button
@@ -247,17 +276,12 @@ function initPyodideCodeBlocks() {
   });
 }
 
-// Initialize when DOM is ready
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initPyodideCodeBlocks);
-} else {
-  initPyodideCodeBlocks();
-}
-
-// Also re-initialize when instant loading occurs (MkDocs Material feature)
-// Debounce to avoid excessive processing
-let debounceTimer;
-document.addEventListener("DOMContentLoaded", () => {
+// Set up a MutationObserver to (re)initialize newly injected content
+function setupMutationObserver() {
+  // Avoid multiple observers by storing a flag on window
+  if (window.__pyodideObserverAttached) return;
+  window.__pyodideObserverAttached = true;
+  let debounceTimer;
   const observer = new MutationObserver(() => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
@@ -265,4 +289,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250); // Debounce for 250ms
   });
   observer.observe(document.body, { childList: true, subtree: true });
-});
+}
+
+// Initialize immediately if possible, otherwise on DOMContentLoaded
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    initPyodideCodeBlocks();
+    setupMutationObserver();
+  });
+} else {
+  initPyodideCodeBlocks();
+  setupMutationObserver();
+}

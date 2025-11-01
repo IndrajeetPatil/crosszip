@@ -29,6 +29,7 @@ parameter values.
 Example of using `crosszip`:
 
 ``` python
+# @pyodide
 # Label Generation for Machine Learning
 
 from crosszip import crosszip
@@ -51,6 +52,7 @@ print(labels)
 Example of using `pytest` marker `crosszip_parametrize`:
 
 ``` python
+# @pyodide
 # Testing Power Function
 
 import math
@@ -93,7 +95,3 @@ This project is licensed under the MIT License.
 
 Hex sticker font is `Rubik`, and the image is taken from icon made by
 Freepik and available at flaticon.com.
-
-Executable code snippets use [JavaScript
-code](https://samuelcolvin.github.io/mkdocs-run-code/run_code_main.js)
-from Samuel Colvin of Pydantic.

@@ -15,9 +15,6 @@ nav:
       - pytest-plugin: reference/plugin.md
   - Integrations:
       - LLMs: integrations/llms.md
-  - Pyodide Integration:
-      - Demo: pyodide-demo.md
-      - Implementation Guide: pyodide-implementation.md
   - Changelog: changelog.md
 
 theme:
@@ -110,11 +107,10 @@ plugins:
 
 extra_javascript:
   - javascripts/config.js
-  - javascripts/run_code_main.js
   - javascripts/pyodide_runner.js
 
 extra_css:
-  - javascripts/pyodide_runner.css
+  - stylesheets/pyodide_runner.css
 
 validation:
   omitted_files: warn
