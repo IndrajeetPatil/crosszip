@@ -195,7 +195,7 @@ class InteractiveCodeBlock {
         '<div class="pyodide-loading">Loading Python environment...</div>';
 
       // Get packages from config (if available)
-      const packages = window.mkdocs_run_deps || ["pytest", "crosszip"];
+      const packages = window.mkdocs_run_deps || ["crosszip"];
 
       // Run the code
       const result = await window.pyodideRunner.runCode(this.code, packages);
