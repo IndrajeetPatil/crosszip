@@ -107,7 +107,10 @@ plugins:
 
 extra_javascript:
   - javascripts/config.js
-  - javascripts/run_code_main.js
+  - javascripts/pyodide_runner.js
+
+extra_css:
+  - stylesheets/pyodide_runner.css
 
 validation:
   omitted_files: warn
