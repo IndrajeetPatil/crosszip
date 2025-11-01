@@ -61,8 +61,8 @@ class PyodideRunner {
     for (const pkg of packages) {
       try {
         console.log(`Installing package: ${pkg}`);
-        // Install with keep_going=True to allow upgrades/downgrades
-        await micropip.install(pkg, { keep_going: true });
+        // Install package (micropip handles dependencies automatically)
+        await micropip.install(pkg);
         console.log(`Successfully installed: ${pkg}`);
       } catch (error) {
         // Log warning but don't fail - package might already be available
@@ -194,7 +194,8 @@ class InteractiveCodeBlock {
       this.outputDiv.innerHTML =
         '<div class="pyodide-loading">Loading Python environment...</div>';
 
-      // Get packages from config (if available)
+      // Get packages from config
+      // Fallback to crosszip for robustness if config is not loaded
       const packages = window.mkdocs_run_deps || ["crosszip"];
 
       // Run the code
