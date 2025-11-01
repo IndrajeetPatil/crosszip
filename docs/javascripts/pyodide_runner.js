@@ -112,6 +112,8 @@ class InteractiveCodeBlock {
   constructor(element) {
     this.element = element;
     this.code = this.extractCode();
+    // Mark element as Pyodide-enabled for CSS styling
+    element.classList.add("pyodide-enabled");
     this.setupUI();
   }
 
@@ -141,13 +143,20 @@ class InteractiveCodeBlock {
     container.appendChild(runButton);
     container.appendChild(clearButton);
 
-    // Insert controls before the code block
+    // Create output div (hidden initially)
+    const outputDiv = document.createElement("div");
+    outputDiv.className = "pyodide-output";
+    outputDiv.style.display = "none";
+
+    // Insert controls and output after the code block
     this.element.parentNode.insertBefore(container, this.element.nextSibling);
+    container.after(outputDiv);
 
     // Store references
     this.runButton = runButton;
     this.clearButton = clearButton;
     this.container = container;
+    this.outputDiv = outputDiv;
   }
 
   async runCode() {
@@ -155,18 +164,13 @@ class InteractiveCodeBlock {
     this.runButton.disabled = true;
     this.runButton.textContent = "⏳ Running...";
 
-    // Clear previous output
-    this.clearOutput();
-
-    // Create output element
-    const outputDiv = document.createElement("div");
-    outputDiv.className = "pyodide-output";
-    this.container.after(outputDiv);
-    this.outputDiv = outputDiv;
+    // Clear previous output content
+    this.outputDiv.innerHTML = "";
+    this.outputDiv.style.display = "block";
 
     try {
       // Show loading message
-      outputDiv.innerHTML = '<div class="pyodide-loading">Loading Python environment...</div>';
+      this.outputDiv.innerHTML = '<div class="pyodide-loading">Loading Python environment...</div>';
 
       // Get packages from config (if available)
       const packages = window.mkdocs_run_deps || ["pytest", "crosszip"];
@@ -177,18 +181,19 @@ class InteractiveCodeBlock {
       // Display output
       if (result.success) {
         if (result.output) {
-          outputDiv.innerHTML = `<pre class="pyodide-stdout">${this.escapeHtml(result.output)}</pre>`;
+          this.outputDiv.innerHTML = `<pre class="pyodide-stdout">${this.escapeHtml(result.output)}</pre>`;
         } else {
-          outputDiv.innerHTML = '<div class="pyodide-success">✓ Code executed successfully (no output)</div>';
+          this.outputDiv.innerHTML = '<div class="pyodide-success">✓ Code executed successfully (no output)</div>';
         }
       } else {
-        outputDiv.innerHTML = `<pre class="pyodide-error">Error: ${this.escapeHtml(result.error)}</pre>`;
+        this.outputDiv.innerHTML = `<pre class="pyodide-error">Error: ${this.escapeHtml(result.error)}</pre>`;
       }
 
       // Show clear button
       this.clearButton.style.display = "inline-block";
     } catch (error) {
-      outputDiv.innerHTML = `<pre class="pyodide-error">Failed to execute: ${this.escapeHtml(error.message)}</pre>`;
+      this.outputDiv.innerHTML = `<pre class="pyodide-error">Failed to execute: ${this.escapeHtml(error.message)}</pre>`;
+      this.clearButton.style.display = "inline-block";
     } finally {
       // Re-enable button
       this.runButton.disabled = false;
@@ -198,8 +203,8 @@ class InteractiveCodeBlock {
 
   clearOutput() {
     if (this.outputDiv) {
-      this.outputDiv.remove();
-      this.outputDiv = null;
+      this.outputDiv.innerHTML = "";
+      this.outputDiv.style.display = "none";
     }
     this.clearButton.style.display = "none";
   }
@@ -210,6 +215,11 @@ class InteractiveCodeBlock {
     return div.innerHTML;
   }
 }
+
+/**
+ * Track processed code blocks to avoid duplicate initialization
+ */
+const processedBlocks = new WeakSet();
 
 /**
  * Initialize interactive code blocks
@@ -226,7 +236,12 @@ function initPyodideCodeBlocks() {
       const code = codeElement.textContent;
       // Check if code has a special marker comment for Pyodide
       if (code.includes("# @pyodide") || block.classList.contains("pyodide")) {
-        new InteractiveCodeBlock(block.closest(".highlight"));
+        const highlightContainer = block.closest(".highlight");
+        // Only process if container exists and hasn't been processed
+        if (highlightContainer && !processedBlocks.has(highlightContainer)) {
+          processedBlocks.add(highlightContainer);
+          new InteractiveCodeBlock(highlightContainer);
+        }
       }
     }
   });
@@ -240,9 +255,14 @@ if (document.readyState === "loading") {
 }
 
 // Also re-initialize when instant loading occurs (MkDocs Material feature)
+// Debounce to avoid excessive processing
+let debounceTimer;
 document.addEventListener("DOMContentLoaded", () => {
   const observer = new MutationObserver(() => {
-    initPyodideCodeBlocks();
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      initPyodideCodeBlocks();
+    }, 250); // Debounce for 250ms
   });
   observer.observe(document.body, { childList: true, subtree: true });
 });
