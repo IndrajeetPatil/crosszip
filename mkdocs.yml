@@ -15,7 +15,9 @@ nav:
       - pytest-plugin: reference/plugin.md
   - Integrations:
       - LLMs: integrations/llms.md
-  - Pyodide Demo: pyodide-demo.md
+  - Pyodide Integration:
+      - Demo: pyodide-demo.md
+      - Implementation Guide: pyodide-implementation.md
   - Changelog: changelog.md
 
 theme:
