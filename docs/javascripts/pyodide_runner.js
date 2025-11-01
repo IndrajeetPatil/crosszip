@@ -157,7 +157,7 @@ class InteractiveCodeBlock {
     // Clear button
     const clearButton = document.createElement("button");
     clearButton.className = "pyodide-clear-btn";
-    clearButton.textContent = "⎚ Clear";
+    clearButton.textContent = "✕ Clear";
     clearButton.onclick = () => this.clearOutput();
     clearButton.style.display = "none";
 
