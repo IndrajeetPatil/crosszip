@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Adds support for Python version `3.14`.
+
 ## 1.2.0
 
 - No user-facing changes.
