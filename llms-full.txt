@@ -1,0 +1,405 @@
+# crosszip
+
+> Iterating over all combinations from multiple iterables
+
+crosszip is a Python library for iterating over all combinations from multiple iterables.
+It provides a simple and efficient way to apply functions across combinations of elements.
+
+# Home documentation
+
+# 
+
+`crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables. It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
+
+Additionally, `@pytest.mark.crosszip_parametrize` is a `pytest` marker that simplifies running tests with all possible combinations of parameter values.
+
+## [Installation](#installation)
+
+| Package Manager | Installation Command   |
+| --------------- | ---------------------- |
+| pip             | `pip install crosszip` |
+| uv              | `uv add crosszip`      |
+
+## [Usage](#usage)
+
+Example of using `crosszip`:
+
+```python
+# @pyodide
+# Label Generation for Machine Learning
+
+from crosszip import crosszip
+
+
+def create_label(category, subcategory, version):
+    return f"{category}_{subcategory}_v{version}"
+
+
+categories = ["cat", "dog"]
+subcategories = ["small", "large"]
+versions = ["1.0", "2.0"]
+
+labels = crosszip(create_label, categories, subcategories, versions)
+print(labels)
+```
+
+```text
+['cat_small_v1.0', 'cat_small_v2.0', 'cat_large_v1.0', 'cat_large_v2.0', 'dog_small_v1.0', 'dog_small_v2.0', 'dog_large_v1.0', 'dog_large_v2.0']
+```
+
+Example of using `pytest` marker `crosszip_parametrize`:
+
+```python
+# @pyodide
+# Testing Power Function
+
+import math
+import crosszip
+import pytest
+
+
+@pytest.mark.crosszip_parametrize(
+    "base",
+    [2, 10],
+    "exponent",
+    [-1, 0, 1],
+)
+def test_power_function(base, exponent):
+    result = math.pow(base, exponent)
+    assert result == base**exponent
+
+print("Tests executed successfully.")
+```
+
+```text
+Tests executed successfully.
+```
+
+For more examples, check out the package documentation at: <https://indrajeetpatil.github.io/crosszip/>
+
+## [Key Features](#key-features)
+
+- **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
+- **pytest Plugin**: Provides a `crosszip_parametrize` marker for running tests with all possible combinations of parameter values.
+- **Simple API**: Minimalist, intuitive design for quick integration into your projects.
+
+## [License](#license)
+
+This project is licensed under the MIT License.
+
+## [Acknowledgements](#acknowledgements)
+
+Hex sticker font is `Rubik`, and the image is taken from icon made by Freepik and available at flaticon.com.
+# API documentation
+
+# [crosszip](#crosszip)
+
+## [`crosszip(func, *iterables)`](#crosszip.crosszip.crosszip)
+
+Apply a given function to all combinations of elements from multiple iterables.
+
+This function computes the Cartesian product of the input iterables (i.e., all possible combinations of their elements) and applies the provided function to each combination.
+
+Parameters:
+
+| Name         | Type               | Description                                                                                                                             | Default    |
+| ------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `func`       | `Callable[..., T]` | A function that accepts as many arguments as there are iterables.                                                                       | *required* |
+| `*iterables` | `Iterable[T]`      | Two or more iterables to generate combinations from. Each iterable should contain elements that are valid inputs for the function func. | `()`       |
+
+Returns:
+
+| Type      | Description                                                                              |
+| --------- | ---------------------------------------------------------------------------------------- |
+| `list[T]` | list\[T\]: A list of results from applying the function to each combination of elements. |
+
+Example
+
+```python
+# Example 1: Basic usage with lists
+def concat(a, b, c):
+    return f"{a}-{b}-{c}"
+
+
+list1 = [1, 2]
+list2 = ["a", "b"]
+list3 = [True, False]
+
+crosszip(concat, list1, list2, list3)
+# ['1-a-True', '1-a-False', '1-b-True', '1-b-False', '2-a-True', '2-a-False',
+#  '2-b-True', '2-b-False']
+
+
+# Example 2: Using tuples and a mathematical function
+def add(a, b):
+    return a + b
+
+
+crosszip(add, (1, 2), (10, 20))
+[11, 21, 12, 22]
+
+# Example 3: Using sets (order may vary) and a string concatenation function
+crosszip(concat, {1, 2}, {"x", "y"}, {"foo", "bar"})
+# ['1-x-foo', '1-x-bar', '1-y-foo', '1-y-bar', '2-x-foo', '2-x-bar',
+#  '2-y-foo', '2-y-bar']
+
+
+# Example 4: Using a generator
+def gen():
+    yield 1
+    yield 2
+
+
+crosszip(concat, gen(), ["a", "b"], ["x", "y"])
+# >> ['1-a-x', '1-a-y', '1-b-x', '1-b-y', '2-a-x', '2-a-y', '2-b-x', '2-b-y']
+```
+
+Notes
+
+- The function assumes that each iterable contains values compatible with the function `func`.
+- For large input iterables, the number of combinations grows exponentially, so use with care when working with large datasets.
+
+Source code in `src/crosszip/crosszip.py`
+
+````python
+def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
+    """
+    Apply a given function to all combinations of elements from multiple iterables.
+
+    This function computes the Cartesian product of the input iterables (i.e., all
+    possible combinations of their elements) and applies the provided function to each
+    combination.
+
+    Args:
+        func (Callable[..., T]): A function that accepts as many arguments as there are
+            iterables.
+        *iterables (Iterable[T]): Two or more iterables to generate combinations from.
+            Each iterable should contain elements that are valid inputs for the function
+            `func`.
+
+    Returns:
+        list[T]: A list of results from applying the function to each combination of
+            elements.
+
+    Example:
+        ```python
+        # Example 1: Basic usage with lists
+        def concat(a, b, c):
+            return f"{a}-{b}-{c}"
+
+
+        list1 = [1, 2]
+        list2 = ["a", "b"]
+        list3 = [True, False]
+
+        crosszip(concat, list1, list2, list3)
+        # ['1-a-True', '1-a-False', '1-b-True', '1-b-False', '2-a-True', '2-a-False',
+        #  '2-b-True', '2-b-False']
+
+
+        # Example 2: Using tuples and a mathematical function
+        def add(a, b):
+            return a + b
+
+
+        crosszip(add, (1, 2), (10, 20))
+        [11, 21, 12, 22]
+
+        # Example 3: Using sets (order may vary) and a string concatenation function
+        crosszip(concat, {1, 2}, {"x", "y"}, {"foo", "bar"})
+        # ['1-x-foo', '1-x-bar', '1-y-foo', '1-y-bar', '2-x-foo', '2-x-bar',
+        #  '2-y-foo', '2-y-bar']
+
+
+        # Example 4: Using a generator
+        def gen():
+            yield 1
+            yield 2
+
+
+        crosszip(concat, gen(), ["a", "b"], ["x", "y"])
+        # >> ['1-a-x', '1-a-y', '1-b-x', '1-b-y', '2-a-x', '2-a-y', '2-b-x', '2-b-y']
+        ```
+
+    Notes:
+        - The function assumes that each iterable contains values
+          compatible with the function `func`.
+
+        - For large input iterables, the number of combinations grows exponentially,
+          so use with care when working with large datasets.
+
+    """
+    combinations = itertools.product(*iterables)
+    return list(itertools.starmap(func, combinations))
+````
+
+# [pytest-plugin: crosszip_parametrize](#pytest-plugin-crosszip_parametrize)
+
+## [`pytest_configure(config)`](#crosszip.plugin.pytest_configure)
+
+Register the `crosszip_parametrize` marker with pytest.
+
+This pytest hook registers the `crosszip_parametrize` marker with pytest. The marker is used to parametrize tests with the Cartesian product of parameter values.
+
+Source code in `src/crosszip/plugin.py`
+
+```python
+@pytest.hookimpl(trylast=True)
+def pytest_configure(config: pytest.Config) -> None:
+    """
+    Register the `crosszip_parametrize` marker with pytest.
+
+    This pytest hook registers the `crosszip_parametrize` marker with pytest. The marker
+    is used to parametrize tests with the Cartesian product of parameter values.
+    """
+    config.addinivalue_line(
+        "markers",
+        "crosszip_parametrize(*args): mark test to be cross-parametrized",
+    )
+```
+
+## [`pytest_generate_tests(metafunc)`](#crosszip.plugin.pytest_generate_tests)
+
+Generate parametrized tests using the cross-product of parameter values.
+
+This pytest hook parametrizes tests based on the `crosszip_parametrize` marker. It extracts parameter names and their corresponding lists of values, computes their Cartesian product, and parametrizes the test function accordingly.
+
+Parameters:
+
+| Name       | Type       | Description                                      | Default    |
+| ---------- | ---------- | ------------------------------------------------ | ---------- |
+| `metafunc` | `Metafunc` | The test function's metadata provided by pytest. | *required* |
+
+Example
+
+```python
+import math
+import crosszip
+import pytest
+
+
+@pytest.mark.crosszip_parametrize(
+    "base",
+    [2, 10],
+    "exponent",
+    [-1, 0, 1],
+)
+def test_power_function(base, exponent):
+    result = math.pow(base, exponent)
+    assert result == base**exponent
+
+
+@pytest.mark.crosszip_parametrize()
+def test_example():
+    pass
+
+
+# Error: Parameter names and values must be provided.
+
+
+@pytest.mark.crosszip_parametrize(
+    "x",
+    1,
+    "y",
+    [3, 4],
+)
+def test_example(x, y):
+    pass
+
+
+# Error: All parameter values must be non-empty sequences.
+```
+
+Source code in `src/crosszip/plugin.py`
+
+````python
+def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
+    """
+    Generate parametrized tests using the cross-product of parameter values.
+
+    This pytest hook parametrizes tests based on the `crosszip_parametrize` marker.
+    It extracts parameter names and their corresponding lists of values, computes their
+    Cartesian product, and parametrizes the test function accordingly.
+
+    Args:
+        metafunc (pytest.Metafunc): The test function's metadata provided by pytest.
+
+    Example:
+        ```python
+        import math
+        import crosszip
+        import pytest
+
+
+        @pytest.mark.crosszip_parametrize(
+            "base",
+            [2, 10],
+            "exponent",
+            [-1, 0, 1],
+        )
+        def test_power_function(base, exponent):
+            result = math.pow(base, exponent)
+            assert result == base**exponent
+
+
+        @pytest.mark.crosszip_parametrize()
+        def test_example():
+            pass
+
+
+        # Error: Parameter names and values must be provided.
+
+
+        @pytest.mark.crosszip_parametrize(
+            "x",
+            1,
+            "y",
+            [3, 4],
+        )
+        def test_example(x, y):
+            pass
+
+
+        # Error: All parameter values must be non-empty sequences.
+        ```
+
+    """
+    marker = metafunc.definition.get_closest_marker("crosszip_parametrize")
+    if marker:
+        args: tuple[Any, ...] = marker.args
+        param_names: tuple[Any, ...] = args[::2]
+        param_values: tuple[Any, ...] = args[1::2]
+
+        validate_parameters(param_names, param_values)
+
+        combinations: list[tuple[Any, ...]] = list(product(*param_values))
+        param_names_str: str = ",".join(param_names)
+        metafunc.parametrize(param_names_str, combinations)
+````
+# Changelog
+
+# [Changelog](#changelog)
+
+## [1.3.0](#130)
+
+- Adds support for Python version `3.14`.
+
+## [1.2.0](#120)
+
+- No user-facing changes.
+
+## [1.1.0](#110)
+
+- Extends support to Python versions `3.10` and `3.11`.
+
+## [1.0.0](#100)
+
+- Adds pytester tests for the `pytest`-plugin.
+
+## [0.2.0](#020)
+
+- Fixes `crosszip_parametrize` marker for `pytest` plugin. There was a bug in the implementation that caused the marker to not be recognized by `pytest`.
+
+## [0.1.0](#010)
+
+- Initial release of `crosszip` package.
