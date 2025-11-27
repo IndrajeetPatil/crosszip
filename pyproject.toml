@@ -127,3 +127,6 @@ enable_error_code = [
 ]
 warn_unreachable = true
 warn_unused_configs = true
+
+[tool.uv]
+required-version = ">=0.9.13"
