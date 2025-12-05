@@ -1,12 +1,25 @@
-default_install_hook_types: [pre-commit, pre-push, commit-msg]
+minimum_prek_version: "0.2.0"
+default_install_hook_types: [pre-commit, pre-push]
 default_stages: [pre-commit]
 default_language_version:
-  python: python3.13
+  python: python3.14
 
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.6
+    rev: v0.14.8
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
+
+  - repo: builtin
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+        exclude: ^tests/snapshots/
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: [--fix=lf]

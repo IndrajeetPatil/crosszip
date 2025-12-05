@@ -1,6 +1,6 @@
 ---
 format: gfm
-execute: 
+execute:
   eval: true
 ---
 

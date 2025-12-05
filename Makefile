@@ -18,11 +18,11 @@ BLUE = \033[0;34m
 NC = \033[0m # No Color
 
 # Plain text fallbacks for no-color environments
-RED_PLAIN = 
-GREEN_PLAIN = 
-YELLOW_PLAIN = 
-BLUE_PLAIN = 
-NC_PLAIN = 
+RED_PLAIN =
+GREEN_PLAIN =
+YELLOW_PLAIN =
+BLUE_PLAIN =
+NC_PLAIN =
 
 # Detect if terminal supports colors (Windows-specific check)
 ifeq ($(OS),Windows_NT)
@@ -43,7 +43,7 @@ endif
 update-deps:
 	uv lock --upgrade
 	uv sync
-	pre-commit autoupdate
+	prek autoupdate
 
 upgrade-deps: update-deps
 
