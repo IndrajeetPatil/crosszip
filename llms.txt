@@ -1,0 +1,20 @@
+# crosszip
+
+> Iterating over all combinations from multiple iterables
+
+crosszip is a Python library for iterating over all combinations from multiple iterables.
+It provides a simple and efficient way to apply functions across combinations of elements.
+
+## Home documentation
+
+- [Home](https://indrajeetpatil.github.io/crosszip/index.md)
+
+## API documentation
+
+- [crosszip](https://indrajeetpatil.github.io/crosszip/reference/crosszip/index.md)
+- [pytest-plugin](https://indrajeetpatil.github.io/crosszip/reference/plugin/index.md)
+
+## Changelog
+
+- [Changelog](https://indrajeetpatil.github.io/crosszip/changelog/index.md)
+
