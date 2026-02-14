@@ -129,4 +129,4 @@ warn_unreachable = true
 warn_unused_configs = true
 
 [tool.uv]
-required-version = ">=0.9.13"
+required-version = ">=0.10.2"
