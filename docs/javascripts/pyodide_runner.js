@@ -196,7 +196,7 @@ class InteractiveCodeBlock {
 
       // Get packages from config
       // Fallback to crosszip for robustness if config is not loaded
-      const packages = window.mkdocs_run_deps || ["crosszip"];
+      const packages = window.pyodide_run_deps || ["crosszip"];
 
       // Run the code
       const result = await window.pyodideRunner.runCode(this.code, packages);
