@@ -1,5 +1,5 @@
 /**
- * Pyodide-based code runner for MkDocs
+ * Pyodide-based code runner for documentation site
  * Enables interactive Python code execution in the browser
  */
 
