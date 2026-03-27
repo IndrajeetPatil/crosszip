@@ -7,12 +7,12 @@ authors = [
     { name = "Indrajeet Patil", email = "patilindrajeet.science@gmail.com" }
 ]
 requires-python = ">=3.10"
-license = { file = "LICENSE.md" }
+license = "MIT"
+license-files = ["LICENSE.md"]
 keywords = ["iterables"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3.10",
@@ -39,9 +39,8 @@ crosszip_parametrize = "crosszip.plugin"
 dev = [
     "coverage>=7.10.7",
     "jupyter>=1.1.1",
-    "mkdocs>=1.6.1",
+    "zensical>=0.0.29",
     "mkdocs-llmstxt>=0.4.0",
-    "mkdocs-material>=9.6.21",
     "mkdocstrings-python>=1.18.2",
     "mypy>=1.18.2",
     "prek>=0.2.19",
@@ -54,7 +53,7 @@ dev = [
 ]
 
 [build-system]
-requires = ["uv_build>=0.9.2,<0.10.0"]
+requires = ["uv_build>=0.11.2,<0.12"]
 build-backend = "uv_build"
 
 [tool.ruff]
@@ -129,4 +128,4 @@ warn_unreachable = true
 warn_unused_configs = true
 
 [tool.uv]
-required-version = ">=0.10.2"
+required-version = ">=0.11.2"

@@ -86,8 +86,8 @@ serve-docs:
 	uv run quarto render README.qmd
 	$(CP) README.md docs/index.md
 	$(CP) CHANGELOG.md docs/changelog.md
-	uv run mkdocs build --strict
-	uv run mkdocs serve --strict
+	uv run zensical build --strict
+	uv run zensical serve --strict
 
 # --------------------------------------
 # Help
