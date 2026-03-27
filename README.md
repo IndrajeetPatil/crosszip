@@ -70,6 +70,7 @@ def test_power_function(base, exponent):
     result = math.pow(base, exponent)
     assert result == base**exponent
 
+
 print("Tests executed successfully.")
 ```
 

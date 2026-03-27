@@ -42,7 +42,7 @@ dev = [
     "zensical>=0.0.29",
     "mkdocs-llmstxt>=0.4.0",
     "mkdocstrings-python>=1.18.2",
-    "mypy>=1.18.2",
+    "ty>=0.0.26",
     "prek>=0.2.19",
     "pytest>=8.4.2",
     "pytest-codspeed>=4.1.1",
@@ -107,25 +107,11 @@ sort = "-Cover"
 show_missing = true
 skip_empty = true
 
-[tool.mypy]
-exclude = ['.venv', 'build', 'dist', 'docs']
-strict = true
-pretty = true
-# Additional strictness beyond `strict=true`
-disallow_any_unimported = true
-disallow_untyped_decorators = true
-extra_checks = true
-enable_error_code = [
-    "truthy-bool", # Flag using non-boolean expressions in boolean contexts
-    "redundant-expr", # Flag redundant expressions that don't have effect
-    "unused-awaitable", # Flag when async function results aren't awaited or stored
-    "comparison-overlap", # Flag comparisons that always evaluate to True or False
-    "ignore-without-code", # Flag # type: ignore comments that don't specify an error code
-    "possibly-undefined", # Flag variables that might be undefined at runtime
+[tool.ty.src]
+exclude = [".venv", "build", "dist", "docs"]
 
-]
-warn_unreachable = true
-warn_unused_configs = true
+[tool.ty.environment]
+python-version = "3.10"
 
 [tool.uv]
 required-version = ">=0.11.2"

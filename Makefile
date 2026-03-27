@@ -1,6 +1,6 @@
 # Makefile for project management
 # Compatible with Windows, macOS, and Linux
-.PHONY: update-deps upgrade-deps format lint mypy qa test-coverage build test-package check-package serve-docs help
+.PHONY: update-deps upgrade-deps format lint typecheck qa test-coverage build test-package check-package serve-docs help
 
 # Variables for cross-platform compatibility
 CP = cp
@@ -57,10 +57,10 @@ format:
 lint:
 	uv run ruff check --fix
 
-mypy:
-	uv run mypy .
+typecheck:
+	uv run ty check
 
-qa: format lint mypy
+qa: format lint typecheck
 
 # --------------------------------------
 # Package Testing
@@ -105,8 +105,8 @@ ifeq ($(OS),Windows_NT)
 	@echo $(GREEN) Code Quality:$(NC)
 	@echo     $(RED)format$(NC)        - Format code using ruff
 	@echo     $(RED)lint$(NC)          - Lint code with ruff and fix issues
-	@echo     $(RED)mypy$(NC)          - Run type checking with mypy
-	@echo     $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)
+	@echo     $(RED)typecheck$(NC)     - Run type checking with ty
+	@echo     $(RED)qa$(NC)            - Run all quality checks (format, lint, typecheck)
 	@echo.
 	@echo $(GREEN) Testing and Packaging:$(NC)
 	@echo     $(RED)test-coverage$(NC) - Run tests and generate coverage report
@@ -136,8 +136,8 @@ else
 	@printf "$(GREEN) Code Quality:$(NC)\n"
 	@printf "    $(RED)format$(NC)        - Format code using ruff\n"
 	@printf "    $(RED)lint$(NC)          - Lint code with ruff and fix issues\n"
-	@printf "    $(RED)mypy$(NC)          - Run type checking with mypy\n"
-	@printf "    $(RED)qa$(NC)            - Run all quality checks (format, lint, mypy)\n"
+	@printf "    $(RED)typecheck$(NC)     - Run type checking with ty\n"
+	@printf "    $(RED)qa$(NC)            - Run all quality checks (format, lint, typecheck)\n"
 	@printf "\n"
 	@printf "$(GREEN) Testing and Packaging:$(NC)\n"
 	@printf "    $(RED)test-coverage$(NC)  - Run tests and generate coverage report\n"

@@ -105,7 +105,7 @@ def test_crosszip_with_non_iterable(non_iterable: T) -> None:
         TypeError,
         match=f"'{input_type}' object is not iterable",
     ):
-        crosszip(lambda a: a, non_iterable)  # type: ignore[arg-type]
+        crosszip(lambda a: a, non_iterable)  # ty: ignore[invalid-argument-type]
 
 
 @pytest.mark.parametrize(
