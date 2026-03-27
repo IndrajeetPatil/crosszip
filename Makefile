@@ -61,7 +61,7 @@ typecheck:
 	uv run ty check
 
 audit:
-	uv audit --only-dev --preview-features audit
+	uv audit --no-dev --preview-features audit
 
 qa: format lint typecheck
 
@@ -112,7 +112,7 @@ ifeq ($(OS),Windows_NT)
 	@echo     $(RED)format$(NC)        - Format code using ruff
 	@echo     $(RED)lint$(NC)          - Lint code with ruff and fix issues
 	@echo     $(RED)typecheck$(NC)     - Run type checking with ty
-	@echo     $(RED)audit$(NC)         - Audit dev dependencies for vulnerabilities
+	@echo     $(RED)audit$(NC)         - Audit prod dependencies for vulnerabilities
 	@echo     $(RED)qa$(NC)            - Run all quality checks (format, lint, typecheck)
 	@echo     $(RED)hooks$(NC)         - Run all prek pre-commit hooks
 	@echo.
@@ -145,7 +145,7 @@ else
 	@printf "    $(RED)format$(NC)        - Format code using ruff\n"
 	@printf "    $(RED)lint$(NC)          - Lint code with ruff and fix issues\n"
 	@printf "    $(RED)typecheck$(NC)     - Run type checking with ty\n"
-	@printf "    $(RED)audit$(NC)         - Audit dev dependencies for vulnerabilities\n"
+	@printf "    $(RED)audit$(NC)         - Audit prod dependencies for vulnerabilities\n"
 	@printf "    $(RED)qa$(NC)            - Run all quality checks (format, lint, typecheck)\n"
 	@printf "    $(RED)hooks$(NC)         - Run all prek pre-commit hooks\n"
 	@printf "\n"
