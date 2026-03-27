@@ -539,7 +539,7 @@ dev = [
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "mkdocs-llmstxt", specifier = ">=0.4.0" },
     { name = "mkdocstrings-python", specifier = ">=1.18.2" },
-    { name = "prek", specifier = ">=0.2.19" },
+    { name = "prek", specifier = ">=0.3.8" },
     { name = "pytest", specifier = ">=8.4.2" },
     { name = "pytest-codspeed", specifier = ">=4.1.1" },
     { name = "pytest-cov", specifier = ">=7.0.0" },

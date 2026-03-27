@@ -1,6 +1,6 @@
 # Makefile for project management
 # Compatible with Windows, macOS, and Linux
-.PHONY: update-deps upgrade-deps format lint typecheck qa test-coverage build test-package check-package serve-docs help
+.PHONY: update-deps upgrade-deps format lint typecheck audit qa hooks test-coverage build test-package check-package serve-docs help
 
 # Variables for cross-platform compatibility
 CP = cp
@@ -43,7 +43,7 @@ endif
 update-deps:
 	uv lock --upgrade
 	uv sync
-	prek autoupdate
+	prek auto-update
 
 upgrade-deps: update-deps
 
@@ -60,7 +60,13 @@ lint:
 typecheck:
 	uv run ty check
 
+audit:
+	uv audit --no-dev --preview-features audit
+
 qa: format lint typecheck
+
+hooks:
+	prek run --all-files
 
 # --------------------------------------
 # Package Testing
@@ -106,7 +112,9 @@ ifeq ($(OS),Windows_NT)
 	@echo     $(RED)format$(NC)        - Format code using ruff
 	@echo     $(RED)lint$(NC)          - Lint code with ruff and fix issues
 	@echo     $(RED)typecheck$(NC)     - Run type checking with ty
+	@echo     $(RED)audit$(NC)         - Audit prod dependencies for vulnerabilities
 	@echo     $(RED)qa$(NC)            - Run all quality checks (format, lint, typecheck)
+	@echo     $(RED)hooks$(NC)         - Run all prek pre-commit hooks
 	@echo.
 	@echo $(GREEN) Testing and Packaging:$(NC)
 	@echo     $(RED)test-coverage$(NC) - Run tests and generate coverage report
@@ -137,7 +145,9 @@ else
 	@printf "    $(RED)format$(NC)        - Format code using ruff\n"
 	@printf "    $(RED)lint$(NC)          - Lint code with ruff and fix issues\n"
 	@printf "    $(RED)typecheck$(NC)     - Run type checking with ty\n"
+	@printf "    $(RED)audit$(NC)         - Audit prod dependencies for vulnerabilities\n"
 	@printf "    $(RED)qa$(NC)            - Run all quality checks (format, lint, typecheck)\n"
+	@printf "    $(RED)hooks$(NC)         - Run all prek pre-commit hooks\n"
 	@printf "\n"
 	@printf "$(GREEN) Testing and Packaging:$(NC)\n"
 	@printf "    $(RED)test-coverage$(NC)  - Run tests and generate coverage report\n"
