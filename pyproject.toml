@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = ["pytest>=8.4.2"]
+dependencies = ["pytest>=9.0.2"]
 
 [project.urls]
 Homepage = "https://github.com/IndrajeetPatil/crosszip"
@@ -37,19 +37,19 @@ crosszip_parametrize = "crosszip.plugin"
 
 [dependency-groups]
 dev = [
-    "coverage>=7.10.7",
+    "coverage>=7.13.5",
     "jupyter>=1.1.1",
-    "zensical>=0.0.29",
-    "mkdocs-llmstxt>=0.4.0",
-    "mkdocstrings-python>=1.18.2",
-    "ty>=0.0.26",
+    "zensical>=0.0.31",
+    "mkdocs-llmstxt>=0.5.0",
+    "mkdocstrings-python>=2.0.3",
+    "ty>=0.0.28",
     "prek>=0.3.8",
-    "pytest>=8.4.2",
-    "pytest-codspeed>=4.1.1",
-    "pytest-cov>=7.0.0",
+    "pytest>=9.0.2",
+    "pytest-codspeed>=4.3.0",
+    "pytest-cov>=7.1.0",
     "pytest-random-order>=1.2.0",
     "pytest-snapshot>=0.9.0",
-    "ruff>=0.14.0",
+    "ruff>=0.15.9",
 ]
 
 [build-system]
