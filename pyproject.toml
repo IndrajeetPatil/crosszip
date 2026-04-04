@@ -27,7 +27,7 @@ dependencies = ["pytest>=9.0.2"]
 
 [project.urls]
 Homepage = "https://github.com/IndrajeetPatil/crosszip"
-Documentation = "https://indrajeetpatil.github.io/crosszip/"
+Documentation = "https://www.indrapatil.com/crosszip/"
 Repository = "https://github.com/IndrajeetPatil/crosszip"
 Issues = "https://github.com/IndrajeetPatil/crosszip/issues"
 Changelog = "https://github.com/IndrajeetPatil/crosszip/blob/main/CHANGELOG.md"

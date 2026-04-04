@@ -6,12 +6,12 @@ This format is defined in Markdown and suited for large language models.
 
 Two formats are available:
 
-- [llms.txt](https://indrajeetpatil.github.io/crosszip/llms.txt): a file
+- [llms.txt](https://www.indrapatil.com/crosszip/llms.txt): a file
   containing a brief description of the project, along with links to the
   different sections of the documentation. The structure of this file is
   described in details in the
   [format documentation](https://llmstxt.org/#format).
-- [llms-full.txt](https://indrajeetpatil.github.io/crosszip/llms-full.txt):
+- [llms-full.txt](https://www.indrapatil.com/crosszip/llms-full.txt):
   Similar to the `llms.txt` file, but every link content is included. Note
   that this file may be too large for some LLMs.
 
