@@ -24,7 +24,7 @@ sticker(
     h_color = "grey",
     filename = "docs/assets/logo.png",
     h_fill = "white",
-    url = "https://indrajeetpatil.github.io/crosszip/",
+    url = "https://www.indrapatil.com/crosszip/",
     u_size = 8,
     u_color = "grey",
     dpi = 600

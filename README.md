@@ -77,7 +77,7 @@ print("Tests executed successfully.")
     Tests executed successfully.
 
 For more examples, check out the package documentation at:
-<https://indrajeetpatil.github.io/crosszip/>
+<https://www.indrapatil.com/crosszip/>
 
 ## Key Features
 
