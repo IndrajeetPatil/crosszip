@@ -29,7 +29,9 @@ jobs:
           uv sync --all-extras --dev
 
       - name: Build Docs
-        run: uv run zensical build
+        run: |
+          uv run python scripts/generate_llmstxt.py
+          uv run zensical build
 
       - name: Upload artifact
         if: github.ref == 'refs/heads/main'

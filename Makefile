@@ -63,6 +63,7 @@ serve-docs:
 	uv run quarto render README.qmd
 	cp README.md docs/index.md
 	cp CHANGELOG.md docs/changelog.md
+	uv run python scripts/generate_llmstxt.py
 	uv run zensical build --strict
 	uv run zensical serve --strict
 
