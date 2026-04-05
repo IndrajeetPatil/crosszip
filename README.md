@@ -87,6 +87,9 @@ For more examples, check out the package documentation at:
   running tests with all possible combinations of parameter values.
 - **Simple API**: Minimalist, intuitive design for quick integration
   into your projects.
+- **Advanced patterns**: See the [Advanced Usage](https://www.indrapatil.com/crosszip/advanced/) guide for
+  memory efficiency strategies, managing test explosion, and testing
+  validation functions across input types and edge cases.
 
 ## License
 
