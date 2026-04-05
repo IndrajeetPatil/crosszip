@@ -10,6 +10,7 @@ edit_uri: edit/main/docs/
 
 nav:
   - Home: index.md
+  - Advanced Usage: advanced.md
   - API Reference:
       - crosszip: reference/crosszip.md
       - pytest-plugin: reference/plugin.md
@@ -93,6 +94,8 @@ plugins:
       sections:
         Home documentation:
           - index.md
+        Advanced usage:
+          - advanced.md
         API documentation:
           - reference/*.md
         Changelog:
