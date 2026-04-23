@@ -247,12 +247,14 @@ import pytest
 
 
 @pytest.mark.crosszip_parametrize(
-    "protocol",  ["http", "https", "ftp", "ssh"],
-    "method",    ["GET", "POST", "PUT", "DELETE"],
-    "auth_type", ["none", "basic", "token", "oauth"],
+    "protocol",
+    ["http", "https", "ftp", "ssh"],
+    "method",
+    ["GET", "POST", "PUT", "DELETE"],
+    "auth_type",
+    ["none", "basic", "token", "oauth"],
 )
-def test_api_client(protocol, method, auth_type):
-    ...  # 4 × 4 × 4 = 64 test cases
+def test_api_client(protocol, method, auth_type): ...  # 4 × 4 × 4 = 64 test cases
 ```
 
 ### Strategy 1: Pre-filter combinations
@@ -266,7 +268,7 @@ import itertools
 import pytest
 
 protocols = ["http", "https", "ftp", "ssh"]
-methods   = ["GET", "POST", "PUT", "DELETE"]
+methods = ["GET", "POST", "PUT", "DELETE"]
 
 # Only test secure protocols with write methods
 meaningful_combos = [
@@ -276,9 +278,9 @@ meaningful_combos = [
 ]
 # Reduces 4 × 4 = 16 → 7 combinations
 
+
 @pytest.mark.parametrize("protocol,method", meaningful_combos)
-def test_secure_api(protocol, method):
-    ...
+def test_secure_api(protocol, method): ...
 ```
 
 ### Strategy 2: Use `-k` for focused runs during development
@@ -307,15 +309,15 @@ import random
 import pytest
 
 protocols = ["http", "https", "ftp", "ssh"]
-methods   = ["GET", "POST", "PUT", "DELETE"]
+methods = ["GET", "POST", "PUT", "DELETE"]
 all_combos = list(itertools.product(protocols, methods))
 
 SEED = 42  # fix the seed so CI runs are reproducible
 sampled = random.Random(SEED).sample(all_combos, k=min(5, len(all_combos)))
 
+
 @pytest.mark.parametrize("protocol,method", sampled)
-def test_api_sample(protocol, method):
-    ...
+def test_api_sample(protocol, method): ...
 ```
 
 ### Strategy 4: Split into focused test classes
@@ -329,20 +331,22 @@ import pytest
 
 class TestCoreProtocols:
     @pytest.mark.crosszip_parametrize(
-        "method", ["GET", "POST"],
-        "auth",   ["none", "basic"],
+        "method",
+        ["GET", "POST"],
+        "auth",
+        ["none", "basic"],
     )
-    def test_http_methods(self, method, auth):
-        ...  # 2 × 2 = 4 tests
+    def test_http_methods(self, method, auth): ...  # 2 × 2 = 4 tests
 
 
 class TestSecureProtocols:
     @pytest.mark.crosszip_parametrize(
-        "method", ["GET", "POST", "PUT", "DELETE"],
-        "token",  ["valid", "expired"],
+        "method",
+        ["GET", "POST", "PUT", "DELETE"],
+        "token",
+        ["valid", "expired"],
     )
-    def test_https_methods(self, method, token):
-        ...  # 4 × 2 = 8 tests
+    def test_https_methods(self, method, token): ...  # 4 × 2 = 8 tests
 ```
 
 ### Strategy 5: Tiered test suite with custom marks
@@ -355,18 +359,20 @@ import pytest
 
 
 # Always runs — representative single combination
-def test_api_smoke():
-    ...
+def test_api_smoke(): ...
 
 
 # Skipped in fast mode, run on schedule
 @pytest.mark.slow
 @pytest.mark.crosszip_parametrize(
-    "protocol", ["http", "https", "ftp", "ssh"],
-    "method",   ["GET", "POST", "PUT", "DELETE"],
+    "protocol",
+    ["http", "https", "ftp", "ssh"],
+    "method",
+    ["GET", "POST", "PUT", "DELETE"],
 )
-def test_api_full_matrix(protocol, method):
-    ...  # 4 × 4 = 16 tests, guarded by the slow mark
+def test_api_full_matrix(
+    protocol, method
+): ...  # 4 × 4 = 16 tests, guarded by the slow mark
 ```
 
 Register the mark in `pyproject.toml` to silence the unknown-mark warning:
