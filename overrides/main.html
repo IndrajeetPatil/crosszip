@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "crosszip",
+    "description": "A Python library for iterating over all combinations from multiple iterables. Provides a simple and efficient way to apply functions across combinations of elements.",
+    "url": "https://www.indrapatil.com/crosszip/",
+    "codeRepository": "https://github.com/IndrajeetPatil/crosszip",
+    "programmingLanguage": {
+      "@type": "ComputerLanguage",
+      "name": "Python"
+    },
+    "license": "https://opensource.org/licenses/MIT",
+    "version": "1.4.0",
+    "author": {
+      "@type": "Person",
+      "name": "Indrajeet Patil",
+      "url": "https://www.indrapatil.com/",
+      "sameAs": "https://orcid.org/0000-0003-1995-6531"
+    },
+    "keywords": ["Python", "itertools", "combinations", "cartesian product", "pytest", "parametrize", "testing"]
+  }
+  </script>
+  <meta name="citation_title" content="crosszip: Iterating over all combinations from multiple iterables" />
+  <meta name="citation_author" content="Indrajeet Patil" />
+  <meta name="citation_software_version" content="1.4.0" />
+  <link rel="alternate" type="text/plain" href="/crosszip/llms.txt" title="LLM-friendly documentation summary" />
+  <link rel="alternate" type="text/plain" href="/crosszip/llms-full.txt" title="Full LLM documentation" />
+{% endblock %}
