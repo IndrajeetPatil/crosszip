@@ -1,3 +1,5 @@
+"""Pytest plugin for cross-product parametrization."""
+
 from collections.abc import Sequence
 from itertools import product
 from typing import Any
@@ -16,8 +18,7 @@ from .exceptions import (
 
 @pytest.hookimpl(trylast=True)
 def pytest_configure(config: pytest.Config) -> None:
-    """
-    Register the `crosszip_parametrize` marker with pytest.
+    """Register the `crosszip_parametrize` marker with pytest.
 
     This pytest hook registers the `crosszip_parametrize` marker with pytest. The marker
     is used to parametrize tests with the Cartesian product of parameter values.
@@ -29,8 +30,7 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
-    """
-    Generate parametrized tests using the cross-product of parameter values.
+    """Generate parametrized tests using the cross-product of parameter values.
 
     This pytest hook parametrizes tests based on the `crosszip_parametrize` marker.
     It extracts parameter names and their corresponding lists of values, computes their
@@ -95,6 +95,17 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
 def validate_parameters(
     param_names: Sequence[Any], param_values: Sequence[Any]
 ) -> None:
+    """Validate marker parameter names and their corresponding values.
+
+    Args:
+        param_names: Names parsed from alternating marker arguments.
+        param_values: Value collections paired with the parameter names.
+
+    Raises:
+        CrosszipValueError: If names or values are missing or their counts differ.
+        CrosszipTypeError: If names are not strings or a value collection is empty.
+
+    """
     if not param_names or not param_values:
         raise CrosszipValueError(PARAMS_REQUIRED_ERROR)
     if len(param_names) != len(param_values):

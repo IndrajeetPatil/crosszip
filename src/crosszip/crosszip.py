@@ -1,3 +1,5 @@
+"""Cartesian-product application utilities."""
+
 import itertools
 from collections.abc import Callable, Iterable
 from typing import Any, TypeVar
@@ -6,8 +8,7 @@ T = TypeVar("T")
 
 
 def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
-    """
-    Apply a given function to all combinations of elements from multiple iterables.
+    """Apply a given function to all combinations of elements from multiple iterables.
 
     This function computes the Cartesian product of the input iterables (i.e., all
     possible combinations of their elements) and applies the provided function to each
