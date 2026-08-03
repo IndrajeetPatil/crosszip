@@ -1,7 +1,7 @@
 import json
 import math
 from collections.abc import Callable, Generator, Iterable
-from typing import Protocol, TypeVar
+from typing import Any, Protocol, TypeVar, cast
 
 import pytest
 
@@ -16,7 +16,11 @@ class Snapshot(Protocol):
 
 @pytest.fixture
 def concat_function() -> Callable[..., str]:
-    """Fixture for a basic concatenation function."""
+    """Fixture for a basic concatenation function.
+
+    Returns:
+        A function that joins three values with hyphens.
+    """
     return lambda a, b, c: f"{a}-{b}-{c}"
 
 
@@ -36,7 +40,7 @@ def test_crosszip_with_iterables(
     snapshot_name: str,
 ) -> None:
     result = crosszip(concat_function, *iterables)
-    snapshot_json = json.dumps(result, indent=2, sort_keys=True)
+    snapshot_json = f"{json.dumps(result, indent=2, sort_keys=True)}\n"
     snapshot.assert_match(snapshot_json, f"{snapshot_name}.json")
 
 
@@ -105,7 +109,7 @@ def test_crosszip_with_non_iterable(non_iterable: T) -> None:
         TypeError,
         match=f"'{input_type}' object is not iterable",
     ):
-        crosszip(lambda a: a, non_iterable)  # ty: ignore[invalid-argument-type]
+        crosszip(lambda a: a, cast("Any", non_iterable))
 
 
 @pytest.mark.parametrize(
