@@ -40,5 +40,9 @@ This package uses automated workflows for publishing to PyPI and GitHub Releases
    - It extracts the version directly from `pyproject.toml` using `uv version` to ensure the GitHub tag matches the package version.
    - It installs all build dependencies and builds the package distributions (source distribution `sdist` and wheel `bdist_wheel`) using `uv build`.
 4. **Publishing Steps**:
-   - **GitHub**: It creates a GitHub Release with a tag exactly matching the version. It attaches the auto-generated release notes based on the PR history and targets the commit from which the workflow was dispatched.
+   - **GitHub**: It creates a GitHub Release with a tag exactly matching the version. It attaches the auto-generated release notes based on the PR history and targets the commit from which the workflow was dispatched. **Important**: The GitHub release body/notes must perfectly match the formatting of the newly added entry in `CHANGELOG.md` to maintain stylistic consistency with past releases. Do not rely entirely on the auto-generated release notes (which just list PRs); you should manually provide or edit the release notes (e.g. `gh release edit <tag> --notes-file ...`) to match the CHANGELOG.
    - **PyPI**: It securely publishes the built `.tar.gz` and `.whl` artifacts to the Python Package Index (PyPI) using `pypa/gh-action-pypi-publish`, which relies on OpenID Connect (OIDC) trusted publishing (no manual tokens are required).
+
+## Security
+- During the release process, code scanning alerts should be checked via the GitHub API (`gh api repos/IndrajeetPatil/crosszip/code-scanning/alerts`).
+- If alerts are false positives or occur in tests, they should be dismissed using `gh api -X PATCH repos/IndrajeetPatil/crosszip/code-scanning/alerts/{number} -f state=dismissed -f dismissed_reason="..."` (valid reasons: "false positive", "won't fix", "used in tests").
