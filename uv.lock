@@ -524,22 +524,22 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pytest", specifier = ">=9.0.3" }]
+requires-dist = [{ name = "pytest", specifier = ">=9.1.1" }]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "coverage", specifier = ">=7.14.0" },
+    { name = "coverage", specifier = ">=7.15.3" },
     { name = "jupyter", specifier = ">=1.1.1" },
-    { name = "mkdocstrings-python", specifier = ">=2.0.3" },
-    { name = "prek", specifier = ">=0.4.1" },
-    { name = "pytest", specifier = ">=9.0.3" },
-    { name = "pytest-codspeed", specifier = ">=5.0.2" },
+    { name = "mkdocstrings-python", specifier = ">=2.0.5" },
+    { name = "prek", specifier = ">=0.4.12" },
+    { name = "pytest", specifier = ">=9.1.1" },
+    { name = "pytest-codspeed", specifier = ">=5.0.3" },
     { name = "pytest-cov", specifier = ">=7.1.0" },
     { name = "pytest-random-order", specifier = ">=1.2.0" },
     { name = "pytest-snapshot", specifier = ">=0.9.0" },
-    { name = "ruff", specifier = ">=0.15.13" },
-    { name = "ty", specifier = ">=0.0.47" },
-    { name = "zensical", specifier = ">=0.0.43" },
+    { name = "ruff", specifier = ">=0.16.1" },
+    { name = "ty", specifier = ">=0.0.66" },
+    { name = "zensical", specifier = ">=0.0.53" },
 ]
 
 [[package]]
