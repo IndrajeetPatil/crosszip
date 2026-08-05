@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- No user-facing changes (internal maintenance: dependency updates).
+
 ## 1.4.0
 
 - No user-facing changes (internal maintenance: dependency updates, CI/CD improvements).
