@@ -35,7 +35,7 @@ publication path: do not upload distributions from the developer's machine.
    entry in `uv.lock` synchronized; never edit the lockfile by hand.
 6. Review commits and merged pull requests since the latest release. Add the new
    version at the top of `CHANGELOG.md` using its existing style. Include every
-   user-facing change, avoid invented claims, and use “No user-facing changes”
+   user-facing change, avoid invented claims, and use `No user-facing changes`
    only when the history supports it.
 7. Prepare a release-notes file whose Markdown content exactly matches the new
    changelog entry, excluding only the changelog heading when necessary for the
