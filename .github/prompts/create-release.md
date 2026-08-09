@@ -11,19 +11,23 @@ Ask the user exactly one question before doing anything else:
 
 Pause for the answer. Accept only `patch`, `minor`, or `major`
 (case-insensitive); do not infer the release type from the repository state.
-After receiving a valid answer, take ownership of the remaining release work.
+If the answer is invalid, ask the same question again and remain paused. Repeat
+until the user gives a valid value; do not begin release work before then. After
+receiving a valid answer, take ownership of the remaining release work.
 
 ## Prepare the release
 
 Read `AGENTS.md`, `.github/workflows/release.yml`, `pyproject.toml`, and the
-latest entries in `CHANGELOG.md`. Treat the dispatchable workflow as the
-publication path: do not upload distributions from the developer's machine.
+latest entries in `CHANGELOG.md`. Treat `.github/workflows/release.yml` as the
+authoritative publication path if other instructions conflict with it. Do not
+run `uv publish` or `gh release create` from the developer's machine.
 
 1. Verify `gh` authentication, fetch and prune `origin`, and inspect the working
    tree. Preserve unrelated local changes. If necessary, use a clean worktree.
 2. Start from the latest `origin/main`. Confirm that the version in
    `pyproject.toml`, the latest GitHub release tag, and the latest PyPI release
-   describe the expected current stable version.
+   describe the expected current stable version. Versions and tags use the
+   unprefixed `x.y.z` form; do not add a `v` prefix.
 3. Use the current `uv` CLI to preview the requested semantic version bump and
    capture the computed version:
 
