@@ -23,12 +23,16 @@ def test_example(a: int, b: int) -> None:
     assert (a, b) in {(1, 3), (1, 4), (2, 3), (2, 4)}
 
 
-# Pair the crosszip marker with an unrelated one so a plugin that fetches ANY
-# marker (via ``get_closest_marker(None)``) would grab ``pytest.mark.skipif`` —
-# whose args are ``(False, "…")`` — and try to parametrise with those. That
-# produces the wrong test cases (or crashes), so this test fails.
-@pytest.mark.skipif(condition=False, reason="always run — see docstring above")
+# Pair the crosszip marker with an unrelated one placed CLOSER to the
+# function definition (bottom of the decorator stack). ``get_closest_marker``
+# walks from closest to farthest, so a plugin that fetches any marker
+# (``get_closest_marker(None)``) would return the ``skipif`` here — whose
+# args are ``(False, "always run …")``, not name/value pairs — and try to
+# parametrise the test with garbage arguments. That either raises during
+# collection or produces the wrong test cases, so this test fails if the
+# plugin stops filtering markers by name.
 @pytest.mark.crosszip_parametrize("x", [10, 20], "y", ["a", "b"])
+@pytest.mark.skipif(condition=False, reason="always run — see docstring above")
 def test_example_with_extra_marker(x: int, y: str) -> None:
     assert x in {10, 20}
     assert y in {"a", "b"}
