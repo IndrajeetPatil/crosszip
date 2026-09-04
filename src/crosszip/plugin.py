@@ -93,7 +93,8 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
 
 
 def validate_parameters(
-    param_names: Sequence[Any], param_values: Sequence[Any]
+    param_names: Sequence[Any],
+    param_values: Sequence[Any],
 ) -> None:
     """Validate marker parameter names and their corresponding values.
 
