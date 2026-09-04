@@ -52,6 +52,8 @@ mutation-test:
 	rm -rf mutants/
 	uv run mutmut run
 	uv run mutmut results
+	uv run mutmut export-cicd-stats
+	@uv run python -c "import json,sys; s=json.load(open('mutants/mutmut-cicd-stats.json'))['survived']; sys.exit(f'Mutation testing failed: {s} mutant(s) survived') if s else None"
 
 build:
 	uv build
