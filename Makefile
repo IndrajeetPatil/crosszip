@@ -23,7 +23,7 @@ upgrade-deps: update-deps
 # --------------------------------------
 
 format:
-	uv run add-trailing-comma --exit-zero-even-if-changed $$(git ls-files --cached --others --exclude-standard '*.py')
+	uv run add-trailing-comma --exit-zero-even-if-changed $$(git ls-files --cached --others --exclude-standard '*.py' | while IFS= read -r f; do [ -e "$$f" ] && printf '%s\n' "$$f"; done)
 	uv run ruff format
 
 lint:
