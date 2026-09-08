@@ -50,8 +50,9 @@ dev = [
     "pytest-cov>=7.1.0",
     "pytest-random-order>=1.2.0",
     "pytest-snapshot>=0.9.0",
+    "pyyaml>=6.0.3",
     "ruff>=0.16.1",
-    "ty>=0.0.66",
+    "ty>=0.0.79",
     "zensical>=0.0.53",
 ]
 
@@ -123,12 +124,27 @@ pytest_add_cli_args_test_selection = ["tests/"]
 # Only mutate lines exercised by the test suite so mutmut concentrates on
 # meaningful mutations that the tests should actually catch.
 mutate_only_covered_lines = true
+# typing.cast returns its value unchanged: mutating its type argument to None or
+# another string is equivalent at runtime. Keep the following join mutation-tested.
+do_not_mutate_patterns = ['^\s*validated_names = cast\("tuple\[str, \.\.\.\]", param_names\)$']
 
 [tool.ty.src]
 exclude = [".venv", "build", "dist", "docs"]
 
 [tool.ty.environment]
 python-version = "3.10"
+
+[tool.ty.rules]
+# Enable every current diagnostic, including soundness and suppression checks that
+# ty leaves disabled by default. Pinning ty in uv.lock keeps new rules from arriving
+# silently between dependency updates.
+all = "error"
+
+[tool.ty.analysis]
+# Prefer sound narrowing over convenience assumptions at external-data boundaries.
+respect-type-ignore-comments = false
+strict-equality-semantics = true
+strict-generic-narrowing = true
 
 [tool.uv]
 required-version = ">=0.12.0"

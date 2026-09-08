@@ -2,7 +2,7 @@
 
 from collections.abc import Sequence
 from itertools import product
-from typing import Any
+from typing import Any, cast
 
 import pytest
 
@@ -88,7 +88,9 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         validate_parameters(param_names, param_values)
 
         combinations: list[tuple[Any, ...]] = list(product(*param_values))
-        param_names_str: str = ",".join(param_names)
+        # Validation proves every name in this immutable tuple is a string.
+        validated_names = cast("tuple[str, ...]", param_names)
+        param_names_str = ",".join(validated_names)
         metafunc.parametrize(param_names_str, combinations)
 
 
