@@ -89,7 +89,8 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
 
         combinations: list[tuple[Any, ...]] = list(product(*param_values))
         # Validation proves every name in this immutable tuple is a string.
-        param_names_str = ",".join(cast("tuple[str, ...]", param_names))
+        validated_names = cast("tuple[str, ...]", param_names)
+        param_names_str = ",".join(validated_names)
         metafunc.parametrize(param_names_str, combinations)
 
 

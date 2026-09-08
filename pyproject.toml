@@ -124,6 +124,9 @@ pytest_add_cli_args_test_selection = ["tests/"]
 # Only mutate lines exercised by the test suite so mutmut concentrates on
 # meaningful mutations that the tests should actually catch.
 mutate_only_covered_lines = true
+# typing.cast returns its value unchanged: mutating its type argument to None or
+# another string is equivalent at runtime. Keep the following join mutation-tested.
+do_not_mutate_patterns = ['^\s*validated_names = cast\("tuple\[str, \.\.\.\]", param_names\)$']
 
 [tool.ty.src]
 exclude = [".venv", "build", "dist", "docs"]
