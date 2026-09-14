@@ -46,7 +46,7 @@ dev = [
     "mutmut>=3.7.0",
     "prek>=0.4.12",
     "pytest>=9.1.1",
-    "pytest-codspeed>=5.0.3",
+    "pytest-codspeed==5.0.3",
     "pytest-cov>=7.1.0",
     "pytest-random-order>=1.2.0",
     "pytest-snapshot>=0.9.0",
@@ -120,6 +120,8 @@ skip_empty = true
 
 [tool.mutmut]
 source_paths = ["src/crosszip/"]
+# The regression-gate tests import the comparator from this support package.
+also_copy = ["scripts/"]
 pytest_add_cli_args_test_selection = ["tests/"]
 # Only mutate lines exercised by the test suite so mutmut concentrates on
 # meaningful mutations that the tests should actually catch.
