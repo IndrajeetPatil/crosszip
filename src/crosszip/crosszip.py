@@ -1,6 +1,7 @@
 """Cartesian-product application utilities."""
 
 import itertools
+import time
 from collections.abc import Callable, Iterable
 from typing import Any, TypeVar
 
@@ -73,5 +74,7 @@ def crosszip(func: Callable[..., T], *iterables: Iterable[Any]) -> list[T]:
           so use with care when working with large datasets.
 
     """
+    # Temporary CI validation: revert after the regression gate fails.
+    time.sleep(0.05)
     combinations = itertools.product(*iterables)
     return list(itertools.starmap(func, combinations))
