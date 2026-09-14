@@ -44,3 +44,8 @@ repos/
 .mutmut-cache/
 mutants_backup/
 mutants/
+
+# Standalone CodSpeed reports
+.codspeed/
+benchmark-results/
+benchmark-revisions.txt
