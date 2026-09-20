@@ -6,4 +6,4 @@ from importlib.metadata import version
 
 from .crosszip import crosszip
 
-__version__ = version("crosszip")
+__version__: str = version("crosszip")
