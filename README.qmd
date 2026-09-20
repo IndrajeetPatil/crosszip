@@ -77,6 +77,7 @@ For more examples, check out the package documentation at:
 - **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
 - **pytest Plugin**: Provides a `crosszip_parametrize` marker for running tests with all possible combinations of parameter values.
 - **Simple API**: Minimalist, intuitive design for quick integration into your projects.
+- **Advanced patterns**: See the [Advanced Usage](https://www.indrapatil.com/crosszip/advanced/) guide for memory efficiency strategies, managing test explosion, and testing validation functions across input types and edge cases.
 
 ## License
 

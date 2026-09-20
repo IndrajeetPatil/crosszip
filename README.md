@@ -87,9 +87,10 @@ For more examples, check out the package documentation at:
   running tests with all possible combinations of parameter values.
 - **Simple API**: Minimalist, intuitive design for quick integration
   into your projects.
-- **Advanced patterns**: See the [Advanced Usage](https://www.indrapatil.com/crosszip/advanced/) guide for
-  memory efficiency strategies, managing test explosion, and testing
-  validation functions across input types and edge cases.
+- **Advanced patterns**: See the [Advanced
+  Usage](https://www.indrapatil.com/crosszip/advanced/) guide for memory
+  efficiency strategies, managing test explosion, and testing validation
+  functions across input types and edge cases.
 
 ## License
 
@@ -97,7 +98,10 @@ This project is licensed under the MIT License.
 
 ## Code of Conduct
 
-Please note that the crosszip project is released with a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/3/0/code_of_conduct/). By contributing to this project, you agree to abide by its terms.
+Please note that the crosszip project is released with a [Contributor
+Code of
+Conduct](https://www.contributor-covenant.org/version/3/0/code_of_conduct/).
+By contributing to this project, you agree to abide by its terms.
 
 ## Acknowledgements
 
