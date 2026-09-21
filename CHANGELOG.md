@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Requires Python 3.12 or newer; support for Python 3.10 and 3.11 is discontinued.
+
 ## 1.4.1
 
 - No user-facing changes (internal maintenance: dependency updates).

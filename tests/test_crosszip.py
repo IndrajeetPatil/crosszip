@@ -1,13 +1,11 @@
 import json
 import math
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, Protocol, TypeVar, cast
+from typing import Any, Protocol, cast
 
 import pytest
 
 from crosszip.crosszip import crosszip
-
-T = TypeVar("T")
 
 
 class Snapshot(Protocol):
@@ -33,7 +31,7 @@ def concat_function() -> Callable[..., str]:
         (("12", "ab", "xy"), "string_inputs"),
     ],
 )
-def test_crosszip_with_iterables(
+def test_crosszip_with_iterables[T](
     snapshot: Snapshot,
     concat_function: Callable[..., T],
     iterables: tuple[Iterable[T], ...],
@@ -103,7 +101,7 @@ def test_crosszip_with_sets() -> None:
 
 
 @pytest.mark.parametrize("non_iterable", [123, None, math.pi, True])
-def test_crosszip_with_non_iterable(non_iterable: T) -> None:
+def test_crosszip_with_non_iterable(non_iterable: object) -> None:
     input_type = type(non_iterable).__name__
     with pytest.raises(
         TypeError,
