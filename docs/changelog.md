@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Requires Python 3.12 or newer; support for Python 3.10 and 3.11 is discontinued.
+
+## 1.4.1
+
+- No user-facing changes (internal maintenance: dependency updates).
+
+## 1.4.0
+
+- No user-facing changes (internal maintenance: dependency updates, CI/CD improvements).
+
 ## 1.3.0
 
 - Adds support for Python version `3.14`.
