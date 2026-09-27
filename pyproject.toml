@@ -38,7 +38,7 @@ crosszip_parametrize = "crosszip.plugin"
 [dependency-groups]
 dev = [
     "add-trailing-comma>=4.0.0",
-    "coverage>=7.16.1",
+    "coverage>=7.16.2",
     "jupyter>=1.1.1",
     "mkdocstrings-python>=2.0.9",
     "mutmut>=3.8.0",
@@ -50,9 +50,9 @@ dev = [
     "pytest-random-order>=1.2.0",
     "pytest-snapshot>=0.9.0",
     "pyyaml>=6.0.3",
-    "ruff>=0.16.8",
-    "ty>=0.0.83",
-    "zensical>=0.0.64",
+    "ruff>=0.16.9",
+    "ty>=0.0.84",
+    "zensical>=0.0.65",
 ]
 
 [build-system]
