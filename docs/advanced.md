@@ -378,7 +378,7 @@ def test_api_full_matrix(
 Register the mark in `pyproject.toml` to silence the unknown-mark warning:
 
 ```toml
-[tool.pytest.ini_options]
+[tool.pytest]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
 ]
