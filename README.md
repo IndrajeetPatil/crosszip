@@ -1,23 +1,17 @@
-
-
 # crosszip <img src="https://raw.githubusercontent.com/IndrajeetPatil/crosszip/main/docs/assets/logo.png" align="right" width="240" />
 
 [![PyPI
 version](https://img.shields.io/pypi/v/crosszip.png)](https://pypi.org/project/crosszip/)
 ![Python versions](https://img.shields.io/pypi/pyversions/crosszip.png)
 
-`crosszip` is a Python utility that makes it easy to apply a function to
-all possible combinations of elements from multiple iterables. It
-combines the power of the Cartesian product and functional programming
-into a single, intuitive tool.
+`crosszip` is a Python utility that makes it easy to apply a function to all possible combinations of elements from multiple iterables.
+It combines the power of the Cartesian product and functional programming into a single, intuitive tool.
 
-Additionally, `@pytest.mark.crosszip_parametrize` is a `pytest` marker
-that simplifies running tests with all possible combinations of
-parameter values.
+Additionally, `@pytest.mark.crosszip_parametrize` is a `pytest` marker that simplifies running tests with all possible combinations of parameter values.
 
 ## Installation
 
-``` bash
+```bash
 uv add crosszip
 ```
 
@@ -25,7 +19,7 @@ uv add crosszip
 
 Example of using `crosszip`:
 
-``` python
+```python
 # @pyodide
 # Label Generation for Machine Learning
 
@@ -44,11 +38,15 @@ labels = crosszip(create_label, categories, subcategories, versions)
 print(labels)
 ```
 
-    ['cat_small_v1.0', 'cat_small_v2.0', 'cat_large_v1.0', 'cat_large_v2.0', 'dog_small_v1.0', 'dog_small_v2.0', 'dog_large_v1.0', 'dog_large_v2.0']
+<!--pytest-codeblocks:expected-output-->
+
+```text
+['cat_small_v1.0', 'cat_small_v2.0', 'cat_large_v1.0', 'cat_large_v2.0', 'dog_small_v1.0', 'dog_small_v2.0', 'dog_large_v1.0', 'dog_large_v2.0']
+```
 
 Example of using `pytest` marker `crosszip_parametrize`:
 
-``` python
+```python
 # @pyodide
 # Testing Power Function
 
@@ -71,23 +69,21 @@ def test_power_function(base, exponent):
 print("Tests executed successfully.")
 ```
 
-    Tests executed successfully.
+<!--pytest-codeblocks:expected-output-->
+
+```text
+Tests executed successfully.
+```
 
 For more examples, check out the package documentation at:
 <https://www.indrapatil.com/crosszip/>
 
 ## Key Features
 
-- **Flexible Input**: Works with any iterables, including lists, tuples,
-  sets, and generators.
-- **pytest Plugin**: Provides a `crosszip_parametrize` marker for
-  running tests with all possible combinations of parameter values.
-- **Simple API**: Minimalist, intuitive design for quick integration
-  into your projects.
-- **Advanced patterns**: See the [Advanced
-  Usage](https://www.indrapatil.com/crosszip/advanced/) guide for memory
-  efficiency strategies, managing test explosion, and testing validation
-  functions across input types and edge cases.
+- **Flexible Input**: Works with any iterables, including lists, tuples, sets, and generators.
+- **pytest Plugin**: Provides a `crosszip_parametrize` marker for running tests with all possible combinations of parameter values.
+- **Simple API**: Minimalist, intuitive design for quick integration into your projects.
+- **Advanced patterns**: See the [Advanced Usage](https://www.indrapatil.com/crosszip/advanced/) guide for memory efficiency strategies, managing test explosion, and testing validation functions across input types and edge cases.
 
 ## License
 
@@ -95,12 +91,10 @@ This project is licensed under the MIT License.
 
 ## Code of Conduct
 
-Please note that the crosszip project is released with a [Contributor
-Code of
-Conduct](https://www.contributor-covenant.org/version/3/0/code_of_conduct/).
+Please note that the crosszip project is released with a
+[Contributor Code of Conduct](https://www.contributor-covenant.org/version/3/0/code_of_conduct/).
 By contributing to this project, you agree to abide by its terms.
 
 ## Acknowledgements
 
-Hex sticker font is `Rubik`, and the image is taken from icon made by
-Freepik and available at flaticon.com.
+Hex sticker font is `Rubik`, and the image is taken from icon made by Freepik and available at flaticon.com.

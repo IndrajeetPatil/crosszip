@@ -121,9 +121,6 @@ extra:
     provider: google
     property: G-3BQ49J7KYH
 
-hooks:
-  - hooks.py
-
 validation:
   omitted_files: warn
   absolute_links: warn
