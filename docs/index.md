@@ -5,8 +5,6 @@
 [![PyPI
 version](https://img.shields.io/pypi/v/crosszip.png)](https://pypi.org/project/crosszip/)
 ![Python versions](https://img.shields.io/pypi/pyversions/crosszip.png)
-[![PyPI
-Downloads](https://img.shields.io/pypi/dm/crosszip.png)](https://pypistats.org/packages/crosszip)
 
 `crosszip` is a Python utility that makes it easy to apply a function to
 all possible combinations of elements from multiple iterables. It
@@ -19,10 +17,9 @@ parameter values.
 
 ## Installation
 
-| Package Manager | Installation Command   |
-|-----------------|------------------------|
-| pip             | `pip install crosszip` |
-| uv              | `uv add crosszip`      |
+``` bash
+uv add crosszip
+```
 
 ## Usage
 
@@ -69,7 +66,6 @@ import pytest
 def test_power_function(base, exponent):
     result = math.pow(base, exponent)
     assert result == base**exponent
-
 
 print("Tests executed successfully.")
 ```
