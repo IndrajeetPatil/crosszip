@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Adds support for Python version `3.15`.
+
 ## 1.5.0
 
 - Requires Python 3.12 or newer; support for Python 3.10 and 3.11 is discontinued.
