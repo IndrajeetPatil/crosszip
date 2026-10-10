@@ -11,6 +11,9 @@ This is a Python package repository following standard development practices.
   Python examples run in `tests/test_readme.py`, which compares each one's
   output with the fenced block after its `<!--pytest-codeblocks:expected-output-->`
   marker; update that block when a code change alters the output.
+- `CHANGELOG.md`: Also the documentation changelog page — `docs/changelog.md`
+  only includes it via `--8<--`, so edit `CHANGELOG.md`, never
+  `docs/changelog.md`.
 - `pyproject.toml`: The primary configuration file for metadata and tools.
 - `uv.lock`: Lockfile ensuring reproducible environments.
 
@@ -50,8 +53,6 @@ This is a Python package repository following standard development practices.
 2. Implement your code changes within `src/` and corresponding tests within `tests/`.
 3. Verify all changes by running `make check-package`.
 4. Commit your changes and push to the branch to update the Pull Request.
-
-
 
 ## Security
 - During the release process, code scanning alerts should be checked via the GitHub API (`gh api repos/IndrajeetPatil/crosszip/code-scanning/alerts`).
