@@ -38,7 +38,6 @@ crosszip_parametrize = "crosszip.plugin"
 
 [dependency-groups]
 dev = [
-    "add-trailing-comma>=4.0.0",
     "coverage>=7.16.2",
     "deptry>=0.25.1",
     "mkdocstrings-python>=2.0.9",
@@ -66,10 +65,10 @@ preview = true
 unsafe-fixes = true
 
 [tool.ruff.lint]
+# Keep missing-trailing-comma enabled to preserve intentional multiline layouts.
+# `make format` applies its fixes before the formatter can collapse those lines.
 select = ["ALL"]
 ignore = [
-    # Required for compatibility with Ruff's formatter.
-    "missing-trailing-comma",
     # Mutually exclusive with D211 and D212, respectively.
     "incorrect-blank-line-before-class",
     "multi-line-summary-second-line",

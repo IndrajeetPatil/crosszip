@@ -23,7 +23,7 @@ upgrade-deps: update-deps
 # --------------------------------------
 
 format:
-	uv run add-trailing-comma --exit-zero-even-if-changed $$(git ls-files --cached --others --exclude-standard '*.py' | while IFS= read -r f; do [ -e "$$f" ] && printf '%s\n' "$$f"; done)
+	uv run ruff check --select missing-trailing-comma --fix
 	uv run ruff format
 
 lint:
@@ -104,7 +104,7 @@ help:
 	@printf "    $(RED)update-deps$(NC)    - Update and sync dependencies\n"
 	@printf "    $(RED)upgrade-deps$(NC)   - Alias for update-deps\n\n"
 	@printf "$(GREEN) Code Quality:$(NC)\n"
-	@printf "    $(RED)format$(NC)        - Format code using add-trailing-comma and ruff\n"
+	@printf "    $(RED)format$(NC)        - Format code using ruff\n"
 	@printf "    $(RED)lint$(NC)          - Lint code with ruff and fix issues\n"
 	@printf "    $(RED)typecheck$(NC)     - Run type checking with ty\n"
 	@printf "    $(RED)typecoverage$(NC)  - Enforce 100%% type coverage with pyrefly\n"
