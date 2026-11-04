@@ -85,11 +85,6 @@ For more examples, check out the package documentation at:
 - **Simple API**: Minimalist, intuitive design for quick integration into your projects.
 - **Advanced patterns**: See the [Advanced Usage](https://www.indrapatil.com/crosszip/advanced/) guide for memory efficiency strategies, managing test explosion, and testing validation functions across input types and edge cases.
 
-## Contributing
-
-Run `make check-package` to validate changes. For performance checks and local
-benchmark commands, see the [benchmarking guide](https://github.com/IndrajeetPatil/crosszip/blob/main/tests/benchmarks/README.md).
-
 ## License
 
 This project is licensed under the MIT License.
