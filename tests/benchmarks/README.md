@@ -39,10 +39,11 @@ three seconds per run. The comparator takes the median of the three
 `stats.median_ns` measurements for each benchmark and fails if the candidate is
 **more than 10% slower** than the base. Exactly 10% passes.
 
-Missing reports, empty results, invalid timings, incompatible CodSpeed versions,
-duplicate benchmark IDs, or mismatched benchmark sets fail the gate rather than
-silently passing. The CodSpeed dependency is pinned because the comparator reads
-its JSON format; validate the schema and gate tests when upgrading.
+Missing reports, empty results, invalid timings, malformed or duplicate
+benchmark IDs, incompatible CodSpeed versions, or mismatched benchmark sets
+fail the gate rather than silently passing. The CodSpeed dependency is pinned
+because the comparator reads its JSON format; validate the schema and gate
+tests when upgrading.
 
 The job summary contains the measured commit SHAs and comparison table.
 Table columns are padded so the Markdown report also aligns in raw CI logs.
