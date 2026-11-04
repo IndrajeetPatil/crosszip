@@ -1,84 +1,84 @@
 # Benchmarking
 
-This guide is for contributors maintaining the performance regression checks.
+The benchmarks in `tests/benchmarks/` use
+[pytest-codspeed](https://github.com/CodSpeedHQ/pytest-codspeed). GitHub Actions
+runs them once through the official [CodSpeed action](https://github.com/CodSpeedHQ/action)
+in **CPU simulation** mode, then uploads measurements and profiles to the
+[repository dashboard](https://app.codspeed.io/IndrajeetPatil/crosszip).
 
-Benchmarks use the MIT-licensed [pytest-codspeed package](https://github.com/CodSpeedHQ/pytest-codspeed)
-in standalone **walltime** mode. No CodSpeed account, token, GitHub App,
-hosted dashboard, CodSpeed action, or paid runner is required. The package
-measures elapsed time and writes JSON locally; GitHub Actions stores the reports
-as ordinary workflow artifacts. Nothing is uploaded to CodSpeed.
+CPU simulation measures user-space CPU work, including cache and memory effects;
+it does not measure elapsed time spent waiting on I/O or sleeping. These
+benchmarks exercise CPU-bound operations, so they use ordinary GitHub-hosted
+Ubuntu runners rather than CodSpeed's metered macro runners. See
+[CodSpeed's instruments](https://codspeed.io/docs/instruments/cpu) and
+[Free plan](https://codspeed.io/pricing).
 
 ## Run locally
 
-Use Python 3.15 final and uv 0.13.0 or newer, matching CI:
+Use Python 3.15 and uv 0.13.0 or newer, matching CI:
 
 ```sh
-uv sync --locked
+UV_PYTHON=3.15 uv sync --locked --dev
 make benchmark
 ```
 
-Results appear in `.codspeed/local/results/`. The benchmark fixtures also run
-once, with correctness assertions and without timing, during `make check-package`.
+- Local runs check benchmark correctness without uploading results or collecting
+  simulation measurements; no CodSpeed account or token is needed locally.
+- The same benchmark assertions also run during `make check-package`.
+- Keep parameter IDs stable so CodSpeed can match benchmarks across commits.
 
-## CI regression gate
+## CI and reports
 
-The `Benchmarks` workflow runs on pull requests, pushes to `main`, and manual
-dispatch. It checks out the exact PR head and base commits (previous commit for a
-push; first parent for a manual run). It runs the candidate's benchmark suite
-against each source tree in the **same locked candidate environment** on one
-Ubuntu runner. The import path is checked before each run. This isolates source
-changes; dependency-only regressions are outside the comparison.
+The `Benchmarks` workflow installs the checkout's locked dependencies and calls
+`make benchmark` through `CodSpeedHQ/action`. The action selects simulation mode
+and uploads the results; CodSpeed handles historical baselines, comparisons,
+profiles, PR comments, and performance checks.
 
-New runs for the same PR replace older runs. Push and manual runs each have a
-unique concurrency group, so a later push cannot cancel or replace a pending
-comparison and hide a regression in an earlier commit.
+| Trigger | Purpose |
+| --- | --- |
+| Pull request to `main` | Measure the PR checkout and report against the available base-branch baseline |
+| Push to `main` | Record default-branch measurements for future comparisons |
+| Manual dispatch | Run on the selected ref, including CodSpeed backtests |
 
-Each revision gets three independent runs, alternating which revision runs
-first. CodSpeed warms each benchmark for one second and measures it for up to
-three seconds per run. The comparator takes the median of the three
-`stats.median_ns` measurements for each benchmark and fails if the candidate is
-**more than 10% slower** than the base. Exactly 10% passes.
+PR runs use GitHub's default merge checkout, so they test the proposed merge
+with the base branch. New runs replace older runs for the same PR; push and
+manual runs keep independent concurrency groups.
 
-Missing reports, empty results, invalid timings, malformed or duplicate
-benchmark IDs, incompatible CodSpeed versions, or mismatched benchmark sets
-fail the gate rather than silently passing. The CodSpeed dependency is pinned
-because the comparator reads its JSON format; validate the schema and gate
-tests when upgrading.
+Each revision is measured with its own benchmark suite and locked environment.
+Changes to dependencies therefore participate in the measurements. New or
+renamed benchmarks need a matching baseline before CodSpeed can compare them.
+The first default-branch run establishes the initial simulation baseline; the
+old standalone walltime JSON reports are not compatible baselines.
 
-The job summary contains the measured commit SHAs and comparison table.
-Table columns are padded so the Markdown report also aligns in raw CI logs.
-The `standalone-codspeed-results` artifact retains raw JSON, the comparison,
-and commit SHAs for 14 days, including on regression failures.
-The job uses read-only repository permissions and no secrets.
+## Repository setup and authentication
 
-Wall-clock measurements on shared runners have noise. Three runs and the 10%
-margin balance regression sensitivity with timing noise. This does not provide
-CodSpeed's instruction-count simulation or guarantee detection of small slowdowns.
-Investigate the raw timings and rerun noisy results before changing the limit.
-Repository branch protection must require the
-`Standalone CodSpeed regression check` status if it should block merging.
+1. Import this repository into CodSpeed using its
+   [GitHub App](https://codspeed.io/docs/integrations/providers/github).
+2. Keep both `push` and `pull_request` triggers enabled so PRs have default-branch
+   measurements to compare against.
+3. Inspect the workflow log for a successful upload and follow the CodSpeed
+   report linked from the PR.
 
-## Compare revisions locally
+Authentication uses GitHub's short-lived **OIDC tokens**, generated automatically
+for each benchmark job by `id-token: write`. There is no stored `CODSPEED_TOKEN`
+secret to generate or rotate. The job otherwise has only `contents: read`, and
+checkout does not persist Git credentials. Public fork runs can use CodSpeed's
+supported tokenless upload path when OIDC is unavailable. See
+[CodSpeed authentication](https://codspeed.io/docs/integrations/ci/github-actions/configuration#authentication).
 
-Create a separate checkout of the baseline, then run from the candidate checkout:
+## Regression policy
 
-```sh
-git worktree add --detach ../benchmark-base origin/main
-uv sync --locked
-for sample in 1 2 3; do
-  make benchmark BENCHMARK_SOURCE="$(cd ../benchmark-base && pwd)/src" \
-    BENCHMARK_OUTPUT="$PWD/benchmark-results/base/$sample"
-  make benchmark BENCHMARK_OUTPUT="$PWD/benchmark-results/candidate/$sample"
-done
-make benchmark-compare
-```
+- Configure regression thresholds in the CodSpeed repository settings. The old
+  local elapsed-time gate used a 10% slowdown margin; simulation uses a
+  different metric, so review its threshold against the new baseline.
+- The `Run CodSpeed benchmarks` Actions job verifies execution and upload.
+  CodSpeed's separate **CodSpeed Performance Analysis** check reports regressions.
+- To enforce performance before merging, require both checks in branch
+  protection, replacing any required `Standalone CodSpeed regression check`.
+  See [CodSpeed's performance-check setup](https://codspeed.io/docs/features/performance-checks).
+- For an intentional slowdown, record the measured cost and rationale in the PR
+  and acknowledge the affected benchmarks in CodSpeed. Unexplained regressions
+  should be investigated rather than acknowledged to make a check pass.
 
-Use an empty `benchmark-results/` directory for each comparison. Extra or stale
-reports are rejected. `BENCHMARK_THRESHOLD=10` controls the allowed slowdown
-percentage for `make benchmark-compare`.
-
-To validate failure detection, temporarily add expensive work or a delay inside
-a benchmarked source function on a draft PR. The benchmark assertions should
-still pass, while the comparison step fails with a measured slowdown. Revert
-the temporary change and require a successful run on the final PR head before
-marking it ready for review.
+The previous comparator, repeated base/candidate timing loops, local JSON
+artifacts, and `make benchmark-compare` have been removed.
