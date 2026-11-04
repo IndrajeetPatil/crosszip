@@ -55,6 +55,16 @@ def test_invalid_measurements(tmp_path: Path, value: object) -> None:
         read_report(path)
 
 
+@pytest.mark.parametrize("uri", ["", None, 42])
+def test_invalid_benchmark_ids(tmp_path: Path, uri: object) -> None:
+    path = write_report(tmp_path, 1)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    data["benchmarks"][0]["uri"] = uri
+    path.write_text(json.dumps(data), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid or duplicate benchmark"):
+        read_report(path)
+
+
 @pytest.mark.parametrize("mutation", ["empty", "duplicate", "mode", "version"])
 def test_incompatible_reports(tmp_path: Path, mutation: str) -> None:
     path = write_report(tmp_path, 1)

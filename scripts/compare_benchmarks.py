@@ -40,15 +40,14 @@ def read_report(path: Path) -> dict[str, float]:
     for benchmark in data["benchmarks"]:
         uri = benchmark["uri"]
         value = benchmark["stats"]["median_ns"]
-        if not isinstance(uri, str) or not uri or uri in results:
-            msg = f"{path}: invalid or duplicate benchmark: {uri!r}"
-            raise ValueError(msg)
-        if (
-            isinstance(value, bool)
-            or not isinstance(value, (int, float))
-            or not math.isfinite(value)
-            or value <= 0
-        ):
+        valid_uri = isinstance(uri, str) and bool(uri) and uri not in results
+        valid_value = (
+            not isinstance(value, bool)
+            and isinstance(value, (int, float))
+            and math.isfinite(value)
+            and value > 0
+        )
+        if not (valid_uri and valid_value):
             msg = f"{path}: invalid or duplicate benchmark: {uri!r}"
             raise ValueError(msg)
         results[uri] = float(value)
