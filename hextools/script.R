@@ -29,11 +29,3 @@ sticker(
     u_color = "grey",
     dpi = 600
 )
-
-fs:::dir_create("man/figures")
-fs::file_copy("docs/assets/logo.png", "man/figures/logo.png", overwrite = TRUE)
-pkgdown::build_favicons()
-fs::dir_copy("pkgdown/favicon", "docs/favicon", overwrite = TRUE)
-fs::dir_delete("pkgdown")
-fs::dir_delete("man")
-fs::file_delete("DESCRIPTION")
