@@ -15,12 +15,13 @@ catches semantic changes to the source, not just line coverage.
 - Configuration lives in the `[tool.mutmut]` section of `pyproject.toml`.
 - Run `make mutation-test` to execute the full run and print the results
   table.
-- Every surviving mutant MUST be either killed by a new test or explicitly
-  justified as equivalent via `do_not_mutate_patterns` in `pyproject.toml`
-  (with a comment explaining why).
+- Kill every surviving mutant with a new test, or justify it as equivalent
+  via `do_not_mutate_patterns` in `pyproject.toml`, with a comment explaining
+  why.
 - Investigate a single survivor with `uv run mutmut show <mutant-id>` and rerun
   just that mutant with `uv run mutmut run <mutant-id>` after strengthening the
   tests.
-- CI runs mutation testing weekly and on `workflow_dispatch`
-  (`.github/workflows/mutation-test.yml`). It is intentionally not gated on
-  every PR because full runs are slow.
+- CI runs mutation testing weekly, on `workflow_dispatch`, and on pull
+  requests that change `pyproject.toml`, `Makefile`, `uv.lock` or the workflow
+  itself (`.github/workflows/mutation-test.yml`). It is intentionally not gated
+  on every PR because full runs are slow.
