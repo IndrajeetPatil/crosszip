@@ -5,7 +5,7 @@ description: Update dependencies and ensure the codebase is compatible with the 
 
 # Update Dependencies and Refactor Codebase
 
-Run `make update-deps` to refresh backend `uv` dependencies and `prek` hook revisions. Then iterate
+Run `make update-deps` to refresh `uv` dependencies and `prek` hook revisions. Then iterate
 until the full local quality gate passes:
 
 - `make check-package`
