@@ -23,8 +23,11 @@
 ## Checks
 - `make check-package` (tests with 100% coverage, QA, build) and
   `make hooks` (`prek` hooks from `prek.toml`) must pass before committing.
-- After changing `docs/`, `README.md`, `CHANGELOG.md`, `mkdocs.yml` or a public
-  docstring, also run `make build-docs`, a strict build that fails on warnings.
+
+- After changing `docs/`, `README.md`, `CHANGELOG.md`, `mkdocs.yml`, or a
+  public docstring, also run `make build-docs`, a strict build that fails on
+  warnings.
+
 - Reference `IndrajeetPatil/workflows` reusable workflows as `@main`, never a
   commit SHA. The owner maintains them and is the only person who can
   contribute to this repository, so there is no external-contributor risk, and
@@ -32,6 +35,9 @@
   `actions/unpinned-tag`, zizmor `unpinned-uses`) flag this by design: do not
   report it or propose a pin; dismiss such alerts as "won't fix" with this
   reason.
+
+- The benchmarks in `tests/benchmarks/` back a CI regression gate; see its
+  `README.md`.
 
 ## Release Process
 To create a new release, follow `.github/prompts/create-release.md` (it covers
