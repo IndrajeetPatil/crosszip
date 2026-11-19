@@ -18,9 +18,10 @@ receiving a valid answer, take ownership of the remaining release work.
 ## Prepare the release
 
 Read `AGENTS.md`, `.github/workflows/release.yml`, `pyproject.toml`, and the
-latest entries in `CHANGELOG.md`. Treat `.github/workflows/release.yml` as the
-authoritative publication path if other instructions conflict with it. Do not
-run `uv publish` or `gh release create` from the developer's machine.
+latest entries in `CHANGELOG.md`. Publication happens only through the
+trusted-publishing flow in `.github/workflows/release.yml`: never run
+`uv publish` or `gh release create` locally, and do not upload distributions
+from the developer's machine.
 
 1. Verify `gh` authentication, fetch and prune `origin`, and inspect the working
    tree. Preserve unrelated local changes. If necessary, use a clean worktree.
@@ -37,10 +38,10 @@ run `uv publish` or `gh release create` from the developer's machine.
 4. Create a `release-x.y.z` branch for the computed version.
 5. Apply the bump with `uv version --bump <patch|minor|major>`. Keep the project
    entry in `uv.lock` synchronized; never edit the lockfile by hand.
-6. Review commits and merged pull requests since the latest release. Add the new
-   version at the top of `CHANGELOG.md` using its existing style. Include every
-   user-facing change, avoid invented claims, and use `No user-facing changes`
-   only when the history supports it.
+6. Review commits and merged pull requests since the latest release. Add a dated
+   version section at the top of `CHANGELOG.md` using its existing Keep a
+   Changelog categories and style. Include every user-facing change and do not
+   invent entries.
 7. Prepare a release-notes file whose Markdown content exactly matches the new
    changelog entry, excluding only the changelog heading when necessary for the
    GitHub release title.
@@ -53,11 +54,11 @@ run `uv publish` or `gh release create` from the developer's machine.
 
 ## Validate and merge the release pull request
 
-Run the complete local gate and inspect the built wheel and source distribution:
+Run the complete local gate, which also builds the wheel and source
+distribution, and inspect the built artifacts:
 
 ```bash
 make check-package
-uv build
 git diff --check
 ```
 
