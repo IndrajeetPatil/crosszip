@@ -120,7 +120,7 @@ extra:
     property: G-3BQ49J7KYH
 
 validation:
-  omitted_files: warn
-  absolute_links: warn
-  unrecognized_links: warn
-  anchors: warn
+  omitted_files: error
+  absolute_links: error
+  unrecognized_links: error
+  anchors: error
