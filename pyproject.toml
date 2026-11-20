@@ -85,6 +85,18 @@ ignore = [
     "assert",
 ]
 
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["crosszip"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "parents"
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+
 [tool.ruff.format]
 preview = true
 docstring-code-format = true
@@ -94,6 +106,12 @@ docstring-code-format = true
 # and strict_xfail, plus any strictness options future pytest releases add. uv.lock
 # pins pytest, so new options only arrive through a reviewed dependency update.
 strict = true
+strict_config = true
+strict_markers = true
+strict_parametrization_ids = true
+xfail_strict = true
+empty_parameter_set_mark = "fail_at_collect"
+collect_imported_tests = false
 addopts = [
     # show extra test summary info for everything
     "-ra",
@@ -101,6 +119,8 @@ addopts = [
     "--verbose",
     # using pytest-random-order plugin option
     "--random-order",
+    # isolate test discovery and execution without altering sys.path
+    "--import-mode=importlib",
 ]
 testpaths = ["tests"]
 filterwarnings = ["error"]
