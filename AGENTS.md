@@ -75,7 +75,9 @@ repository:
 
 - After opening or pushing, wait for hosted CI to finish. Inspect failed jobs,
   fix the cause, run the local checks (`make check` and `make hooks`), push,
-  and repeat. Skipped, queued, or failing required checks are not success.
+  and repeat. Every check must pass, not just the required ones: a failing,
+  queued, or skipped check is not success, and a rerun that fails again is
+  not an explanation.
 
 - If an automatic AI review (Codex, for the owner) runs on the PR, wait for
   its result instead of requesting one. Fix merited findings, reply to and
@@ -88,12 +90,15 @@ repository:
   reviewer or silence counts as approval. Once usage refreshes, comment
   `@codex review` once; only this case needs the comment.
 
-- Once CI is green and the review gate is met, squash-merge, then verify the
-  merged state. Recheck the head, threads, and checks immediately before
-  merging, and never bypass branch protections.
+- Once every check passes and the review gate is met, squash-merge, then
+  verify the merged state. Recheck the head, threads, and checks immediately
+  before merging, and never bypass branch protections. A CodSpeed regression
+  blocks merging until it is investigated, and acknowledged in CodSpeed only
+  when intentional or shown to be unrelated to the change.
 
 - Update a PR branch from `main` only to resolve conflicts or pick up a change
   the PR depends on, never just to bring it up to date.
 
-- Report local validation, hosted CI, review, and merge state separately. If
-  an external blocker stops completion, leave the PR open and say so.
+- Report local validation, hosted CI, review, and merge state separately,
+  naming every failing check, required or not. If an external blocker stops
+  completion, leave the PR open and say so.
