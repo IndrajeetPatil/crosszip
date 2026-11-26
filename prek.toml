@@ -24,14 +24,14 @@ id = "ruff-format"
 
 [[repos]]
 repo = "https://github.com/astral-sh/ty-pre-commit"
-rev = "85bff61a55f10dcc0a58fff7f9ee5bf83d1dc419" # frozen: v0.0.110
+rev = "004647638a470595d07264d09d135adc6682be41" # frozen: v0.0.111
 
 [[repos.hooks]]
 id = "ty"
 
 [[repos]]
 repo = "https://github.com/Apakottur/unref-pre-commit"
-rev = "4310b723fdfd8aee12b897cdf9a120c54ec35050" # frozen: v0.5.1
+rev = "5bbe048b5f4a65c0a56b0f6ee1125c225dcd446e" # frozen: v0.6.0
 
 [[repos.hooks]]
 id = "unref"

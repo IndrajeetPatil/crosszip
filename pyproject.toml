@@ -51,8 +51,8 @@ dev = [
     "pytest-random-order>=1.2.0",
     "pytest-snapshot>=0.9.0",
     "ruff>=0.17.6",
-    "ty>=0.0.110",
-    "unref>=0.5.1",
+    "ty>=0.0.111",
+    "unref>=0.6.0",
     "zensical>=0.1.3",
 ]
 
