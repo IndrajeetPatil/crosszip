@@ -75,8 +75,8 @@ tokenless upload when OIDC is unavailable. See
 
 - The `Run CodSpeed benchmarks` Actions job verifies execution and upload;
   CodSpeed's separate **CodSpeed Performance Analysis** check reports
-  regressions. To enforce performance before merging, require both checks in
-  branch protection. See
+  regressions. Branch protection requires both checks, so a regression blocks
+  merging. See
   [CodSpeed's performance-check setup](https://codspeed.io/docs/features/performance-checks).
 
 - For an intentional slowdown, record the measured cost and rationale in the PR
