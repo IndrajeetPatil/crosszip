@@ -109,6 +109,12 @@ plugins:
           options:
             docstring_style: google
 
+validation:
+  omitted_files: error
+  absolute_links: error
+  unrecognized_links: error
+  anchors: error
+
 extra_javascript:
   - javascripts/config.js
   - javascripts/pyodide_runner.js
@@ -124,9 +130,3 @@ extra:
   analytics:
     provider: google
     property: G-3BQ49J7KYH
-
-validation:
-  omitted_files: error
-  absolute_links: error
-  unrecognized_links: error
-  anchors: error
